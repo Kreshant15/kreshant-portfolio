@@ -2,13 +2,13 @@ import { motion } from "motion/react";
 
 const instagramPosters = [
   { id: 1, url: "/images/insta/Rebirth.webp" },
-  { id: 2, url: "/images/insta/Ahinsa w effects.webp" },
-  { id: 3, url: "/images/insta/Digital Skin.webp" },
-  { id: 4, url: "/images/insta/Antaryatra w effects.webp" },
-  { id: 5, url: "/images/insta/ember.webp" },
-  { id: 6, url: "/images/insta/krodh w effects.webp" },
-  { id: 7, url: "/images/insta/greed main.webp" },
-  { id: 8, url: "/images/insta/Lo-Fi utopia.webp" },
+  { id: 2, url: "/images/insta/Ahinsa.webp" },
+  { id: 3, url: "/images/insta/Digital-Skin.webp" },
+  { id: 4, url: "/images/insta/antaryatra.webp" },
+  { id: 5, url: "/images/insta/Ember.webp" },
+  { id: 6, url: "/images/insta/krodh.webp" },
+  { id: 7, url: "/images/insta/Greed.webp" },
+  { id: 8, url: "/images/insta/Lo-Fi-Utopia.webp" },
 ];
 
 export const InstagramCarousel = () => {
