@@ -117,7 +117,7 @@ export const About = () => {
                 </div>
 
                 <motion.a
-                  href="/src/assets/Kreshant_Fresher_Designer_CV.pdf"
+                  href="/doc/Kreshant_Fresher_Designer_CV.pdf"
                   download
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
