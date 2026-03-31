@@ -154,7 +154,7 @@ From glitchy experiments to meaningful visual stories, my work is all about maki
               </motion.a>
 
               <motion.a
-                href="/Kreshant_Fresher_Designer_CV.pdf"
+                href="/doc/Kreshant_Fresher_Designer_CV.pdf"
                 download
                 className="px-8 py-5 bg-accent-pink text-white rounded-full font-bold hover:bg-black transition-colors flex items-center gap-2"
                 whileHover={{ scale: 1.05 }}
