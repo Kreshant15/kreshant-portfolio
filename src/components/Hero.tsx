@@ -1,344 +1,146 @@
-import React, { useState, useEffect, useRef } from "react";
-import { 
-  motion, 
-  useScroll, 
-  useTransform, 
-  useMotionValue, 
+import React, { useEffect, useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValue,
   useSpring,
-  useReducedMotion 
+  useReducedMotion,
 } from "motion/react";
-import { ArrowDownRight, Sparkles, Download } from "lucide-react";
-import { Link } from "react-router-dom";
+import { ArrowDownRight } from "lucide-react";
 
 export const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
-  
-  // Scroll animations
+
+  // Scroll parallax (controlled)
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end start"],
   });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -150]);
-  const rotate1 = useTransform(scrollYProgress, [0, 1], [0, 45]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
-  // Mouse parallax
+  // Magnetic button effect
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  
-  useEffect(() => {
-    if (prefersReducedMotion) return;
-    
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-    };
-    
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY, prefersReducedMotion]);
 
-  const mouseXSpring = useSpring(mouseX, { stiffness: 50, damping: 10 });
-  const mouseYSpring = useSpring(mouseY, { stiffness: 50, damping: 10 });
-  
-  const parallaxX1 = useTransform(mouseXSpring, [0, typeof window !== 'undefined' ? window.innerWidth : 1920], [-30, 30]);
-  const parallaxY1 = useTransform(mouseYSpring, [0, typeof window !== 'undefined' ? window.innerHeight : 1080], [-30, 30]);
+  const springX = useSpring(mouseX, { stiffness: 120, damping: 10 });
+  const springY = useSpring(mouseY, { stiffness: 120, damping: 10 });
 
-  // Enhanced Typewriter effect with multiple phrases
-  const [displayText, setDisplayText] = useState("");
-  const phrases = ["(Graphic Designer)", "(Visual Storyteller)", "(Digital Artist)"];
-  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
-  
-  useEffect(() => {
-    if (prefersReducedMotion) {
-      setDisplayText(phrases[0]);
-      return;
-    }
-    
-    let index = 0;
-    const currentPhrase = phrases[currentPhraseIndex];
-    
-    const type = () => {
-      if (index <= currentPhrase.length) {
-        setDisplayText(currentPhrase.slice(0, index));
-        index++;
-        setTimeout(type, 100);
-      } else {
-        // Cursor blinking
-        setTimeout(() => {
-          setDisplayText(prev => prev.includes('|') ? prev.replace('|', '') : prev + '|');
-        }, 500);
-        
-        // Move to next phrase after delay
-        setTimeout(() => {
-          setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
-        }, 2000);
-      }
-    };
-    
-    const timer = setTimeout(type, 500);
-    return () => clearTimeout(timer);
-  }, [currentPhraseIndex, phrases, prefersReducedMotion]);
+  const handleMove = (e: any) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set((e.clientX - rect.left - rect.width / 2) * 0.2);
+    mouseY.set((e.clientY - rect.top - rect.height / 2) * 0.2);
+  };
 
-  // Loading state for resume download
-  const [isDownloading, setIsDownloading] = useState(false);
-  
-  const handleDownload = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    setIsDownloading(true);
-    setTimeout(() => setIsDownloading(false), 3000);
+  const handleLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
   };
 
   return (
-    <section 
-      ref={containerRef} 
+    <section
+      ref={containerRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
-      aria-label="Hero section - Introduction to Kreshant Kumar"
     >
-      {/* SEO Meta Data */}
-      <div className="sr-only">
-        <h1>Kreshant Kumar - Graphic Designer Portfolio</h1>
-        <p>Creative graphic designer specializing in bold, concept-driven visuals that blend culture, emotion, and digital aesthetics.</p>
-      </div>
-
-      {/* Enhanced Glass Morphism Background */}
+      {/* 🔮 Background */}
       <div className="absolute inset-0 z-0">
-        {/* Large glass gradient background */}
-        <motion.div 
-          style={{ y: y1, x: parallaxX1 }}
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-pastel-pink/30 to-accent-purple/30 rounded-full blur-3xl opacity-40"
-          animate={prefersReducedMotion ? {} : { 
-            scale: [1, 1.1, 1],
-            opacity: [0.4, 0.6, 0.4]
-          }}
-          transition={{ 
-            duration: 8, 
-            repeat: Infinity, 
-            ease: "easeInOut" 
-          }}
-          role="presentation"
-          aria-hidden="true"
+        {/* Main gradient blob */}
+        <motion.div
+          style={{ y }}
+          className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[500px] h-[500px]
+          bg-gradient-to-r from-purple-400/30 to-pink-300/30
+          blur-3xl opacity-40 rounded-full"
         />
-        <motion.div 
-          style={{ y: y2, x: parallaxX1 }}
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-pastel-blue/30 to-purple-300/30 rounded-full blur-3xl opacity-40"
-          animate={prefersReducedMotion ? {} : { 
-            scale: [1, 1.05, 1],
-            opacity: [0.4, 0.5, 0.4]
-          }}
-          transition={{ 
-            duration: 10, 
-            repeat: Infinity, 
-            ease: "easeInOut",
-            delay: 1
-          }}
-          role="presentation"
-          aria-hidden="true"
-        />
-        
-        {/* Glass morphism cards behind content */}
-        <motion.div 
-          style={{ y: useTransform(scrollYProgress, [0, 1], [0, -30]) }}
-          className="absolute inset-x-0 top-1/4 mx-auto w-[90%] max-w-4xl h-64 bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 0.7, y: 0 }}
-          transition={{ delay: 0.8 }}
-          role="presentation"
-          aria-hidden="true"
-        />
-        
-        {/* Subtle floating glass elements */}
-        <motion.div 
-          style={{ 
-            x: useTransform(mouseXSpring, [0, window.innerWidth || 1920], [-20, 20]),
-            y: useTransform(scrollYProgress, [0, 1], [0, 50])
-          }}
-          className="absolute top-1/3 left-20 w-24 h-24 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl"
-          animate={prefersReducedMotion ? {} : { 
-            rotate: [0, 10, 0],
-            opacity: [0.3, 0.5, 0.3]
-          }}
-          transition={{ duration: 8, repeat: Infinity }}
-          role="presentation"
-          aria-hidden="true"
-        />
-        
-        <div className="bg-grain absolute inset-0 pointer-events-none" />
+
+        {/* Glass panel */}
+        <div className="absolute inset-x-0 top-1/4 mx-auto w-[90%] max-w-4xl h-72
+        bg-gradient-to-br from-white/20 via-white/10 to-transparent
+        backdrop-blur-2xl border border-white/30
+        rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.1)]" />
+
+        {/* Grain */}
+        <div className="bg-grain absolute inset-0 pointer-events-none opacity-60" />
       </div>
 
-      <motion.div 
+      {/* ✨ Content */}
+      <motion.div
         style={{ opacity }}
-        className="max-w-7xl mx-auto px-6 relative z-10 w-full"
+        className="relative z-10 max-w-6xl mx-auto px-6 text-center"
       >
-        <div className="w-full text-center relative">
-          {/* Enhanced "Available for Freelance" with sparkle animation */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/30 backdrop-blur-sm border border-black/5 mb-8 relative z-10"
-            whileHover={{ scale: 1.05 }}
-          >
-            <motion.div
-              animate={prefersReducedMotion ? {} : { 
-                rotate: [0, 360],
-                scale: [1, 1.2, 1]
-              }}
-              transition={{ 
-                duration: 2, 
-                repeat: Infinity, 
-                ease: "easeInOut" 
-              }}
-            >
-              <Sparkles 
-                className="w-4 h-4 text-accent-pink" 
-                aria-hidden="true"
-              />
-            </motion.div>
-            <span className="font-mono text-xs uppercase tracking-widest text-black">
-              Available for Freelance
-            </span>
-          </motion.div>
+        {/* Availability */}
+        <div className="inline-block mb-6 px-4 py-2 rounded-full
+        bg-white/30 backdrop-blur-md border border-black/10
+        text-xs uppercase tracking-widest font-mono">
+          Available for Freelance
+        </div>
 
-          {/* Repositioned "Creative!" tag with better anchoring */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5, type: "spring" }}
-            className="absolute -top-6 -right-2 sm:-top-8 sm:-right-4 md:-top-10 md:-right-8 rotate-6"
-          >
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-accent-pink/30 to-purple-300/30 rounded-full blur-md"></div>
-              <span className="font-hand text-2xl sm:text-4xl md:text-5xl text-accent-pink drop-shadow-sm relative z-10 block">
-                Creative!
-              </span>
-            </div>
-          </motion.div>
+        {/* Name */}
+        <h1 className="font-display font-black leading-[0.9] tracking-tight text-4xl sm:text-6xl md:text-7xl">
+          <span className="block text-black">KRESHANT</span>
+          <span className="block text-transparent"
+            style={{ WebkitTextStroke: "2px #8A2BE2" }}>
+            KUMAR
+          </span>
+        </h1>
 
-          <div className="flex flex-col items-center justify-center mb-6">
-            {/* Restored name animation with enhanced glass effect container */}
-            <div className="relative mb-8">
-              <motion.div 
-                className="absolute inset-0 bg-white/20 backdrop-blur-xl rounded-3xl -z-10"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 0.5, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-              />
-              <motion.h1
-                className="font-display text-3xl sm:text-6xl md:text-7xl lg:text-[clamp(3rem,10vw,7rem)] font-black leading-[0.8] tracking-tighter relative z-10 flex flex-wrap justify-center break-words px-4 py-6"
-                aria-label="KRESHANT KUMAR - Graphic Designer"
-              >
-                {["KRESHANT", "KUMAR"].map((word, wordIndex) => (
-                  <motion.span 
-                    key={wordIndex} 
-                    className="inline-block whitespace-nowrap mx-[0.1em]"
-                    animate={prefersReducedMotion ? {} : { 
-                      x: wordIndex === 0 ? [ 0, -10, 0 ] : [ 0, 10, 0 ],
-                      opacity: [ 1, 0.9, 1 ]
-                    }}
-                    transition={{ 
-                      duration: 0.6, 
-                      repeat: Infinity, 
-                      repeatDelay: 4, 
-                      ease: "easeInOut" 
-                    }}
-                  >
-                    {word.split("").map((char, charIndex) => (
-                      <motion.span
-                        key={`${wordIndex}-${charIndex}`}
-                        initial={{ opacity: 0, y: 50, rotateX: -90 }}
-                        animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                        transition={{
-                          duration: 0.8,
-                          delay: (wordIndex * 8 + charIndex) * 0.05 + 0.3,
-                          ease: [0.215, 0.61, 0.355, 1],
-                        }}
-                        className={`inline-block ${wordIndex === 1 ? "text-transparent" : "text-black"}`}
-                        style={wordIndex === 1 ? { 
-                          WebkitTextStroke: "2px #8A2BE2",
-                          color: "transparent"
-                        } : {}}
-                        aria-hidden="true"
-                      >
-                        {char}
-                      </motion.span>
-                    ))}
-                  </motion.span>
-                ))}
-              </motion.h1>
-            </div>
-          </div>
+        {/* Subtitle */}
+        <p className="mt-6 text-sm sm:text-lg tracking-[0.3em] uppercase text-purple-500 font-semibold">
+          Graphic Designer
+        </p>
 
-          {/* Enhanced typewriter effect with multiple phrases */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            className="mb-10 relative z-10"
-          >
-            <span className="font-mono text-lg sm:text-2xl uppercase tracking-[0.4em] text-accent-pink font-black inline-block min-h-[2rem]">
-              {displayText.replace('|', '')}
-              {displayText.includes('|') && (
-                <motion.span 
-                  className="inline-block w-2 h-8 bg-accent-pink ml-1 align-middle"
-                  animate={{ opacity: [1, 0] }}
-                  transition={{ repeat: Infinity, duration: 0.8 }}
-                  aria-hidden="true"
-                />
-              )}
-            </span>
-          </motion.div>
+        {/* Description */}
+        <p className="mt-6 max-w-2xl mx-auto text-black/70 text-base md:text-lg">
+          I design bold, concept-driven visuals blending culture, emotion, and digital aesthetics.
+          My work turns ideas into experiences — not just visuals.
+        </p>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2, duration: 1 }}
-            className="max-w-2xl mx-auto text-base md:text-xl text-black/70 font-medium mb-12 px-4 relative z-10"
-          >
-            I design bold, concept-driven visuals that blend culture, emotion, and digital aesthetics.
-            From glitchy experiments to meaningful visual stories, my work is all about making ideas <em className="not-italic font-semibold">feel</em> something—not just look good.
-          </motion.p>
+        {/* 🚀 CTA Buttons */}
+        <div className="mt-10 flex flex-col sm:flex-row gap-6 justify-center items-center">
 
-          {/* Optimized CTA buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.4 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-6 relative z-10"
+          {/* Primary Button (Glass + Magnetic) */}
+          <motion.a
+            href="#projects"
+            onMouseMove={handleMove}
+            onMouseLeave={handleLeave}
+            style={{ x: springX, y: springY }}
+            className="group relative px-8 py-4 rounded-full
+            bg-white/20 backdrop-blur-xl border border-white/30
+            text-black font-semibold overflow-hidden
+            transition-all duration-300 hover:scale-105"
           >
-            <motion.a
-              href="#projects"
-              className="px-8 py-4 bg-gradient-to-r from-accent-pink to-purple-600 text-white rounded-full font-bold hover:from-purple-600 hover:to-accent-pink transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl text-center min-w-[200px] justify-center"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="View portfolio projects"
-            >
+            {/* Glow */}
+            <span className="absolute inset-0 bg-gradient-to-r from-purple-400/20 to-pink-400/20 opacity-0 group-hover:opacity-100 transition" />
+            
+            {/* Shine */}
+            <span className="absolute left-[-100%] top-0 w-full h-full
+            bg-gradient-to-r from-transparent via-white/40 to-transparent
+            group-hover:left-[100%] transition-all duration-700" />
+
+            <span className="relative flex items-center gap-2">
               View My Work
-              <ArrowDownRight className="w-5 h-5 group-hover:rotate-45 transition-transform" aria-hidden="true" />
-            </motion.a>
+              <ArrowDownRight className="w-5 h-5 group-hover:rotate-45 transition" />
+            </span>
+          </motion.a>
 
-            <motion.a
-              href="#contact"
-              className="px-8 py-4 border-2 border-black rounded-full font-bold hover:bg-black hover:text-white transition-all duration-300 text-black shadow-md hover:shadow-lg text-center min-w-[200px] flex justify-center"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="Contact Kreshant for freelance opportunities"
-            >
-              Let's Talk
-            </motion.a>
-          </motion.div>
+          {/* Secondary Button */}
+          <motion.a
+            href="#contact"
+            className="group relative px-8 py-4 rounded-full
+            border border-black/20 text-black font-semibold
+            overflow-hidden transition-all duration-300
+            hover:bg-black hover:text-white"
+          >
+            {/* Glow border */}
+            <span className="absolute inset-0 rounded-full border border-transparent
+            group-hover:border-purple-400 blur-md opacity-0 group-hover:opacity-100 transition" />
+
+            Let’s Talk
+          </motion.a>
         </div>
       </motion.div>
-
-      {/* Accessibility skip link */}
-      <a 
-        href="#main-content" 
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:bg-white focus:px-4 focus:py-2 focus:rounded-md focus:z-50"
-      >
-        Skip to main content
-      </a>
     </section>
   );
 };
