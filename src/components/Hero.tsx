@@ -18,34 +18,10 @@ export const Hero = () => {
   });
 
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   const handleDownload = (e: React.MouseEvent<HTMLAnchorElement>) => {
     setIsDownloading(true);
     setTimeout(() => setIsDownloading(false), 3000);
-  };
-
-  // Staggered letter animation helper
-  const staggeredLetters = (text: string, delayPerChar: number = 0.05) => {
-    return text.split("").map((char, i) => (
-      <motion.span
-        key={i}
-        initial={{ opacity: 0, y: 50 }}
-        animate={prefersReducedMotion ? { opacity: 1, y: 0 } : {
-          opacity: [0, 1],
-          y: [50, -10, 0],
-          transition: {
-            duration: 0.6,
-            delay: i * delayPerChar,
-            ease: "easeOut"
-          }
-        }}
-        className="inline-block"
-      >
-        {char === " " ? "\u00A0" : char}
-      </motion.span>
-    ));
   };
 
   return (
@@ -53,36 +29,27 @@ export const Hero = () => {
       ref={containerRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-gradient-to-br from-amber-50 to-violet-50"
     >
-      {/* 🌌 BACKGROUND ELEMENTS with better separation */}
+      {/* BACKGROUND ELEMENTS */}
       <div className="absolute inset-0 z-0">
-        {/* Top blob - lighter and more contained */}
-        <motion.div
-          style={{ y: y1 }}
-          className="absolute top-1/4 left-1/2 -translate-x-1/2
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2
           w-[300px] h-[300px] md:w-[500px] md:h-[500px]
           bg-gradient-to-r from-purple-300/20 to-pink-200/20
-          blur-[80px] rounded-full"
-        />
-
-        {/* Bottom blob - complementary positioning */}
-        <motion.div
-          style={{ y: y2 }}
-          className="absolute bottom-1/4 left-1/4
+          blur-[80px] rounded-full" />
+        
+        <div className="absolute bottom-1/4 left-1/4
           w-[250px] h-[250px] md:w-[400px] md:h-[400px]
           bg-gradient-to-r from-blue-200/20 to-violet-200/20
-          blur-[80px] rounded-full"
-        />
-
-        {/* Subtle grain texture */}
+          blur-[80px] rounded-full" />
+        
         <div className="absolute inset-0 bg-grain opacity-30 pointer-events-none" />
       </div>
 
-      {/* ✨ FLOATING ELEMENTS with purposeful placement */}
+      {/* FLOATING ELEMENTS */}
       <motion.div
-        animate={prefersReducedMotion ? {} : { 
+        animate={!prefersReducedMotion ? { 
           y: [0, -15, 0],
           rotate: [0, 5, 0]
-        }}
+        } : {}}
         transition={{ 
           duration: 4, 
           repeat: Infinity,
@@ -94,10 +61,10 @@ export const Hero = () => {
       </motion.div>
 
       <motion.div
-        animate={prefersReducedMotion ? {} : { 
+        animate={!prefersReducedMotion ? { 
           y: [0, 20, 0],
           rotate: [0, -5, 0]
-        }}
+        } : {}}
         transition={{ 
           duration: 5, 
           repeat: Infinity,
@@ -108,7 +75,7 @@ export const Hero = () => {
         ◎
       </motion.div>
 
-      {/* ✨ CONTENT */}
+      {/* CONTENT */}
       <motion.div
         style={{ opacity }}
         className="relative z-10 max-w-6xl mx-auto px-6 text-center w-full"
@@ -123,9 +90,9 @@ export const Hero = () => {
           text-xs md:text-sm uppercase tracking-widest font-mono shadow-sm"
         >
           <motion.div
-            animate={prefersReducedMotion ? {} : { 
+            animate={!prefersReducedMotion ? { 
               rotate: [0, 360]
-            }}
+            } : {}}
             transition={{ 
               duration: 3, 
               repeat: Infinity,
@@ -137,7 +104,7 @@ export const Hero = () => {
           Available for Freelance
         </motion.div>
 
-        {/* 🔥 NAME with enhanced animations */}
+        {/* NAME with enhanced animations */}
         <div className="mb-6 md:mb-8">
           <motion.h1 
             className="font-display font-black leading-[0.85] tracking-tight text-[clamp(2.5rem,12vw,6rem)] md:text-[clamp(4rem,10vw,8rem)]"
@@ -224,14 +191,14 @@ export const Hero = () => {
           My work turns ideas into experiences — not just visuals.
         </motion.p>
 
-        {/* 🚀 CTA BUTTONS */}
+        {/* CTA BUTTONS */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.6, duration: 0.8 }}
           className="mt-10 flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center"
         >
-          {/* PRIMARY — Enhanced Uiverse style */}
+          {/* PRIMARY - Enhanced */}
           <motion.a
             href="#contact"
             className="group relative px-6 py-3 md:px-8 md:py-4 rounded-full font-semibold overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
@@ -244,7 +211,6 @@ export const Hero = () => {
             }}
             whileTap={{ scale: 0.95 }}
           >
-            {/* Shine effect */}
             <span className="absolute left-[-100%] top-0 w-full h-full
             bg-gradient-to-r from-transparent via-white/30 to-transparent
             opacity-0 group-hover:opacity-100 group-hover:left-[100%] transition-all duration-500" />
@@ -255,7 +221,7 @@ export const Hero = () => {
             </span>
           </motion.a>
 
-          {/* SECONDARY — Resume Download */}
+          {/* SECONDARY - Resume Download */}
           <motion.a
             href="/doc/Kreshant_Fresher_Designer_CV.pdf"
             download="Kreshant_Fresher_Designer_CV.pdf"
@@ -268,9 +234,8 @@ export const Hero = () => {
             }}
             whileTap={{ scale: 0.95 }}
           >
-            {/* Download icon with spin animation */}
             <motion.span
-              animate={isDownloading ? { rotate: 360 } : {}}
+              animate={isDownloading && !prefersReducedMotion ? { rotate: 360 } : {}}
               transition={{ duration: 1, repeat: isDownloading ? Infinity : 0, ease: "linear" }}
             >
               <Download className="w-4 h-4 md:w-5 md:h-5 text-purple-600 group-hover:text-purple-800 transition-colors" />
@@ -285,4 +250,3 @@ export const Hero = () => {
     </section>
   );
 };
-
