@@ -1,66 +1,201 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Caveat:wght@400;500;600;700&display=swap');
+/* ─────────────────────────────────────────────────────────────────
+   FONTS
+   Space Grotesk  — display headings (weight 400–700)
+   Syne           — secondary display / section labels (400–800)
+   Caveat         — handwritten accent (retired from main UI, kept for fallback)
+   JetBrains Mono — mono labels, tags, counters
+───────────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Caveat:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────────
+   THEME TOKENS
+───────────────────────────────────────────────────────────────── */
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  /* Fonts */
+  --font-sans:    "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Syne", sans-serif;
-  --font-mono: "Space Grotesk", monospace;
-  --font-hand: "Caveat", cursive;
+  --font-mono:    "JetBrains Mono", "Space Grotesk", monospace;
+  --font-hand:    "Caveat", cursive;
 
-  --color-pastel-pink: #e1bee7;
-  --color-pastel-blue: #e3f2fd;
-  --color-pastel-purple: #f3e5f5;
-  --color-pastel-green: #e8f5e9;
-  --color-pastel-yellow: #fff9c4;
-  
-  --color-accent-pink: #9575cd;
-  --color-accent-blue: #4fc3f7;
-  --color-accent-purple: #b39ddb;
+  /* Site palette */
+  --color-cream:          #faf7f2;   /* base background — warm, not clinical */
+  --color-ink:            #111111;   /* primary text */
+  --color-ink-muted:      #6b7280;   /* secondary text (neutral-500) */
+
+  /* Purple system */
+  --color-violet-deep:    #4c1d95;
+  --color-violet-core:    #7c3aed;   /* primary purple — used on all CTAs */
+  --color-violet-mid:     #a855f7;   /* gradient midpoint */
+  --color-violet-light:   #c084fc;   /* gradient end / tints */
+  --color-violet-tint:    #f3e8ff;   /* backgrounds, pills */
+  --color-violet-border:  rgba(167,139,250,0.25);
+
+  /* Amber accent */
+  --color-amber-tint:     #fef3c7;
+
+  /* Status */
+  --color-success:        #10b981;
+  --color-error:          #ef4444;
+
+  /* Legacy pastel aliases (kept for any existing usage) */
+  --color-pastel-pink:    #e1bee7;
+  --color-pastel-blue:    #e3f2fd;
+  --color-pastel-purple:  #f3e5f5;
+  --color-pastel-green:   #e8f5e9;
+  --color-pastel-yellow:  #fff9c4;
+
+  /* Legacy accent aliases */
+  --color-accent-pink:    #7c3aed;   /* remapped to violet-core */
+  --color-accent-blue:    #4fc3f7;
+  --color-accent-purple:  #a855f7;   /* remapped to violet-mid */
 }
 
+/* ─────────────────────────────────────────────────────────────────
+   BASE
+───────────────────────────────────────────────────────────────── */
 @layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
   html {
     scroll-behavior: smooth;
+    /* Better text rendering on all platforms */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
+
   body {
-    @apply bg-[#fafafa] text-[#1a1a1a] selection:bg-accent-pink selection:text-white transition-colors duration-300;
+    @apply bg-[#faf7f2] text-[#111111];
+    font-family: var(--font-sans);
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+    /* Selection colour matches violet system */
+    @apply selection:bg-violet-200 selection:text-violet-900;
+  }
+
+  /* Respect reduced motion globally */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration:   0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration:  0.01ms !important;
+      scroll-behavior:      auto   !important;
+    }
+  }
+
+  /* Focus ring — accessible, on-brand */
+  :focus-visible {
+    outline: 2px solid #7c3aed;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Remove tap highlight on iOS */
+  a, button {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Smooth image rendering */
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
   }
 }
 
+/* ─────────────────────────────────────────────────────────────────
+   UTILITIES
+───────────────────────────────────────────────────────────────── */
 @layer utilities {
+
+  /* Grain texture overlay ─────────────────────────────────────── */
   .bg-grain {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.05;
+    opacity: 0.04;
+    pointer-events: none;
   }
 
-  .pastel-gradient-1 {
-    background: linear-gradient(135deg, var(--color-pastel-pink) 0%, var(--color-pastel-blue) 100%);
+  /* Site grid pattern (reusable) ──────────────────────────────── */
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(139, 92, 246, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139, 92, 246, 0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
   }
 
-  .pastel-gradient-2 {
-    background: linear-gradient(135deg, var(--color-pastel-purple) 0%, var(--color-pastel-yellow) 100%);
+  /* Glassmorphism card ─────────────────────────────────────────── */
+  .glass {
+    @apply bg-white/60 backdrop-blur-md border border-neutral-200/80 shadow-[0_2px_24px_rgba(0,0,0,0.06)];
+  }
+  .glass-strong {
+    @apply bg-white/80 backdrop-blur-xl border border-neutral-200/80 shadow-[0_4px_32px_rgba(0,0,0,0.08)];
   }
 
+  /* Purple gradient CTA (reusable across all components) ──────── */
+  .btn-primary {
+    background: linear-gradient(135deg, #7c3aed, #a855f7, #c084fc);
+    @apply relative px-7 py-3.5 rounded-full font-semibold text-sm text-white overflow-hidden
+      shadow-[0_4px_20px_rgba(124,58,237,0.3)]
+      hover:shadow-[0_6px_28px_rgba(124,58,237,0.45)]
+      transition-shadow duration-300;
+  }
+  .btn-secondary {
+    @apply relative px-7 py-3.5 rounded-full font-semibold text-sm
+      border border-neutral-300 bg-white/70 backdrop-blur-sm
+      text-neutral-700 hover:border-violet-400 hover:text-violet-700
+      hover:shadow-[0_4px_24px_rgba(124,58,237,0.15)]
+      shadow-sm transition-all duration-200;
+  }
+
+  /* Outline text (KUMAR / Gallery trick) ──────────────────────── */
+  .text-outline-violet {
+    color: transparent;
+    -webkit-text-stroke: 2px #7c3aed;
+  }
   .text-stroke {
     -webkit-text-stroke: 1px currentColor;
     color: transparent;
   }
 
-  .glass {
-    @apply bg-white/20 backdrop-blur-xl border border-white/30 shadow-xl;
-  }
-
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-
-  .perspective-2000 {
-    perspective: 2000px;
-  }
-
+  /* Ambient blob (section backgrounds) ────────────────────────── */
   .blob {
-    @apply absolute rounded-full blur-[100px] opacity-40 mix-blend-multiply animate-pulse;
-    background: radial-gradient(circle, var(--tw-gradient-from) 0%, var(--tw-gradient-to) 100%);
+    @apply absolute rounded-full pointer-events-none;
   }
+
+  /* Mono label (reusable) ─────────────────────────────────────── */
+  .label-mono {
+    @apply font-mono text-[10px] uppercase tracking-[0.3em] text-purple-600;
+  }
+
+  /* Scrollbar styling — subtle, warm ──────────────────────────── */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #faf7f2;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(124, 58, 237, 0.25);
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(124, 58, 237, 0.45);
+  }
+
+  /* Legacy gradients (keep for any existing usage) ────────────── */
+  .pastel-gradient-1 {
+    background: linear-gradient(135deg, var(--color-pastel-pink) 0%, var(--color-pastel-blue) 100%);
+  }
+  .pastel-gradient-2 {
+    background: linear-gradient(135deg, var(--color-pastel-purple) 0%, var(--color-pastel-yellow) 100%);
+  }
+
+  /* Perspective helpers ────────────────────────────────────────── */
+  .perspective-600  { perspective: 600px; }
+  .perspective-1000 { perspective: 1000px; }
+  .perspective-2000 { perspective: 2000px; }
 }

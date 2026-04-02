@@ -2,13 +2,103 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kreshant | Creative Portfolio</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='black'/%3E%3Ctext x='50' y='65' font-family='Arial' font-size='60' font-weight='bold' fill='%23ff80ab' text-anchor='middle'%3Ek%3C/text%3E%3Ccircle cx='80' cy='25' r='10' fill='%23ff80ab'/%3E%3C/svg%3E" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- ── Primary SEO ───────────────────────────────────────────────── -->
+    <title>Kreshant Kumar — Graphic Designer | Portfolio</title>
+    <meta name="description" content="Kreshant Kumar is a graphic designer from Himachal Pradesh, India. Bold, concept-driven visuals — branding, poster design, UI, and digital aesthetics. Available for freelance." />
+    <meta name="keywords" content="graphic designer, freelance designer, branding, poster design, Figma, Photoshop, Illustrator, India, Himachal Pradesh, Dharamshala, kreshrts" />
+    <meta name="author" content="Kreshant Kumar" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://kreshrts-portfolio.vercel.app/" />
+
+    <!-- ── Open Graph (Facebook, LinkedIn, WhatsApp) ─────────────────── -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content="https://kreshrts-portfolio.vercel.app/" />
+    <meta property="og:title"       content="Kreshant Kumar — Graphic Designer" />
+    <meta property="og:description" content="Bold, concept-driven visuals — branding, poster design, and digital aesthetics. Available for freelance." />
+    <meta property="og:image"       content="https://kreshrts-portfolio.vercel.app/og-image.jpg" />
+    <meta property="og:image:width"  content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt"   content="Kreshant Kumar — Graphic Designer Portfolio" />
+    <meta property="og:locale"      content="en_IN" />
+    <meta property="og:site_name"   content="Kreshant Kumar Portfolio" />
+
+    <!-- ── Twitter / X Card ──────────────────────────────────────────── -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:site"        content="@kreshrts" />
+    <meta name="twitter:creator"     content="@kreshrts" />
+    <meta name="twitter:title"       content="Kreshant Kumar — Graphic Designer" />
+    <meta name="twitter:description" content="Bold, concept-driven visuals — branding, poster design, and digital aesthetics. Available for freelance." />
+    <meta name="twitter:image"       content="https://kreshrts-portfolio.vercel.app/og-image.jpg" />
+    <meta name="twitter:image:alt"   content="Kreshant Kumar — Graphic Designer Portfolio" />
+
+    <!-- ── Theme & mobile ────────────────────────────────────────────── -->
+    <meta name="theme-color" content="#faf7f2" />
+    <meta name="color-scheme" content="light" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="kreshrts" />
+
+    <!-- ── Favicon — inline SVG, on-brand violet ─────────────────────── -->
+    <!--
+      "k" in Space Grotesk bold style — black square, violet "k", pulsing circle
+      matches the Logo.tsx wordmark. Update to a real .ico file when ready.
+    -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23faf7f2'/%3E%3Crect x='4' y='4' width='92' height='92' rx='18' fill='none' stroke='%237c3aed' stroke-width='4'/%3E%3Ctext x='50' y='70' font-family='Georgia%2C serif' font-size='62' font-weight='900' fill='%23111111' text-anchor='middle'%3Ek%3C/text%3E%3Ccircle cx='74' cy='28' r='8' fill='%237c3aed'/%3E%3C/svg%3E"
+    />
+    <!-- Fallback for older browsers -->
+    <link rel="alternate icon" href="/favicon.ico" />
+
+    <!-- ── Preconnect to Google Fonts ────────────────────────────────── -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- ── Structured data — Person schema ───────────────────────────── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Kreshant Kumar",
+      "url": "https://kreshrts-portfolio.vercel.app",
+      "image": "https://kreshrts-portfolio.vercel.app/images/me/kresh.webp",
+      "jobTitle": "Graphic Designer",
+      "description": "Graphic designer specialising in bold, concept-driven visuals — branding, poster design, UI, and digital aesthetics.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dharamshala",
+        "addressRegion": "Himachal Pradesh",
+        "addressCountry": "IN"
+      },
+      "email": "mailto:kreshant2002@gmail.com",
+      "sameAs": [
+        "https://instagram.com/kreshrts",
+        "https://www.linkedin.com/in/kreshant-kumar",
+        "https://twitter.com/kreshrts",
+        "https://dribbble.com/Kresh_15",
+        "https://www.behance.net/kreshantkumar"
+      ],
+      "knowsAbout": [
+        "Graphic Design",
+        "Branding",
+        "Poster Design",
+        "UI Design",
+        "Adobe Photoshop",
+        "Adobe Illustrator",
+        "Figma",
+        "Canva",
+        "CorelDRAW"
+      ]
+    }
+    </script>
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
