@@ -1,81 +1,218 @@
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 
-export const LoadingScreen = () => {
-  const [loading, setLoading] = useState(true);
+// ─── Design tool labels that cycle during load ────────────────────────────────
 
+const TOOLS = ["Ps", "Ai", "Fg", "Cv", "Xd", "Cd"];
+
+const TOOL_COLORS: Record<string, string> = {
+  Ps: "#31A8FF",
+  Ai: "#FF9A00",
+  Fg: "#A259FF",
+  Cv: "#00C4CC",
+  Xd: "#FF61F6",
+  Cd: "#00A950",
+};
+
+// ─── Loading Screen ───────────────────────────────────────────────────────────
+
+export const LoadingScreen = () => {
+  const [phase,   setPhase]   = useState<"in" | "hold" | "out">("in");
+  const [visible, setVisible] = useState(true);
+  const [toolIdx, setToolIdx] = useState(0);
+  const prefersReduced        = useReducedMotion();
+
+  // If user prefers reduced motion, skip the loading screen entirely
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2500); // 2.5 seconds loading
-    return () => clearTimeout(timer);
-  }, []);
+    if (prefersReduced) {
+      setVisible(false);
+      return;
+    }
+
+    // Phase timeline:
+    //  0ms   → letters animate in
+    //  700ms → progress bar starts (hold)
+    //  2200ms→ exit begins
+    //  3000ms→ unmount
+
+    const t1 = setTimeout(() => setPhase("hold"), 700);
+    const t2 = setTimeout(() => setPhase("out"),  2200);
+    const t3 = setTimeout(() => setVisible(false), 3100);
+
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+  }, [prefersReduced]);
+
+  // Tool badge cycles every 300ms during load
+  useEffect(() => {
+    if (!visible) return;
+    const iv = setInterval(() => {
+      setToolIdx((i) => (i + 1) % TOOLS.length);
+    }, 320);
+    return () => clearInterval(iv);
+  }, [visible]);
+
+  const letters = "KRESHRTS".split("");
+  const activeTool = TOOLS[toolIdx];
 
   return (
     <AnimatePresence>
-      {loading && (
+      {visible && (
         <motion.div
+          key="loading"
           initial={{ opacity: 1 }}
-          exit={{ 
-            opacity: 0,
-            y: -100,
-            transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] }
+          exit={{
+            clipPath: ["inset(0% 0% 0% 0%)", "inset(0% 0% 100% 0%)"],
+            transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] },
           }}
-          className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center overflow-hidden"
+          className="fixed inset-0 z-[200] flex flex-col items-center justify-center overflow-hidden"
+          style={{ backgroundColor: "#0c0010" }}
+          aria-label="Loading"
+          aria-live="polite"
         >
-          <div className="relative">
-            <motion.div
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="font-display text-2xl sm:text-4xl md:text-6xl font-black text-white tracking-tighter flex gap-1 sm:gap-2 px-4 text-center justify-center"
+
+          {/* ── Background grid — same system, dark tinted ── */}
+          <div
+            className="absolute inset-0 pointer-events-none opacity-[0.04]"
+            style={{
+              backgroundImage: `
+                linear-gradient(#7c3aed 1px, transparent 1px),
+                linear-gradient(90deg, #7c3aed 1px, transparent 1px)
+              `,
+              backgroundSize: "60px 60px",
+            }}
+            aria-hidden
+          />
+
+          {/* ── Ambient blob ── */}
+          <div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+              w-[600px] h-[300px] rounded-full pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(ellipse, rgba(124,58,237,0.15) 0%, transparent 70%)",
+            }}
+            aria-hidden
+          />
+
+          {/* ── Tool badge (cycling) ── */}
+          <motion.div
+            key={activeTool}
+            initial={{ opacity: 0, scale: 0.7, y: -8 }}
+            animate={{ opacity: 1, scale: 1,   y: 0  }}
+            exit={{   opacity: 0, scale: 0.7, y: 8   }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-1/2 left-1/2 pointer-events-none"
+            style={{ marginTop: -110, marginLeft: -180 }}
+            aria-hidden
+          >
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center
+                font-black text-white text-sm shadow-lg border border-white/10"
+              style={{ backgroundColor: TOOL_COLORS[activeTool] + "cc" }}
             >
-              {["K", "R", "E", "S", "H", "A", "N", "T"].map((char, i) => (
+              {activeTool}
+            </div>
+          </motion.div>
+
+          {/* ── Main wordmark ── */}
+          <div className="relative flex flex-col items-center gap-6">
+            <div className="flex items-end gap-1 sm:gap-2">
+              {letters.map((char, i) => (
                 <motion.span
                   key={i}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
+                  initial={{ y: 40, opacity: 0 }}
+                  animate={{ y: 0,  opacity: 1 }}
                   transition={{
-                    delay: i * 0.1,
+                    delay:    i * 0.07,
                     duration: 0.5,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                    repeatDelay: 1
+                    ease:     [0.16, 1, 0.3, 1],
+                  }}
+                  className="font-black leading-none text-white select-none"
+                  style={{
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontSize:   "clamp(2.2rem, 10vw, 5.5rem)",
+                    // Alternate: every other letter becomes outline violet
+                    ...(i % 2 === 1
+                      ? { color: "transparent", WebkitTextStroke: "1.5px #7c3aed" }
+                      : {}),
                   }}
                 >
                   {char}
                 </motion.span>
               ))}
-            </motion.div>
-            
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: "100%" }}
-              transition={{ duration: 2, ease: "easeInOut" }}
-              className="h-1 bg-accent-pink mt-4 rounded-full"
-            />
+            </div>
+
+            {/* Role label */}
+            <motion.p
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.85, duration: 0.4 }}
+              className="font-mono text-[10px] uppercase tracking-[0.45em] text-neutral-400"
+            >
+              Graphic Designer
+            </motion.p>
+
+            {/* Progress bar */}
+            <div className="w-full relative h-[2px] rounded-full bg-white/10 overflow-hidden">
+              <motion.div
+                initial={{ width: "0%" }}
+                animate={{ width: phase === "in" ? "30%" : "100%" }}
+                transition={{
+                  duration: phase === "in" ? 0.6 : 1.3,
+                  ease:     phase === "in" ? "easeOut" : [0.16, 1, 0.3, 1],
+                }}
+                className="absolute left-0 top-0 h-full rounded-full"
+                style={{
+                  background: "linear-gradient(90deg, #7c3aed, #a855f7, #c084fc)",
+                }}
+              />
+            </div>
+
+            {/* Status label */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.0, duration: 0.4 }}
+              className="font-mono text-[9px] uppercase tracking-[0.4em] text-neutral-600"
+            >
+              {phase === "out" ? "Ready ✦" : "Initialising..."}
+            </motion.p>
           </div>
 
-          <motion.div
-            animate={{ 
-              rotate: 360,
-              scale: [1, 1.2, 1]
-            }}
-            transition={{ 
-              duration: 2, 
-              repeat: Infinity, 
-              ease: "linear" 
-            }}
-            className="absolute bottom-20 w-12 h-12 border-4 border-white/20 border-t-accent-pink rounded-full"
-          />
+          {/* ── Corner marks ── */}
+          {(["tl","tr","bl","br"] as const).map((corner) => (
+            <motion.div
+              key={corner}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 0.4, scale: 1 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              className="absolute pointer-events-none"
+              style={{
+                top:    corner.startsWith("t") ? 24 : "auto",
+                bottom: corner.startsWith("b") ? 24 : "auto",
+                left:   corner.endsWith("l")   ? 24 : "auto",
+                right:  corner.endsWith("r")   ? 24 : "auto",
+              }}
+              aria-hidden
+            >
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                {corner === "tl" && <path d="M0 20 L0 0 L20 0" stroke="#7c3aed" strokeWidth="1.5"/>}
+                {corner === "tr" && <path d="M0 0 L20 0 L20 20" stroke="#7c3aed" strokeWidth="1.5"/>}
+                {corner === "bl" && <path d="M0 0 L0 20 L20 20" stroke="#7c3aed" strokeWidth="1.5"/>}
+                {corner === "br" && <path d="M20 0 L20 20 L0 20" stroke="#7c3aed" strokeWidth="1.5"/>}
+              </svg>
+            </motion.div>
+          ))}
 
+          {/* ── URL watermark bottom ── */}
           <motion.p
             initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 1, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="absolute bottom-10 font-mono text-xs text-white/50 uppercase tracking-[0.5em]"
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.4 }}
+            className="absolute bottom-7 font-mono text-[8px] uppercase tracking-[0.35em] text-neutral-700"
+            aria-hidden
           >
-            Creating Magic...
+            kreshrts-portfolio.vercel.app
           </motion.p>
         </motion.div>
       )}
