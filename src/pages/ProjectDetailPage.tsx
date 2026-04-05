@@ -30,7 +30,7 @@ const projectDetails: Record<number, ProjectDetail> = {
     title: "Driphive",
     category: "Branding",
     tag: "BRAND",
-    image: "images/projects/driphive/Cover-Image.webp",
+    image: "/images/projects/driphive/Cover-Image.webp",
     description: "A modern identity for a premium streetwear brand rooted in urban culture and sustainability.",
     client: "Personal Project",
     date: "March 2025",
