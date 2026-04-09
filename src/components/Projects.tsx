@@ -85,7 +85,7 @@ const ProjectCard = ({
       }}
     >
       <Link
-        to={`/project/${project.id}`}
+        to={`/projects/${project.id}`}
         className="group block"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={handleMouseLeave}

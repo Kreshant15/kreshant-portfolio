@@ -186,13 +186,13 @@ export const ProjectDetailPage = () => {
           </div>
 
           {/* Hero Image */}
-          <div className="aspect-video rounded-2xl overflow-hidden mb-20 shadow">
+          {/* <div className="aspect-video rounded-2xl overflow-hidden mb-20 shadow">
             <img
               src={project.image}
               alt={project.title}
               className="w-full h-full object-cover"
             />
-          </div>
+          </div> */}
 
           {/* Content */}
           <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-12">
