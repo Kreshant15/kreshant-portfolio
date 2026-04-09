@@ -205,12 +205,33 @@ export const ProjectDetailPage = () => {
 </div>
 
 {/* SECTIONS */}
-{project.sections?.map((section, i) => (
-  <div key={i} className="mb-16 max-w-3xl">
-    <SectionLabel>{section.title}</SectionLabel>
-    <p className="text-neutral-500 leading-relaxed">
+{project.sections?.map((section, index) => (
+  <div key={index} className="mb-16">
+
+    {/* Title */}
+    <h2 className="text-xl font-semibold mb-4 text-neutral-800">
+      {section.title}
+    </h2>
+
+    {/* Content */}
+    <p className="text-neutral-500 leading-relaxed mb-6 whitespace-pre-line">
       {section.content}
     </p>
+
+    {/* 🔥 Images */}
+    {section.images && section.images.length > 0 && (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {section.images.map((img, i) => (
+          <img
+            key={i}
+            src={img}
+            alt={`${section.title} ${i}`}
+            className="rounded-xl w-full object-cover"
+          />
+        ))}
+      </div>
+    )}
+
   </div>
 ))}
 
