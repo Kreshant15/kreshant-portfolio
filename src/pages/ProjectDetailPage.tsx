@@ -18,7 +18,7 @@ const SectionLabel = ({ children }: { children: React.ReactNode }) => (
 // ─── 404 ───────────────────────────────────────────────────
 
 const NotFound = () => (
-  <main className="min-h-screen bg-[#faf7f2] flex items-center justify-center px-6">
+  <main className="min-h-screen bg-cream flex items-center justify-center px-6">
     <div className="text-center space-y-6">
       <p
         className="text-[clamp(5rem,20vw,12rem)] font-black text-[#111] leading-none"
@@ -71,7 +71,7 @@ export const ProjectDetailPage = () => {
 
   return (
     <main
-      className="relative bg-[#faf7f2]"
+      className="relative bg-cream"
       aria-label={`${project.title} — Project Detail`}
     >
       {/* Structured Data */}
@@ -101,8 +101,8 @@ export const ProjectDetailPage = () => {
 
         {/* Background */}
         <div className="absolute inset-0 pointer-events-none" aria-hidden>
-          <div className="absolute top-0 right-0 w-[500px] h-[400px] bg-gradient-to-bl from-violet-100/35 to-transparent blur-[100px] rounded-full" />
-          <div className="absolute bottom-1/2 left-0 w-[350px] h-[350px] bg-gradient-to-tr from-amber-100/25 to-transparent blur-[80px] rounded-full" />
+          <div className="absolute top-0 right-0 w-125 h-100 bg-linear-to-bl from-violet-100/35 to-transparent blur-[100px] rounded-full" />
+          <div className="absolute bottom-1/2 left-0 w-87.5 h-87.5 bg-linear-to-tr from-amber-100/25 to-transparent blur-[80px] rounded-full" />
           <div
             className="absolute inset-0 opacity-[0.025]"
             style={{
@@ -206,28 +206,40 @@ export const ProjectDetailPage = () => {
 
 {/* SECTIONS */}
 {project.sections?.map((section, index) => (
-  <div key={index} className="mb-16">
+  <div key={index} className="mb-20 md:mb-28">
 
-    {/* Title */}
-    <h2 className="text-xl font-semibold mb-4 text-neutral-800">
+    {/* ── LABEL ── */}
+    <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-violet-500 mb-3">
+      {String(index + 1).padStart(2, "0")} / SECTION
+    </p>
+
+    {/* ── HEADING ── */}
+    <h2 className="text-[clamp(1.6rem,2.5vw,2.2rem)] font-semibold tracking-tight text-neutral-900 mb-5 leading-tight">
       {section.title}
     </h2>
 
-    {/* Content */}
-    <p className="text-sm md:text-base text-neutral-600 leading-loose mb-6 whitespace-pre-line">
-  {section.content}
-</p>
+    {/* ── CONTENT ── */}
+    <p className="text-[15px] md:text-[17px] text-neutral-600 leading-relaxed md:leading-loose max-w-2xl mb-10 whitespace-pre-line">
+      {section.content}
+    </p>
 
-    {/* 🔥 Images */}
+    {/* ── IMAGES ── */}
     {section.images && section.images.length > 0 && (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
         {section.images.map((img, i) => (
-          <img
+          <div
             key={i}
-            src={img}
-            alt={`${section.title} ${i}`}
-            className="rounded-xl w-full object-cover"
-          />
+            className="group relative overflow-hidden rounded-2xl"
+          >
+            <img
+              src={img}
+              alt={`${section.title} ${i}`}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            />
+
+            {/* subtle hover glow */}
+            <div className="absolute inset-0 bg-linear-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          </div>
         ))}
       </div>
     )}

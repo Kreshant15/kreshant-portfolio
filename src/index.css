@@ -68,8 +68,16 @@
     text-rendering: optimizeLegibility;
   }
 
+  p {
+  line-height: 1.7;
+}
+
+h1, h2, h3 {
+  letter-spacing: -0.02em;
+}
+
   body {
-    @apply bg-[#faf7f2] text-[#111111];
+    @apply bg-cream text-ink;
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
     /* Selection colour matches violet system */
