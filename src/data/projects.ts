@@ -73,9 +73,9 @@ export const projects: ProjectDetail[] = [
       content:
         "Multiple design explorations were created to experiment with layout, typography, and visual hierarchy. These iterations helped refine the balance between bold expression and readability.\n\nThe process focused on pushing boundaries while maintaining a cohesive system across all assets.",
       images: [
-        "/images/projects/driphive/Artboard-1.webp",
+        // "/images/projects/driphive/Artboard-1.webp",
         "/images/projects/driphive/typography.webp",
-        "/images/projects/driphive/typography-2.webp",
+        // "/images/projects/driphive/typography-2.webp",
       ],
     },
 
