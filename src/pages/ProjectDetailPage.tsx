@@ -185,14 +185,49 @@ export const ProjectDetailPage = () => {
 
           </div>
 
-          {/* Hero Image */}
-          {/* <div className="aspect-video rounded-2xl overflow-hidden mb-20 shadow">
-            <img
-              src={project.image}
-              alt={project.title}
-              className="w-full h-full object-cover"
-            />
-          </div> */}
+          {/* HERO */}
+{project.hero && (
+  <div className="aspect-video rounded-2xl overflow-hidden mb-20 shadow">
+    <img
+      src={project.hero}
+      alt={project.title}
+      className="w-full h-full object-cover"
+    />
+  </div>
+)}
+
+{/* OVERVIEW */}
+<div className="max-w-3xl mb-20">
+  <SectionLabel>Overview</SectionLabel>
+  <p className="text-neutral-500 leading-relaxed whitespace-pre-line">
+    {project.fullDescription}
+  </p>
+</div>
+
+{/* SECTIONS */}
+{project.sections?.map((section, i) => (
+  <div key={i} className="mb-16 max-w-3xl">
+    <SectionLabel>{section.title}</SectionLabel>
+    <p className="text-neutral-500 leading-relaxed">
+      {section.content}
+    </p>
+  </div>
+))}
+
+{/* GALLERY */}
+{project.gallery && (
+  <div className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-6">
+    {project.gallery.map((img, i) => (
+      <div key={i} className="rounded-xl overflow-hidden">
+        <img
+          src={img}
+          alt={`Project ${i + 1}`}
+          className="w-full h-full object-cover"
+        />
+      </div>
+    ))}
+  </div>
+)}
 
           {/* Content */}
           <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-12">
@@ -214,16 +249,6 @@ export const ProjectDetailPage = () => {
                   "This project explores the intersection of concept and craft — creating visuals that feel both intentional and expressive."
                 </p>
               </div>
-
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  className="block text-center bg-violet-600 text-white py-3 rounded-full"
-                >
-                  View Live Project
-                </a>
-              )}
 
             </div>
 

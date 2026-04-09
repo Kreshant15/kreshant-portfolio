@@ -9,24 +9,60 @@ export interface ProjectDetail {
   date: string;
   tags: string[];
   fullDescription: string;
-  liveUrl?: string;
+  sections?: {
+  title: string;
+  content: string;
+}[];
+  hero?: string;          // main banner image
+  gallery?: string[];     // multiple images
 }
 
 export const projects: ProjectDetail[] = [
   {
-    id: "driphive",
-    title: "Driphive",
-    category: "Branding",
-    tag: "BRAND",
-    image: "/images/projects/driphive/Cover-Image.webp",
-    description:
-      "A modern identity for a premium streetwear brand rooted in urban culture and sustainability.",
-    client: "Personal Project",
-    date: "March 2025",
-    tags: ["Branding", "Visual Identity", "Graphic Design"],
-    fullDescription:
-      "DripHive – The Pulse of Street Culture.\n\nDripHive is an imaginative concept brand created as a showcase of my design skills, creativity, and branding capabilities.\n\nThis project brings together elements of streetwear, skate culture, and urban aesthetics to craft a bold and visually striking identity.\n\n💥 No Rules. No Limits. Just Drip. 💥\n\nThis project is purely for creative exploration and is not a real brand.",
-  },
+  id: "driphive",
+  title: "Driphive",
+  category: "Branding",
+  tag: "BRAND",
+
+  image: "/images/projects/driphive/Driphive-cover.webp",
+
+  description:
+    "A modern streetwear identity exploring bold visuals and urban culture.",
+
+  client: "Personal Project",
+  date: "March 2025",
+  tags: ["Branding", "Streetwear", "Posters"],
+
+  fullDescription:
+    "DripHive — The Pulse of Street Culture.\n\nA concept brand exploring bold, rebellious visual identity inspired by urban aesthetics.",
+
+  hero: "/images/projects/driphive/hero.webp",
+
+  gallery: [
+    "/images/projects/driphive/1.webp",
+    "/images/projects/driphive/2.webp",
+    "/images/projects/driphive/3.webp",
+  ],
+
+  // 🔥 NEW (important)
+  sections: [
+    {
+      title: "Concept",
+      content:
+        "DripHive was built as a bold streetwear concept blending rebellion, identity, and visual impact. The idea was to create a brand that feels raw, expressive, and unapologetically modern.",
+    },
+    {
+      title: "Visual Direction",
+      content:
+        "The visual language combines graffiti-inspired typography, neon accents, and strong contrast. Purple and green highlights create a distinctive identity.",
+    },
+    {
+      title: "Execution",
+      content:
+        "The project includes posters, mockups, and apparel concepts designed to feel energetic and visually striking.",
+    },
+  ],
+},
 
   {
     id: "vexels",
