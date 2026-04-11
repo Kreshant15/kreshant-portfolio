@@ -7,6 +7,7 @@ import { InstagramCarousel } from "../components/InstagramCarousel";
 import { Contact } from "../components/Contact";
 import { Footer } from "../components/Footer";
 import { LoadingScreen } from "../components/LoadingScreen";
+import SketchbookPortal from "../components/SketchbookPortal";
 
 export const HomePage = () => {
   const { scrollYProgress } = useScroll();
@@ -45,6 +46,7 @@ export const HomePage = () => {
         <About />
         <InstagramCarousel />
         <Contact />
+        <SketchbookPortal/>
         <Footer />
 
         {/* ── Global grain overlay ── */}

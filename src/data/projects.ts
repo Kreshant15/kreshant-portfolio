@@ -176,7 +176,8 @@ export const projects: ProjectDetail[] = [
       content:
         "A comprehensive brand system was developed to define the visual identity, including personality, tone, and core values. The system ensures consistency across all touchpoints while maintaining a playful and expressive character.",
       images: [
-        "/images/projects/vexels/guidelines.webp",
+        "/images/projects/vexels/guidelines1.webp",
+        "/images/projects/vexels/guidelines2.webp",
       ],
     },
 

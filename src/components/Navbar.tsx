@@ -6,6 +6,8 @@ import {
   FaInstagram, FaLinkedin, FaDribbble, FaTwitter,
 } from "react-icons/fa";
 import { Logo } from "./Logo";
+import NavSketchbookLink from './NavSketchbookLink';
+
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -137,6 +139,7 @@ export const Navbar = () => {
                 active={activeSection === link.href}
               />
             ))}
+            <NavSketchbookLink />
           </div>
 
           {/* Desktop social + CTA */}
