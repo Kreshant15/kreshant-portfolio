@@ -99,8 +99,8 @@ export default function SketchbookPage() {
   const navigate = useNavigate();
   const audioRef = useRef<HTMLAudioElement>(null);
   const shouldResumePlaybackRef = useRef(false);
+  const [showCustomCursor, setShowCustomCursor] = useState(false);
   const [musicPlaying, setMusicPlaying] = useState(false);
-  const [musicReady, setMusicReady] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(0); 
   const currentColor = trackColors[currentTrack];
   const [volume, setVolume] = useState(0.4);
@@ -120,9 +120,25 @@ export default function SketchbookPage() {
   }, []);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const mediaQuery = window.matchMedia('(pointer: fine)');
+    const updatePointerMode = () => {
+      setShowCustomCursor(mediaQuery.matches);
+    };
+
+    updatePointerMode();
+    mediaQuery.addEventListener('change', updatePointerMode);
+
+    return () => mediaQuery.removeEventListener('change', updatePointerMode);
+  }, []);
+
+  useEffect(() => {
+    if (!showCustomCursor) return;
+
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [handleMouseMove]);
+  }, [handleMouseMove, showCustomCursor]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -131,13 +147,28 @@ export default function SketchbookPage() {
   }, [volume, currentTrack]);
 
   useEffect(() => {
-    setMusicReady(false);
+    const audio = audioRef.current;
+
+    if (!audio || !shouldResumePlaybackRef.current) {
+      return;
+    }
+
+    const playCurrentTrack = async () => {
+      try {
+        await audio.play();
+      } catch {
+        shouldResumePlaybackRef.current = false;
+        setMusicPlaying(false);
+      }
+    };
+
+    void playCurrentTrack();
   }, [currentTrack]);
 
   // Audio handlers
   const toggleMusic = async () => {
     const audio = audioRef.current;
-    if (!audio || !musicReady) return;
+    if (!audio) return;
     if (musicPlaying) {
       shouldResumePlaybackRef.current = false;
       audio.pause();
@@ -152,26 +183,9 @@ export default function SketchbookPage() {
     }
   };
 
-  const handleAudioCanPlay = async () => {
-    const audio = audioRef.current;
-    setMusicReady(true);
-
-    if (!audio || !shouldResumePlaybackRef.current || !audio.paused) {
-      return;
-    }
-
-    try {
-      await audio.play();
-    } catch {
-      shouldResumePlaybackRef.current = false;
-      setMusicPlaying(false);
-    }
-  };
-
   const handleAudioEnded = () => {
     const shouldKeepPlaying = shouldResumePlaybackRef.current;
     setMusicPlaying(false);
-    setMusicReady(false);
 
     if (musicList.length <= 1) {
       shouldResumePlaybackRef.current = false;
@@ -196,23 +210,23 @@ export default function SketchbookPage() {
   return (
     <>
       {/* â”€â”€ CUSTOM PENCIL CURSOR â”€â”€ */}
-      <div
-        className="pencil-cursor"
-        style={{ left: cursorPos.x, top: cursorPos.y }}
-        aria-hidden="true"
-      />
+      {showCustomCursor && (
+        <div
+          className="pencil-cursor"
+          style={{ left: cursorPos.x, top: cursorPos.y }}
+          aria-hidden="true"
+        />
+      )}
 
       {/* â”€â”€ AUDIO â”€â”€ */}
       <audio
         ref={audioRef}
         src={musicList[currentTrack]}
-        onCanPlay={handleAudioCanPlay}
         onPlay={() => setMusicPlaying(true)}
         onPause={() => setMusicPlaying(false)}
         onEnded={handleAudioEnded}
         onError={() => {
           shouldResumePlaybackRef.current = false;
-          setMusicReady(false);
           setMusicPlaying(false);
         }}
         preload="auto"
@@ -260,12 +274,11 @@ export default function SketchbookPage() {
     {/* Play Button */}
     <button
   className={`music-btn transition-all duration-300 active:scale-90 ${
-    !musicReady ? "opacity-40 cursor-not-allowed" : ""
+    musicPlaying ? "is-playing" : ""
   }`}
   onClick={toggleMusic}
   aria-label={musicPlaying ? "Pause music" : "Play ambient music"}
   style={{ color: currentColor }}
-  disabled={!musicReady}
 >
   {musicPlaying ? (
     // Pause icon
@@ -517,7 +530,9 @@ export default function SketchbookPage() {
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         /* â”€â”€ CUSTOM CURSOR â”€â”€ */
-        body:has(.sketchbook-main) { cursor: none !important; }
+        @media (pointer: fine) {
+          body:has(.sketchbook-main) { cursor: none !important; }
+        }
 
         .pencil-cursor {
           position: fixed;
@@ -656,10 +671,6 @@ export default function SketchbookPage() {
           transition: transform 0.15s;
         }
         .music-btn:hover { transform: scale(1.2); }
-        .music-btn:disabled {
-          cursor: not-allowed;
-          transform: none;
-        }
 
         .music-label {
           font-family: 'Caveat', cursive;
