@@ -101,6 +101,7 @@ export default function SketchbookPage() {
   const shouldResumePlaybackRef = useRef(false);
   const [showCustomCursor, setShowCustomCursor] = useState(false);
   const [musicPlaying, setMusicPlaying] = useState(false);
+  const [musicError, setMusicError] = useState<string | null>(null);
   const [currentTrack, setCurrentTrack] = useState(0); 
   const currentColor = trackColors[currentTrack];
   const [volume, setVolume] = useState(0.4);
@@ -155,10 +156,13 @@ export default function SketchbookPage() {
 
     const playCurrentTrack = async () => {
       try {
+        audio.load();
         await audio.play();
+        setMusicError(null);
       } catch {
         shouldResumePlaybackRef.current = false;
         setMusicPlaying(false);
+        setMusicError('Unable to play this track right now.');
       }
     };
 
@@ -166,6 +170,24 @@ export default function SketchbookPage() {
   }, [currentTrack]);
 
   // Audio handlers
+  const playAudio = async () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.volume = volume;
+    audio.muted = false;
+    audio.load();
+
+    try {
+      await audio.play();
+      setMusicError(null);
+    } catch {
+      shouldResumePlaybackRef.current = false;
+      setMusicPlaying(false);
+      setMusicError('Unable to play this track right now.');
+    }
+  };
+
   const toggleMusic = async () => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -174,12 +196,7 @@ export default function SketchbookPage() {
       audio.pause();
     } else {
       shouldResumePlaybackRef.current = true;
-      try {
-        await audio.play();
-      } catch {
-        shouldResumePlaybackRef.current = false;
-        setMusicPlaying(false);
-      }
+      await playAudio();
     }
   };
 
@@ -220,14 +237,18 @@ export default function SketchbookPage() {
 
       {/* â”€â”€ AUDIO â”€â”€ */}
       <audio
+        key={musicList[currentTrack]}
         ref={audioRef}
         src={musicList[currentTrack]}
+        playsInline
+        onCanPlay={() => setMusicError(null)}
         onPlay={() => setMusicPlaying(true)}
         onPause={() => setMusicPlaying(false)}
         onEnded={handleAudioEnded}
         onError={() => {
           shouldResumePlaybackRef.current = false;
           setMusicPlaying(false);
+          setMusicError('Audio file could not be loaded.');
         }}
         preload="auto"
       />
@@ -303,6 +324,12 @@ export default function SketchbookPage() {
     <div className="music-label">
       {musicPlaying ? `track ${currentTrack + 1}` : "ambient"}
     </div>
+
+    {musicError && (
+      <div className="music-error" role="status">
+        {musicError}
+      </div>
+    )}
 
     {/* Track indicator */}
     {musicPlaying && (
@@ -676,6 +703,14 @@ export default function SketchbookPage() {
           font-family: 'Caveat', cursive;
           font-size: 13px;
           color: #9b8fa0;
+        }
+
+        .music-error {
+          font-family: 'Patrick Hand', cursive;
+          font-size: 11px;
+          color: #b45309;
+          max-width: 120px;
+          line-height: 1.2;
         }
 
         .music-note { font-size: 16px; color: #c4b5fd; }
