@@ -1,10 +1,10 @@
-// SketchbookPage.tsx
-// Full /sketchbook route page — intentionally chaotic notebook world
+﻿// SketchbookPage.tsx
+// Full /sketchbook route page â€” intentionally chaotic notebook world
 // 
 // HOW TO ADD YOUR CONTENT:
-//   drawings[]   → add your drawing image paths here
-//   stickers[]   → add your PNG sticker paths here
-//   musicSrc     → replace with your actual audio file path
+//   drawings[]   â†’ add your drawing image paths here
+//   stickers[]   â†’ add your PNG sticker paths here
+//   musicSrc     â†’ replace with your actual audio file path
 //
 // Image paths: put your files in /public/sketchbook/
 // Then reference as: /sketchbook/your-drawing.jpg
@@ -16,7 +16,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// ─── CONTENT CONFIG ────────────────────────────────────────────────────────────
+// â”€â”€â”€ CONTENT CONFIG â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // Replace placeholder paths with your actual files in /public/sketchbook/
 
 const drawings = [
@@ -28,15 +28,15 @@ const drawings = [
   { src: '/sketchbook/drawing-06.jpg', label: 'hands (ugh)', note: 'still struggling', rotate: 1, top: 130, left: 48 },
 ];
 
-// Your PNG stickers — ransom letters, cutout text, etc.
+// Your PNG stickers â€” ransom letters, cutout text, etc.
 // Place them in /public/sketchbook/stickers/
 const stickers: { src: string; style: React.CSSProperties }[] = [
   { src: '/sketchbook/stickers/skull.webp', style: { top: '5%', left: '70%', width: 120, transform: 'rotate(8deg)' } },
   // { src: '/sketchbook/stickers/ransom-02.png', style: { top: '42%', left: '5%', width: 90, transform: 'rotate(-5deg)' } },
-  // Add yours here — uncomment and set your actual paths
+  // Add yours here â€” uncomment and set your actual paths
 ];
 
-// Your music file — place in /public/sketchbook/
+// Your music file â€” place in /public/sketchbook/
 // Recommended: ~2min ambient lo-fi loop, mp3 format, <3MB
 const musicList = [
   '/sketchbook/ambience1.mp3',
@@ -50,15 +50,15 @@ const trackColors = [
   "#6ee7b7", // mint
 ];
 
-// ─── MARGIN ANNOTATIONS ────────────────────────────────────────────────────────
+// â”€â”€â”€ MARGIN ANNOTATIONS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const annotations = [
-  { text: '← need to redo this', top: '18%', left: '2%', rotate: -90, color: '#5a7abf' },
+  { text: '\u2190 need to redo this', top: '18%', left: '2%', rotate: -90, color: '#5a7abf' },
   { text: 'reference from pinterest', top: '35%', right: '2%', rotate: 90, color: '#888' },
-  { text: '★ fav', top: '55%', left: '1%', rotate: -90, color: '#d4a017' },
+  { text: '\u2605 fav', top: '55%', left: '1%', rotate: -90, color: '#d4a017' },
   { text: 'drew this at 2am lol', top: '70%', right: '1%', rotate: 90, color: '#888' },
 ];
 
-// ─── RANDOM DOODLE PATHS ───────────────────────────────────────────────────────
+// â”€â”€â”€ RANDOM DOODLE PATHS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const doodleElements = [
   // Stars scattered around
   { type: 'star', x: 82, y: 8, size: 14, color: '#c4b5fd', opacity: 0.5 },
@@ -77,7 +77,7 @@ const doodleElements = [
   { type: 'arrow', x: 68, y: 42, opacity: 0.35, color: '#888', rotate: 45 },
 ];
 
-// ─── NOTEBOOK LINES ────────────────────────────────────────────────────────────
+// â”€â”€â”€ NOTEBOOK LINES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // Controls the ruled-line section visual
 const NOTE_ENTRIES = [
   { text: 'things to draw next:', style: 'heading' },
@@ -88,16 +88,17 @@ const NOTE_ENTRIES = [
   { text: 'crossed: portrait of toji', style: 'crossed' },
   { text: '', style: 'blank' },
   { text: 'currently listening:', style: 'heading' },
-  { text: '→ trying to find the perfect study playlist', style: 'normal' },
+  { text: '\u2192 trying to find the perfect study playlist', style: 'normal' },
   { text: '', style: 'blank' },
   { text: 'last watched: vinland saga s2 (crying inside)', style: 'note' },
 ];
 
-// ─── COMPONENT ────────────────────────────────────────────────────────────────
+// â”€â”€â”€ COMPONENT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export default function SketchbookPage() {
   const navigate = useNavigate();
   const audioRef = useRef<HTMLAudioElement>(null);
+  const shouldResumePlaybackRef = useRef(false);
   const [musicPlaying, setMusicPlaying] = useState(false);
   const [musicReady, setMusicReady] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(0); 
@@ -123,17 +124,62 @@ export default function SketchbookPage() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [handleMouseMove]);
 
-  // Audio handlers
-  const toggleMusic = () => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    if (musicPlaying) {
-      audio.pause();
-      setMusicPlaying(false);
-    } else {
-      audio.play().catch(() => {});
-      setMusicPlaying(true);
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
     }
+  }, [volume, currentTrack]);
+
+  useEffect(() => {
+    setMusicReady(false);
+  }, [currentTrack]);
+
+  // Audio handlers
+  const toggleMusic = async () => {
+    const audio = audioRef.current;
+    if (!audio || !musicReady) return;
+    if (musicPlaying) {
+      shouldResumePlaybackRef.current = false;
+      audio.pause();
+    } else {
+      shouldResumePlaybackRef.current = true;
+      try {
+        await audio.play();
+      } catch {
+        shouldResumePlaybackRef.current = false;
+        setMusicPlaying(false);
+      }
+    }
+  };
+
+  const handleAudioCanPlay = async () => {
+    const audio = audioRef.current;
+    setMusicReady(true);
+
+    if (!audio || !shouldResumePlaybackRef.current || !audio.paused) {
+      return;
+    }
+
+    try {
+      await audio.play();
+    } catch {
+      shouldResumePlaybackRef.current = false;
+      setMusicPlaying(false);
+    }
+  };
+
+  const handleAudioEnded = () => {
+    const shouldKeepPlaying = shouldResumePlaybackRef.current;
+    setMusicPlaying(false);
+    setMusicReady(false);
+
+    if (musicList.length <= 1) {
+      shouldResumePlaybackRef.current = false;
+      return;
+    }
+
+    shouldResumePlaybackRef.current = shouldKeepPlaying;
+    setCurrentTrack((prev) => (prev + 1) % musicList.length);
   };
 
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -142,31 +188,37 @@ export default function SketchbookPage() {
     if (audioRef.current) audioRef.current.volume = v;
   };
 
-  // Back — glitch out
+  // Back â€” glitch out
   const handleBack = () => {
     navigate(-1);
   };
 
   return (
     <>
-      {/* ── CUSTOM PENCIL CURSOR ── */}
+      {/* â”€â”€ CUSTOM PENCIL CURSOR â”€â”€ */}
       <div
         className="pencil-cursor"
         style={{ left: cursorPos.x, top: cursorPos.y }}
         aria-hidden="true"
       />
 
-      {/* ── AUDIO ── */}
+      {/* â”€â”€ AUDIO â”€â”€ */}
       <audio
-  ref={audioRef}
-  src={musicList[currentTrack]}
-  onEnded={() =>
-    setCurrentTrack((prev) => (prev + 1) % musicList.length)
-  }
-  preload="auto"
-/>
+        ref={audioRef}
+        src={musicList[currentTrack]}
+        onCanPlay={handleAudioCanPlay}
+        onPlay={() => setMusicPlaying(true)}
+        onPause={() => setMusicPlaying(false)}
+        onEnded={handleAudioEnded}
+        onError={() => {
+          shouldResumePlaybackRef.current = false;
+          setMusicReady(false);
+          setMusicPlaying(false);
+        }}
+        preload="auto"
+      />
 
-      {/* ── MUSIC PLAYER ── */}
+      {/* â”€â”€ MUSIC PLAYER â”€â”€ */}
       <div className="music-player">
   <div
     className="music-player-inner transition-all duration-500"
@@ -200,19 +252,20 @@ export default function SketchbookPage() {
         </>
       ) : (
         <span className="music-note" style={{ color: currentColor }}>
-          ♪
+          {'\u266A'}
         </span>
       )}
     </div>
 
     {/* Play Button */}
     <button
-  className={`music-btn transition-all duration-300 active:scale-90" ${
+  className={`music-btn transition-all duration-300 active:scale-90 ${
     !musicReady ? "opacity-40 cursor-not-allowed" : ""
   }`}
   onClick={toggleMusic}
   aria-label={musicPlaying ? "Pause music" : "Play ambient music"}
   style={{ color: currentColor }}
+  disabled={!musicReady}
 >
   {musicPlaying ? (
     // Pause icon
@@ -241,7 +294,7 @@ export default function SketchbookPage() {
     {/* Track indicator */}
     {musicPlaying && (
       <div className="text-[10px] opacity-50 ml-1">
-        {currentTrack + 1} · {musicList.length}
+        {currentTrack + 1} {'\u00B7'} {musicList.length}
       </div>
     )}
 
@@ -262,22 +315,22 @@ export default function SketchbookPage() {
   </div>
 </div>
 
-      {/* ── BACK BUTTON ── */}
+      {/* â”€â”€ BACK BUTTON â”€â”€ */}
       <button className="back-btn" onClick={handleBack} aria-label="Back to portfolio">
-        ← back to the real world
+        {'\u2190'} back to the real world
       </button>
 
-      {/* ── MAIN PAGE ── */}
+      {/* â”€â”€ MAIN PAGE â”€â”€ */}
       <main
         className={`sketchbook-main ${entryAnim ? 'entered' : ''}`}
         aria-label="Kreshant's sketchbook world"
       >
-        {/* SVG doodle layer — scattered across the page */}
+        {/* SVG doodle layer â€” scattered across the page */}
         <div className="doodle-layer" aria-hidden="true">
           <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" className="doodle-svg">
             {doodleElements.map((d, i) => {
               if (d.type === 'star') return (
-                <text key={i} x={`${d.x}%`} y={`${d.y}%`} fontSize={d.size} fill={d.color} opacity={d.opacity} textAnchor="middle">✦</text>
+                <text key={i} x={`${d.x}%`} y={`${d.y}%`} fontSize={d.size} fill={d.color} opacity={d.opacity} textAnchor="middle">{'\u2726'}</text>
               );
               if (d.type === 'circle') return (
                 <circle key={i} cx={`${d.x}%`} cy={`${d.y}%`} r={`${d.size / 2}%`} fill={d.color} stroke="none" />
@@ -319,16 +372,16 @@ export default function SketchbookPage() {
           </div>
         ))}
 
-        {/* ── HERO HEADER ── */}
+        {/* â”€â”€ HERO HEADER â”€â”€ */}
         <div className="sk-header">
           {/* Washi tape strip */}
           <div className="washi-tape washi-1" aria-hidden="true" />
           <div className="washi-tape washi-2" aria-hidden="true" />
 
-          <p className="sk-volume">Vol. I — 2024</p>
+          <p className="sk-volume">Vol. I - 2024</p>
           <h1 className="sk-title">Kresh's<br /><span className="sk-title-messy">Sketchbook</span></h1>
           <p className="sk-desc">
-            drawings · doodles · 3am thoughts
+            drawings / doodles / 3am thoughts
             <br />
             <span className="sk-desc-small">not everything here is finished. that's the point.</span>
           </p>
@@ -336,15 +389,15 @@ export default function SketchbookPage() {
           {/* Sticky notes cluster */}
           <div className="sticky-cluster" aria-hidden="true">
             <div className="sticky-note sn-1">these r wip ok</div>
-            <div className="sticky-note sn-2">↑ obsessed w this one</div>
-            <div className="sticky-note sn-3">trying to get better at hands 🫠</div>
+            <div className="sticky-note sn-2">{'\u2191'} obsessed w this one</div>
+            <div className="sticky-note sn-3">trying to get better at hands...</div>
           </div>
 
           {/* Coffee ring */}
           <div className="coffee-ring" aria-hidden="true" />
         </div>
 
-        {/* ── DRAWINGS SECTION ── */}
+        {/* â”€â”€ DRAWINGS SECTION â”€â”€ */}
         <section className="drawings-section" aria-label="Drawings">
           <div className="section-label">
             <span className="section-label-text">// drawings</span>
@@ -375,7 +428,7 @@ export default function SketchbookPage() {
           </div>
         </section>
 
-        {/* ── STICKERS LAYER ── */}
+        {/* â”€â”€ STICKERS LAYER â”€â”€ */}
         {stickers.map((s, i) => (
           <img
             key={i}
@@ -386,7 +439,7 @@ export default function SketchbookPage() {
           />
         ))}
 
-        {/* ── NOTEBOOK SECTION ── */}
+        {/* â”€â”€ NOTEBOOK SECTION â”€â”€ */}
         <section className="notebook-section" aria-label="Notes">
           <div className="notebook-wrap">
             <div className="notebook-margin" aria-hidden="true" />
@@ -403,9 +456,9 @@ export default function SketchbookPage() {
             </div>
             {/* Doodles in the notebook margins */}
             <div className="nb-doodles" aria-hidden="true">
-              <div className="nb-star nb-star-1">✦</div>
-              <div className="nb-star nb-star-2">✧</div>
-              <div className="nb-star nb-star-3">★</div>
+              <div className="nb-star nb-star-1">{'\u2726'}</div>
+              <div className="nb-star nb-star-2">{'\u2727'}</div>
+              <div className="nb-star nb-star-3">{'\u2605'}</div>
               <div className="nb-face">
                 <svg width="30" height="30" viewBox="0 0 30 30">
                   <circle cx="15" cy="15" r="12" stroke="#bbb" strokeWidth="1" fill="none"/>
@@ -418,33 +471,33 @@ export default function SketchbookPage() {
           </div>
         </section>
 
-        {/* ── CURRENTLY INTO ── */}
+        {/* â”€â”€ CURRENTLY INTO â”€â”€ */}
         <section className="currently-section" aria-label="Currently into">
           <div className="currently-wrap">
             <h2 className="currently-title">currently into</h2>
             <div className="currently-grid">
-              <CurrentlyCard emoji="🎵" label="music" value="looking for the perfect study playlist" color="#c4b5fd" />
-              <CurrentlyCard emoji="📺" label="watching" value="Vinland Saga S2 — it's destroying me" color="#fcd34d" />
-              <CurrentlyCard emoji="🎮" label="playing" value="whatever runs on an RTX 3050" color="#6ee7b7" />
-              <CurrentlyCard emoji="✏️" label="drawing" value="anatomy, hands, hating myself" color="#fca5a5" />
+              <CurrentlyCard emoji={'\u{1F3B5}'} label="music" value="looking for the perfect study playlist" color="#c4b5fd" />
+              <CurrentlyCard emoji={'\u{1F4FA}'} label="watching" value="Vinland Saga S2 - it's destroying me" color="#fcd34d" />
+              <CurrentlyCard emoji={'\u{1F3AE}'} label="playing" value="whatever runs on an RTX 3050" color="#6ee7b7" />
+              <CurrentlyCard emoji={'\u270F\uFE0F'} label="drawing" value="anatomy, hands, hating myself" color="#fca5a5" />
             </div>
           </div>
         </section>
 
-        {/* ── FOOTER OF THE SKETCHBOOK ── */}
+        {/* â”€â”€ FOOTER OF THE SKETCHBOOK â”€â”€ */}
         <div className="sk-footer">
           <div className="sk-footer-line" aria-hidden="true" />
           <p className="sk-footer-text">
             this is the part of me that doesn't make it to the portfolio
           </p>
-          <p className="sk-footer-sub">@kreshrts · kreshantkumar.com</p>
+          <p className="sk-footer-sub">@kreshrts {'\u00B7'} kreshantkumar.com</p>
           <button className="sk-footer-back" onClick={handleBack}>
-            ← back to the professional version of me
+            {'\u2190'} back to the professional version of me
           </button>
         </div>
       </main>
 
-      {/* ── LIGHTBOX ── */}
+      {/* â”€â”€ LIGHTBOX â”€â”€ */}
       {lightboxSrc && (
         <div
           className="lightbox"
@@ -453,7 +506,7 @@ export default function SketchbookPage() {
           aria-modal="true"
           aria-label="Drawing enlarged"
         >
-          <button className="lightbox-close" onClick={() => setLightboxSrc(null)} aria-label="Close">✕</button>
+          <button className="lightbox-close" onClick={() => setLightboxSrc(null)} aria-label="Close">{'\u2715'}</button>
           <img src={lightboxSrc} alt="Drawing enlarged" className="lightbox-img" onClick={e => e.stopPropagation()} />
         </div>
       )}
@@ -463,7 +516,7 @@ export default function SketchbookPage() {
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* ── CUSTOM CURSOR ── */
+        /* â”€â”€ CUSTOM CURSOR â”€â”€ */
         body:has(.sketchbook-main) { cursor: none !important; }
 
         .pencil-cursor {
@@ -476,12 +529,12 @@ export default function SketchbookPage() {
           font-size: 18px;
         }
         .pencil-cursor::after {
-          content: '✏️';
+          content: '\\270F\\FE0F';
           font-size: 18px;
           display: block;
         }
 
-        /* ── PAGE BASE ── */
+        /* â”€â”€ PAGE BASE â”€â”€ */
         .sketchbook-main {
           min-height: 100vh;
           background: #faf7f0;
@@ -523,7 +576,7 @@ export default function SketchbookPage() {
           z-index: 0;
         }
 
-        /* ── DOODLE LAYER ── */
+        /* â”€â”€ DOODLE LAYER â”€â”€ */
         .doodle-layer {
           position: fixed;
           inset: 0;
@@ -537,7 +590,7 @@ export default function SketchbookPage() {
           height: 100%;
         }
 
-        /* ── MARGIN ANNOTATIONS ── */
+        /* â”€â”€ MARGIN ANNOTATIONS â”€â”€ */
         .margin-annotation {
           position: fixed;
           font-family: 'Caveat', cursive;
@@ -552,7 +605,7 @@ export default function SketchbookPage() {
           .margin-annotation { display: none; }
         }
 
-        /* ── BACK BUTTON ── */
+        /* â”€â”€ BACK BUTTON â”€â”€ */
         .back-btn {
           position: fixed;
           top: 16px;
@@ -572,7 +625,7 @@ export default function SketchbookPage() {
 
         .back-btn:hover { transform: rotate(1deg) scale(1.03); }
 
-        /* ── MUSIC PLAYER ── */
+        /* â”€â”€ MUSIC PLAYER â”€â”€ */
         .music-player {
           position: fixed;
           top: 16px;
@@ -603,6 +656,10 @@ export default function SketchbookPage() {
           transition: transform 0.15s;
         }
         .music-btn:hover { transform: scale(1.2); }
+        .music-btn:disabled {
+          cursor: not-allowed;
+          transform: none;
+        }
 
         .music-label {
           font-family: 'Caveat', cursive;
@@ -639,7 +696,7 @@ export default function SketchbookPage() {
           cursor: pointer;
         }
 
-        /* ── HEADER ── */
+        /* â”€â”€ HEADER â”€â”€ */
         .sk-header {
           position: relative;
           z-index: 3;
@@ -786,7 +843,7 @@ export default function SketchbookPage() {
           .coffee-ring { display: none; }
         }
 
-        /* ── DRAWINGS SECTION ── */
+        /* â”€â”€ DRAWINGS SECTION â”€â”€ */
         .drawings-section {
           position: relative;
           z-index: 3;
@@ -823,7 +880,7 @@ export default function SketchbookPage() {
           );
         }
 
-        /* CHAOTIC GRID — intentionally unorganised */
+        /* CHAOTIC GRID â€” intentionally unorganised */
         .drawings-chaos {
           display: grid;
           grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -838,7 +895,7 @@ export default function SketchbookPage() {
           }
         }
 
-        /* ── DRAWING CARD ── */
+        /* â”€â”€ DRAWING CARD â”€â”€ */
         .drawing-card-wrap {
           position: relative;
           cursor: pointer;
@@ -953,7 +1010,7 @@ export default function SketchbookPage() {
           line-height: 1.4;
         }
 
-        /* ── NOTEBOOK SECTION ── */
+        /* â”€â”€ NOTEBOOK SECTION â”€â”€ */
         .notebook-section {
           position: relative;
           z-index: 3;
@@ -1052,7 +1109,7 @@ export default function SketchbookPage() {
 
         .nb-face { position: absolute; top: 120px; right: 6px; opacity: 0.4; }
 
-        /* ── CURRENTLY INTO ── */
+        /* â”€â”€ CURRENTLY INTO â”€â”€ */
         .currently-section {
           position: relative;
           z-index: 3;
@@ -1085,7 +1142,7 @@ export default function SketchbookPage() {
           .currently-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
         }
 
-        /* ── SKETCHBOOK FOOTER ── */
+        /* â”€â”€ SKETCHBOOK FOOTER â”€â”€ */
         .sk-footer {
           position: relative;
           z-index: 3;
@@ -1136,7 +1193,7 @@ export default function SketchbookPage() {
           transform: rotate(-1deg);
         }
 
-        /* ── LIGHTBOX ── */
+        /* â”€â”€ LIGHTBOX â”€â”€ */
         .lightbox {
           position: fixed;
           inset: 0;
@@ -1175,7 +1232,7 @@ export default function SketchbookPage() {
   );
 }
 
-// ─── SUB COMPONENTS ────────────────────────────────────────────────────────────
+// â”€â”€â”€ SUB COMPONENTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const tapeColors = [
   'repeating-linear-gradient(45deg, rgba(196,181,255,0.5), rgba(196,181,255,0.5) 4px, rgba(167,139,250,0.3) 4px, rgba(167,139,250,0.3) 8px)',
@@ -1228,7 +1285,7 @@ function ImageWithFallback({ src, alt }: { src: string; alt: string }) {
   if (failed) {
     return (
       <div className="drawing-img-placeholder">
-        <span className="placeholder-pencil">✏️</span>
+        <span className="placeholder-pencil">{'\u270F\uFE0F'}</span>
         <span className="placeholder-info">add {alt}<br />to /public/sketchbook/</span>
       </div>
     );

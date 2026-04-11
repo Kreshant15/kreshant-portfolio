@@ -267,7 +267,6 @@ export const ProjectDetailPage = () => {
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: i * 0.1 }}
                       whileHover={{ y: -5 }}
-                      transition={{ duration: 0.2 }}
                     >
                       <img
                         src={img}
@@ -304,7 +303,6 @@ export const ProjectDetailPage = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.1 }}
                   whileHover={{ y: -3 }}
-                  transition={{ duration: 0.2 }}
                 >
                   <img
                     src={img}
