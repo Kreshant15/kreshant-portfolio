@@ -163,7 +163,6 @@ export default function SketchbookPage() {
   onEnded={() =>
     setCurrentTrack((prev) => (prev + 1) % musicList.length)
   }
-  onCanPlayThrough={() => setMusicReady(true)}
   preload="auto"
 />
 
@@ -212,7 +211,6 @@ export default function SketchbookPage() {
     !musicReady ? "opacity-40 cursor-not-allowed" : ""
   }`}
   onClick={toggleMusic}
-  disabled={!musicReady}
   aria-label={musicPlaying ? "Pause music" : "Play ambient music"}
   style={{ color: currentColor }}
 >
