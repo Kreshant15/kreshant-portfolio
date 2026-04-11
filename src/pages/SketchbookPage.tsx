@@ -50,10 +50,6 @@ const trackColors = [
   "#6ee7b7", // mint
 ];
 
-const [currentTrack, setCurrentTrack] = useState(0);
-
-const currentColor = trackColors[currentTrack];
-
 // ─── MARGIN ANNOTATIONS ────────────────────────────────────────────────────────
 const annotations = [
   { text: '← need to redo this', top: '18%', left: '2%', rotate: -90, color: '#5a7abf' },
@@ -104,6 +100,8 @@ export default function SketchbookPage() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [musicPlaying, setMusicPlaying] = useState(false);
   const [musicReady, setMusicReady] = useState(false);
+  const [currentTrack, setCurrentTrack] = useState(0); 
+  const currentColor = trackColors[currentTrack];
   const [volume, setVolume] = useState(0.4);
   const [entryAnim, setEntryAnim] = useState(false);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
@@ -210,13 +208,32 @@ export default function SketchbookPage() {
 
     {/* Play Button */}
     <button
-      className="music-btn transition-colors duration-300"
-      onClick={toggleMusic}
-      aria-label={musicPlaying ? "Pause music" : "Play ambient music"}
-      style={{ color: currentColor }}
-    >
-      {musicPlaying ? "⏸" : "▶"}
-    </button>
+  className={`music-btn transition-all duration-300 active:scale-90" ${
+    !musicReady ? "opacity-40 cursor-not-allowed" : ""
+  }`}
+  onClick={toggleMusic}
+  disabled={!musicReady}
+  aria-label={musicPlaying ? "Pause music" : "Play ambient music"}
+  style={{ color: currentColor }}
+>
+  {musicPlaying ? (
+    // Pause icon
+    <span className="flex gap-[2px]">
+      <span className="w-[2px] h-3 bg-current"></span>
+      <span className="w-[2px] h-3 bg-current"></span>
+    </span>
+  ) : (
+    // Play icon
+    <span
+      className="block w-0 h-0"
+      style={{
+        borderTop: "6px solid transparent",
+        borderBottom: "6px solid transparent",
+        borderLeft: `8px solid ${currentColor}`,
+      }}
+    />
+  )}
+</button>
 
     {/* Label */}
     <div className="music-label">
