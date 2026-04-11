@@ -265,7 +265,7 @@ export default function SketchbookPage() {
                 <text key={i} x={`${d.x}%`} y={`${d.y}%`} fontSize={d.size} fill={d.color} opacity={d.opacity} textAnchor="middle">✦</text>
               );
               if (d.type === 'circle') return (
-                <circle key={i} cx={`${d.x}%`} cy={`${d.y}%`} r={`$d.size / 2}%`} fill={d.color} stroke="none" />
+                <circle key={i} cx={`${d.x}%`} cy={`${d.y}%`} r={`${d.size / 2}%`} fill={d.color} stroke="none" />
               );
               if (d.type === 'squiggle') return (
                 <path key={i} d={`M${d.x}% ${d.y}% Q${d.x+3}% ${d.y-2}% ${d.x+6}% ${d.y}% Q${d.x+9}% ${d.y+2}% ${d.x+12}% ${d.y}%`}
