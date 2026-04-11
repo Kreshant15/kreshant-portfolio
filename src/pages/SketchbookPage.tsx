@@ -39,9 +39,9 @@ const stickers: { src: string; style: React.CSSProperties }[] = [
 // Your music file â€” place in /public/sketchbook/
 // Recommended: ~2min ambient lo-fi loop, mp3 format, <3MB
 const musicList = [
-  '/sketchbook/ambience1.mp3',
-  '/sketchbook/ambience2.mp3',
-  '/sketchbook/ambience3.mp3'
+  '/sketchbook/ambience.mp3',
+  '/sketchbook/chill.mp3',
+  '/sketchbook/piano.mp3'
 ];
 
 const trackColors = [
