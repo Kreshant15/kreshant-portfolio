@@ -3,6 +3,7 @@ export interface ProjectDetail {
   title: string;
   category: string;
   tag: string;
+  href?: string;
   image: string;
   description: string;
   client: string;
@@ -20,6 +21,21 @@ export interface ProjectDetail {
 }
 
 export const projects: ProjectDetail[] = [
+  {
+    id: "aura-app",
+    title: "Aura App Screens",
+    category: "UI Prototype",
+    tag: "APP",
+    href: "/aura",
+    image: "/images/projects/bquest/cover.webp",
+    description:
+      "An interactive mobile prototype built from the Aura Figma app screens, covering onboarding, mood calibration, playback, timeline, and profile flows.",
+    client: "Personal Concept",
+    date: "April 2026",
+    tags: ["Figma", "UI Prototype", "Mobile App", "Interaction Design"],
+    fullDescription:
+      "Aura is a concept music-and-mood app translated from Figma into a working prototype inside this portfolio site.\n\nThe prototype focuses on a smooth emotional calibration flow, immersive playback, and a visual system built around translucent cards, glowing orb states, and ambient gradients.",
+  },
   {
   id: "driphive",
   title: "Driphive",
