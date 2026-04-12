@@ -1,4 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowLeft, ExternalLink } from "lucide-react";
+import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/Footer";
 
 type Screen =
   | "splash"
@@ -848,72 +852,139 @@ export function AuraPrototypePage() {
   };
 
   return (
-    <div className="min-h-screen overflow-hidden bg-[#090414] text-white">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(173,140,255,0.18),_transparent_36%),linear-gradient(180deg,_#120826_0%,_#090414_56%,_#07020f_100%)]" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[36rem] bg-[radial-gradient(circle_at_20%_20%,_rgba(124,196,255,0.18),_transparent_22%),radial-gradient(circle_at_78%_30%,_rgba(224,156,255,0.14),_transparent_24%),radial-gradient(circle_at_40%_90%,_rgba(255,255,255,0.08),_transparent_20%)] blur-3xl" />
+    <main className="relative min-h-screen overflow-hidden bg-[#faf7f2]">
+      <Navbar />
 
-      <main className="relative mx-auto flex min-h-screen max-w-7xl flex-col gap-10 px-4 py-8 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-        <section className="max-w-xl lg:pl-6">
-          <div className="inline-flex items-center rounded-full border border-white/10 bg-white/6 px-4 py-2 text-[11px] tracking-[0.34em] text-white/56 backdrop-blur-md">
-            FIGMA TO PROTOTYPE
+      <div className="relative overflow-hidden px-4 pb-24 pt-32 sm:px-6 md:pt-40">
+        <div className="absolute inset-0 pointer-events-none" aria-hidden>
+          <div className="absolute top-0 right-0 h-[24rem] w-[32rem] rounded-full bg-gradient-to-bl from-violet-100/40 to-transparent blur-[100px]" />
+          <div className="absolute bottom-0 left-0 h-[20rem] w-[26rem] rounded-full bg-gradient-to-tr from-amber-100/30 to-transparent blur-[90px]" />
+          <div
+            className="absolute inset-0 opacity-[0.025]"
+            style={{
+              backgroundImage:
+                "linear-gradient(#8b5cf6 1px, transparent 1px), linear-gradient(90deg, #8b5cf6 1px, transparent 1px)",
+              backgroundSize: "60px 60px",
+            }}
+          />
+        </div>
+
+        <div className="relative mx-auto max-w-7xl">
+          <div className="mb-10">
+            <Link
+              to="/projects/aura-app"
+              className="group inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-neutral-400 transition-colors duration-200 hover:text-violet-600"
+            >
+              <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-x-1" />
+              Back to case study
+            </Link>
           </div>
-          <h1 className="mt-6 font-['Syne'] text-5xl font-semibold tracking-[-0.08em] text-white md:text-6xl">
-            Aura App Screens brought into a working interaction model.
-          </h1>
-          <p className="mt-6 max-w-lg text-base leading-8 text-white/68">
-            I translated the Figma structure into a clickable mobile prototype with onboarding,
-            mood selection, permissions, calibration, playback, timeline review, and profile
-            preferences. The visual system stays close to the file metadata: glass cards, glowing
-            orbs, soft gradients, and a compact bottom nav.
-          </p>
 
-          <div className="mt-8 grid gap-3 sm:grid-cols-2">
-            {[
-              "Splash to onboarding flow",
-              "Mood selection and permission gates",
-              "Live calibration sliders",
-              "Animated playback and progress",
-              "Timeline summary states",
-              "Profile spectrum and settings",
-            ].map((item) => (
-              <div
-                key={item}
-                className="rounded-[24px] border border-white/10 bg-white/6 px-4 py-4 text-sm text-white/72 backdrop-blur-md"
+          <div className="mb-16 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <span className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-purple-600">
+                <span className="h-px w-4 bg-purple-400" />
+                Live Prototype
+              </span>
+              <h1 className="mt-5 font-display font-black leading-[0.9] tracking-tight">
+                <span
+                  className="block text-[clamp(2.8rem,8vw,6.2rem)] text-[#111111]"
+                  style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                >
+                  AURA
+                </span>
+                <span
+                  className="block text-[clamp(2.6rem,7vw,5.8rem)]"
+                  style={{
+                    color: "transparent",
+                    WebkitTextStroke: "2px #7c3aed",
+                    fontFamily: "'Space Grotesk', sans-serif",
+                  }}
+                >
+                  Prototype
+                </span>
+              </h1>
+              <p className="mt-6 max-w-xl text-base leading-8 text-neutral-500">
+                This is the interactive version of the Aura app concept. It keeps the mood-led
+                flow from the Figma screens, but sits inside the same editorial world as the rest
+                of the portfolio so it feels like a designed project, not a detached demo.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-3">
+              {[
+                ["Splash", "splash"],
+                ["Home", "home"],
+                ["Calibration", "calibration"],
+                ["Player", "player"],
+              ].map(([label, target]) => (
+                <button
+                  key={target}
+                  onClick={() => setScreen(target as Screen)}
+                  className="rounded-full border border-neutral-300 bg-white/70 px-4 py-2 text-sm font-semibold text-neutral-700 shadow-sm transition-all duration-200 hover:border-violet-400 hover:text-violet-700"
+                >
+                  {label}
+                </button>
+              ))}
+              <Link
+                to="/projects/aura-app"
+                className="inline-flex items-center gap-2 rounded-full bg-[linear-gradient(135deg,#7c3aed,#a855f7,#c084fc)] px-5 py-2 text-sm font-semibold text-white shadow-[0_6px_20px_rgba(124,58,237,0.22)]"
               >
-                {item}
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            {[
-              ["Splash", "splash"],
-              ["Home", "home"],
-              ["Calibration", "calibration"],
-              ["Player", "player"],
-            ].map(([label, target]) => (
-              <button
-                key={target}
-                onClick={() => setScreen(target as Screen)}
-                className="rounded-full border border-white/10 bg-white/8 px-4 py-2 text-sm text-white/74 transition hover:bg-white/14"
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        </section>
-
-        <section className="relative mx-auto w-full max-w-[460px]">
-          <div className="absolute left-1/2 top-10 h-[85%] w-[85%] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,_rgba(153,112,255,0.34),_transparent_60%)] blur-3xl" />
-          <div className="relative mx-auto rounded-[44px] border border-white/12 bg-[#0e0918]/80 p-3 shadow-[0_40px_120px_rgba(0,0,0,0.45)] backdrop-blur-2xl">
-            <div className="relative mx-auto h-[844px] max-h-[82vh] w-full max-w-[390px] overflow-hidden rounded-[34px] border border-white/8 bg-[linear-gradient(180deg,_rgba(12,8,24,0.98)_0%,_rgba(10,6,18,0.98)_100%)]">
-              <PhoneBackground colors={mood.colors} />
-              {renderScreen()}
+                Case Study
+                <ExternalLink className="h-4 w-4" />
+              </Link>
             </div>
           </div>
-        </section>
-      </main>
-    </div>
+
+          <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+            <section className="rounded-[32px] border border-neutral-200/70 bg-white/75 p-6 shadow-[0_20px_60px_rgba(17,17,17,0.06)] backdrop-blur-md md:p-8">
+              <div className="grid gap-3 sm:grid-cols-2">
+                {[
+                  "Splash to onboarding flow",
+                  "Mood selection and permission gates",
+                  "Live calibration sliders",
+                  "Animated playback and progress",
+                  "Timeline summary states",
+                  "Profile spectrum and settings",
+                ].map((item) => (
+                  <div
+                    key={item}
+                    className="rounded-[22px] border border-neutral-200/70 bg-[#faf7f2] px-4 py-4 text-sm leading-6 text-neutral-600"
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 grid gap-4 md:grid-cols-2">
+                <img
+                  src="/images/projects/aura/mockup-overview.svg"
+                  alt="Aura overview mockup"
+                  className="rounded-[24px] border border-neutral-200/70 bg-[#faf7f2]"
+                />
+                <img
+                  src="/images/projects/aura/screen-grid.svg"
+                  alt="Aura screen grid"
+                  className="rounded-[24px] border border-neutral-200/70 bg-[#faf7f2]"
+                />
+              </div>
+            </section>
+
+            <section className="relative mx-auto w-full max-w-[460px]">
+              <div className="absolute left-1/2 top-10 h-[85%] w-[85%] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,_rgba(153,112,255,0.24),_transparent_60%)] blur-3xl" />
+              <div className="relative mx-auto rounded-[44px] border border-white/12 bg-[#0e0918]/80 p-3 shadow-[0_40px_120px_rgba(0,0,0,0.24)] backdrop-blur-2xl">
+                <div className="relative mx-auto h-[844px] max-h-[82vh] w-full max-w-[390px] overflow-hidden rounded-[34px] border border-white/8 bg-[linear-gradient(180deg,_rgba(12,8,24,0.98)_0%,_rgba(10,6,18,0.98)_100%)]">
+                  <PhoneBackground colors={mood.colors} />
+                  {renderScreen()}
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      <Footer />
+    </main>
   );
 }
 

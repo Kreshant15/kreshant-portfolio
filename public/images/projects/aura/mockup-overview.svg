@@ -1,0 +1,59 @@
+<svg width="1600" height="1100" viewBox="0 0 1600 1100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1100" rx="36" fill="#F7F2EA"/>
+  <rect x="24" y="24" width="1552" height="1052" rx="28" fill="url(#bg)"/>
+  <circle cx="222" cy="170" r="132" fill="#E9D5FF" fill-opacity="0.82"/>
+  <circle cx="1344" cy="918" r="214" fill="#DDD6FE" fill-opacity="0.56"/>
+  <text x="88" y="116" fill="#342556" font-family="JetBrains Mono, monospace" font-size="18" letter-spacing="6">MOCKUP OVERVIEW</text>
+  <g transform="translate(120 212)">
+    <rect width="360" height="736" rx="34" fill="#130D22" stroke="rgba(255,255,255,0.12)"/>
+    <rect x="22" y="58" width="316" height="628" rx="26" fill="url(#screen)"/>
+    <rect x="110" y="22" width="140" height="20" rx="10" fill="#05030B" fill-opacity="0.72"/>
+    <circle cx="180" cy="252" r="108" fill="url(#orb)"/>
+    <ellipse cx="146" cy="214" rx="34" ry="22" fill="white" fill-opacity="0.42"/>
+    <text x="180" y="390" text-anchor="middle" fill="white" font-family="Space Grotesk, Arial, sans-serif" font-size="48" font-weight="700">AURA</text>
+    <rect x="54" y="474" width="252" height="52" rx="26" fill="white"/>
+    <text x="180" y="507" text-anchor="middle" fill="#17112A" font-family="Space Grotesk, Arial, sans-serif" font-size="20" font-weight="700">Begin</text>
+  </g>
+  <g transform="translate(620 144)">
+    <rect width="360" height="736" rx="34" fill="#130D22" stroke="rgba(255,255,255,0.12)"/>
+    <rect x="22" y="58" width="316" height="628" rx="26" fill="url(#screen)"/>
+    <rect x="110" y="22" width="140" height="20" rx="10" fill="#05030B" fill-opacity="0.72"/>
+    <text x="38" y="112" fill="white" fill-opacity="0.85" font-family="Space Grotesk, Arial, sans-serif" font-size="24" font-weight="700">Good evening.</text>
+    <rect x="20" y="148" width="320" height="78" rx="26" fill="white" fill-opacity="0.08" stroke="rgba(255,255,255,0.08)"/>
+    <circle cx="66" cy="187" r="24" fill="url(#orb)"/>
+    <text x="106" y="182" fill="white" font-family="Space Grotesk, Arial, sans-serif" font-size="18" font-weight="700">Calibrate Mood</text>
+    <text x="106" y="206" fill="white" fill-opacity="0.58" font-family="Space Grotesk, Arial, sans-serif" font-size="12">Tune your emotional frequency</text>
+    <rect x="20" y="266" width="320" height="92" rx="26" fill="white" fill-opacity="0.08"/>
+    <rect x="20" y="392" width="320" height="128" rx="28" fill="white" fill-opacity="0.08"/>
+    <rect x="20" y="544" width="320" height="48" rx="20" fill="white" fill-opacity="0.08"/>
+    <rect x="20" y="606" width="320" height="48" rx="20" fill="white" fill-opacity="0.08"/>
+  </g>
+  <g transform="translate(1120 212)">
+    <rect width="360" height="736" rx="34" fill="#130D22" stroke="rgba(255,255,255,0.12)"/>
+    <rect x="22" y="58" width="316" height="628" rx="26" fill="url(#screen)"/>
+    <rect x="110" y="22" width="140" height="20" rx="10" fill="#05030B" fill-opacity="0.72"/>
+    <circle cx="180" cy="198" r="100" fill="url(#orb)"/>
+    <text x="40" y="346" fill="white" font-family="Space Grotesk, Arial, sans-serif" font-size="28" font-weight="700">Weightless</text>
+    <text x="40" y="374" fill="white" fill-opacity="0.58" font-family="Space Grotesk, Arial, sans-serif" font-size="14">Marconi Union · 2012</text>
+    <rect x="40" y="448" width="280" height="3" rx="1.5" fill="white" fill-opacity="0.12"/>
+    <rect x="40" y="448" width="124" height="3" rx="1.5" fill="white"/>
+    <circle cx="164" cy="449.5" r="6" fill="white"/>
+    <circle cx="180" cy="558" r="40" fill="white"/>
+    <text x="180" y="570" text-anchor="middle" fill="#17112A" font-family="Space Grotesk, Arial, sans-serif" font-size="26" font-weight="700">▶</text>
+  </g>
+  <defs>
+    <linearGradient id="bg" x1="88" y1="74" x2="1516" y2="1048" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8F2EA"/>
+      <stop offset="1" stop-color="#EEE6F8"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="180" y1="58" x2="180" y2="686" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#171028"/>
+      <stop offset="1" stop-color="#090511"/>
+    </linearGradient>
+    <linearGradient id="orb" x1="98" y1="114" x2="248" y2="286" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A5F3FC"/>
+      <stop offset="0.52" stop-color="#C4B5FD"/>
+      <stop offset="1" stop-color="#F0ABFC"/>
+    </linearGradient>
+  </defs>
+</svg>

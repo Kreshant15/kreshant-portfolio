@@ -11,7 +11,6 @@ interface Project {
   category: string;
   image: string;
   tag: string; // short mono tag shown on card
-  href?: string;
 }
 
 // const projects: Project[] = [
@@ -86,7 +85,7 @@ const ProjectCard = ({
       }}
     >
       <Link
-        to={project.href ?? `/projects/${project.id}`}
+        to={`/projects/${project.id}`}
         className="group block"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={handleMouseLeave}

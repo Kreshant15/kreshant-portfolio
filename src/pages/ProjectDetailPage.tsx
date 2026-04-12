@@ -153,6 +153,22 @@ export const ProjectDetailPage = () => {
               <p className="text-base md:text-lg text-neutral-500 max-w-lg">
                 {project.description}
               </p>
+
+              {project.prototypeUrl ? (
+                <div className="mt-8">
+                  <Link
+                    to={project.prototypeUrl}
+                    className="group inline-flex items-center gap-3 rounded-full
+                      bg-[linear-gradient(135deg,#7c3aed,#a855f7,#c084fc)]
+                      px-6 py-3 text-sm font-semibold text-white
+                      shadow-[0_8px_24px_rgba(124,58,237,0.22)]
+                      transition-transform duration-200 hover:scale-[1.02]"
+                  >
+                    View Prototype
+                    <ExternalLink className="h-4 w-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </Link>
+                </div>
+              ) : null}
             </motion.div>
 
             {/* Meta Cards */}

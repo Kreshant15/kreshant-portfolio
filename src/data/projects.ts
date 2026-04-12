@@ -3,7 +3,7 @@ export interface ProjectDetail {
   title: string;
   category: string;
   tag: string;
-  href?: string;
+  prototypeUrl?: string;
   image: string;
   description: string;
   client: string;
@@ -21,21 +21,6 @@ export interface ProjectDetail {
 }
 
 export const projects: ProjectDetail[] = [
-  {
-    id: "aura-app",
-    title: "Aura App Screens",
-    category: "UI Prototype",
-    tag: "APP",
-    href: "/aura",
-    image: "/images/projects/bquest/cover.webp",
-    description:
-      "An interactive mobile prototype built from the Aura Figma app screens, covering onboarding, mood calibration, playback, timeline, and profile flows.",
-    client: "Personal Concept",
-    date: "April 2026",
-    tags: ["Figma", "UI Prototype", "Mobile App", "Interaction Design"],
-    fullDescription:
-      "Aura is a concept music-and-mood app translated from Figma into a working prototype inside this portfolio site.\n\nThe prototype focuses on a smooth emotional calibration flow, immersive playback, and a visual system built around translucent cards, glowing orb states, and ambient gradients.",
-  },
   {
   id: "driphive",
   title: "Driphive",
@@ -287,5 +272,56 @@ export const projects: ProjectDetail[] = [
     tags: ["Branding", "Visual Identity"],
     fullDescription:
       "Vexels Studio required an identity that communicated technical precision and creative energy simultaneously.\n\nThe brand system uses geometric modular shapes and a sharp palette to represent where technology meets art.",
+  },
+
+  {
+    id: "aura-app",
+    title: "Aura App Screens",
+    category: "UI Prototype",
+    tag: "APP",
+    prototypeUrl: "/aura",
+    image: "/images/projects/aura/cover.svg",
+    description:
+      "A mood-led music app concept translated from Figma into a working portfolio prototype with a soft editorial case study and interactive mobile flow.",
+    client: "Personal Concept",
+    date: "April 2026",
+    tags: ["Figma", "UI Prototype", "Mobile App", "Interaction Design"],
+    fullDescription:
+      "Aura started as a set of app screens exploring how music discovery could feel more emotional, ambient, and personal than a typical playlist interface.\n\nInstead of centering the product around search, the concept frames listening as calibration: the user signals a mood, the interface responds with an orb-like visual language, and sessions gradually shape a calmer or more focused state.\n\nThis portfolio version turns that concept into both a written case study and a working prototype. The case study explains the thinking behind the flow, while the prototype lets viewers step through onboarding, mood selection, tuning, playback, and reflection in a way that feels more alive than a static mockup.",
+    hero: "/images/projects/aura/hero.svg",
+    gallery: [
+      "/images/projects/aura/mockup-overview.svg",
+      "/images/projects/aura/screen-grid.svg",
+      "/images/projects/aura/hero.svg",
+    ],
+    sections: [
+      {
+        title: "Concept",
+        content:
+          "Aura is designed as a mood-first listening experience. Rather than asking the user to begin with a search bar, it begins with a feeling. The product language is built around calibration, resonance, and emotional drift.\n\nThat framing shaped both the interface and the narrative of the app. Screens use soft gradients, translucent cards, and glowing orbs to make the product feel atmospheric instead of purely utilitarian.",
+        images: ["/images/projects/aura/mockup-overview.svg"],
+      },
+      {
+        title: "Design Direction",
+        content:
+          "The visual system balances two references: immersive app UI and the softer editorial tone already present across this portfolio. Purple remained the anchor, but it is filtered through warmer creams, quieter typography, and rounded framing so the project still feels like part of the same site.\n\nThe interface relies on a compact mobile canvas, low-contrast glass surfaces, and expressive spacing rather than loud decoration.",
+        images: ["/images/projects/aura/hero.svg"],
+      },
+      {
+        title: "Core Flow",
+        content:
+          "The core prototype flow follows the most important emotional journey in the app: arrival, mood selection, permissions, calibration, playback, reflection, and profile.\n\nEach step answers a simple question. Who are you right now? What should the soundscape become? How did the session affect your state? That sequence turns a playlist app into something closer to a guided ritual.",
+        images: ["/images/projects/aura/screen-grid.svg"],
+      },
+      {
+        title: "Prototype Translation",
+        content:
+          "To move from Figma into a working prototype, I rebuilt the experience in React inside the portfolio. The result is not just a visual recreation but an interactive model: sliders respond, playback animates, navigation moves between states, and the app can be explored as a coherent product.\n\nThat made the project stronger as a portfolio piece because people can both read the intent and test the behavior.",
+        images: [
+          "/images/projects/aura/mockup-overview.svg",
+          "/images/projects/aura/screen-grid.svg",
+        ],
+      },
+    ],
   }
 ];
