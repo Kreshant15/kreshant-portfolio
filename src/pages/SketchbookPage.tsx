@@ -303,9 +303,9 @@ export default function SketchbookPage() {
 >
   {musicPlaying ? (
     // Pause icon
-    <span className="flex gap-[2px]">
-      <span className="w-[2px] h-3 bg-current"></span>
-      <span className="w-[2px] h-3 bg-current"></span>
+    <span className="flex gap-0.5">
+      <span className="w-0.5 h-3 bg-current"></span>
+      <span className="w-0.5 h-3 bg-current"></span>
     </span>
   ) : (
     // Play icon

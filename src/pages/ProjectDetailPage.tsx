@@ -104,8 +104,8 @@ export const ProjectDetailPage = () => {
         
         {/* Background - Keeping your original design */}
         <div className="absolute inset-0 pointer-events-none" aria-hidden>
-          <div className="absolute top-0 right-0 w-[31.25rem] h-[25rem] bg-gradient-to-bl from-violet-100/35 to-transparent blur-[100px] rounded-full" />
-          <div className="absolute bottom-1/2 left-0 w-[21.875rem] h-[21.875rem] bg-gradient-to-tr from-amber-100/25 to-transparent blur-[80px] rounded-full" />
+          <div className="absolute top-0 right-0 w-125 h-100 bg-linear-to-bl from-violet-100/35 to-transparent blur-[100px] rounded-full" />
+          <div className="absolute bottom-1/2 left-0 w-87.5 h-87.5 bg-linear-to-tr from-amber-100/25 to-transparent blur-[80px] rounded-full" />
           <div
             className="absolute inset-0 opacity-[0.025]"
             style={{
@@ -293,7 +293,7 @@ export const ProjectDetailPage = () => {
                       />
                       
                       {/* Hover overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-0 bg-linear-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </motion.div>
                   ))}
                 </div>

@@ -329,7 +329,7 @@ function CtaButton({ mood, label, onClick }: { mood: MoodData; label: string; on
 function DI() {
   return (
     <div
-      className="absolute top-[14px] left-1/2 -translate-x-1/2 z-30"
+      className="absolute top-3.5 left-1/2 -translate-x-1/2 z-30"
       style={{
         width: 120, height: 34,
         background: "#000",
@@ -343,7 +343,7 @@ function DI() {
 
 function StatusBar() {
   return (
-    <div className="flex items-center justify-between px-7 pt-[18px] relative z-10">
+    <div className="flex items-center justify-between px-7 pt-4.5 relative z-10">
       <span style={{ fontFamily: "'Syne', sans-serif", fontSize: 14, fontWeight: 600, color: "rgba(255,255,255,0.85)" }}>
         9:41
       </span>
@@ -377,7 +377,7 @@ function BottomNav({ current, onChange }: { current: Screen; onChange: (s: Scree
           <button
             key={item.key}
             onClick={() => onChange(item.key)}
-            className="flex flex-col items-center gap-1 min-w-[48px]"
+            className="flex flex-col items-center gap-1 min-w-12"
           >
             <span style={{ fontSize: 19, color: active ? "#C8C0FF" : "rgba(255,255,255,0.22)" }}>
               {NAV_ICONS[item.key]}
@@ -427,7 +427,7 @@ function BackHeader({ label, title, onBack, right = "···" }: {
   label: string; title: string; onBack: () => void; right?: string;
 }) {
   return (
-    <div className="flex items-center justify-between px-6 pt-[68px]">
+    <div className="flex items-center justify-between px-6 pt-17">
       <button
         onClick={onBack}
         className="flex items-center justify-center rounded-full"
@@ -1125,7 +1125,7 @@ export function AuraPrototypePage() {
                   {/* shine */}
                   <div className="absolute rounded-full" style={{ top: 14, left: 18, width: "35%", height: "26%", background: "rgba(255,255,255,0.1)", filter: "blur(12px)", transform: "rotate(-25deg)" }} />
                   {/* mood badge */}
-                  <div className="absolute top-[-12px] right-[-12px] rounded-full px-3" style={{
+                  <div className="absolute -top-3 right-3 rounded-full px-3" style={{
                     padding: "5px 12px",
                     background: `${mood.glow3}`,
                     border: `1px solid ${mood.glow1}`,
@@ -1404,14 +1404,14 @@ export function AuraPrototypePage() {
         .aura-phone-scroll { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
 
-      <main className="relative min-h-screen overflow-hidden bg-[#faf7f2]">
+      <main className="relative min-h-screen overflow-hidden bg-cream">
         <Navbar />
 
         <div className="relative overflow-hidden px-4 pb-24 pt-32 sm:px-6 md:pt-40">
           {/* Portfolio page decorative bg */}
           <div className="absolute inset-0 pointer-events-none" aria-hidden>
-            <div className="absolute top-0 right-0 h-96 w-[32rem] rounded-full bg-gradient-to-bl from-violet-100/40 to-transparent blur-[100px]" />
-            <div className="absolute bottom-0 left-0 h-80 w-[26rem] rounded-full bg-gradient-to-tr from-amber-100/30 to-transparent blur-[90px]" />
+            <div className="absolute top-0 right-0 h-96 w-lg rounded-full bg-linear-to-bl from-violet-100/40 to-transparent blur-[100px]" />
+            <div className="absolute bottom-0 left-0 h-80 w-104 rounded-full bg-linear-to-tr from-amber-100/30 to-transparent blur-[90px]" />
             <div
               className="absolute inset-0 opacity-[0.025]"
               style={{
@@ -1441,7 +1441,7 @@ export function AuraPrototypePage() {
                   Live Prototype
                 </span>
                 <h1 className="mt-5 font-black leading-[0.9] tracking-tight">
-                  <span className="block text-[clamp(2.8rem,8vw,6.2rem)] text-[#111111]" style={{ fontFamily: "'Syne', sans-serif" }}>
+                  <span className="block text-[clamp(2.8rem,8vw,6.2rem)] text-ink" style={{ fontFamily: "'Syne', sans-serif" }}>
                     AURA
                   </span>
                   <span
@@ -1482,7 +1482,7 @@ export function AuraPrototypePage() {
             <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-start">
 
               {/* Left — features + info */}
-              <section className="rounded-[32px] border border-neutral-200/70 bg-white/75 p-6 shadow-[0_20px_60px_rgba(17,17,17,0.06)] backdrop-blur-md md:p-8 lg:sticky lg:top-32">
+              <section className="rounded-4xl border border-neutral-200/70 bg-white/75 p-6 shadow-[0_20px_60px_rgba(17,17,17,0.06)] backdrop-blur-md md:p-8 lg:sticky lg:top-32">
                 <h2 className="mb-4 font-mono text-[10px] uppercase tracking-[0.3em] text-neutral-400">What's interactive</h2>
                 <div className="grid gap-3 sm:grid-cols-2 mb-8">
                   {[
@@ -1497,14 +1497,14 @@ export function AuraPrototypePage() {
                     "Full bottom nav routing",
                     "Mood-reactive UI colors",
                   ].map((item) => (
-                    <div key={item} className="rounded-[18px] border border-neutral-200/70 bg-[#faf7f2] px-4 py-3 text-sm leading-6 text-neutral-600">
+                    <div key={item} className="rounded-[18px] border border-neutral-200/70 bg-cream px-4 py-3 text-sm leading-6 text-neutral-600">
                       {item}
                     </div>
                   ))}
                 </div>
 
                 {/* Current mood display */}
-                <div className="rounded-2xl border border-neutral-200 bg-gradient-to-br from-violet-50 to-white p-5">
+                <div className="rounded-2xl border border-neutral-200 bg-linear-to-br from-violet-50 to-white p-5">
                   <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-neutral-400 mb-3">Active Mood State</div>
                   <div className="flex items-center gap-4">
                     <div

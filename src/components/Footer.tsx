@@ -39,7 +39,7 @@ const legalContent: Record<string, { title: string; content: string }> = {
 const LegalModal = ({ activeKey, onClose }: { activeKey: string | null; onClose: () => void }) => (
   <AnimatePresence>
     {activeKey && (
-      <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+      <div className="fixed inset-0 z-100 flex items-center justify-center p-6">
         <motion.div
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
           onClick={onClose}
@@ -55,7 +55,7 @@ const LegalModal = ({ activeKey, onClose }: { activeKey: string | null; onClose:
             rounded-2xl p-8 shadow-[0_20px_60px_rgba(0,0,0,0.15)]"
         >
           <div className="absolute top-0 right-0 w-32 h-32
-            bg-gradient-to-bl from-violet-100/60 to-transparent rounded-bl-full pointer-events-none" />
+            bg-linear-to-bl from-violet-100/60 to-transparent rounded-bl-full pointer-events-none" />
 
           <button
             onClick={onClose} aria-label="Close"
@@ -98,7 +98,7 @@ export const Footer = () => {
     <>
       <LegalModal activeKey={activeLegal} onClose={() => setActiveLegal(null)} />
 
-      <footer aria-label="Site footer" className="relative bg-[#faf7f2] border-t border-neutral-200/60 overflow-hidden">
+      <footer aria-label="Site footer" className="relative bg-cream border-t border-neutral-200/60 overflow-hidden">
         {/* Grid overlay */}
         <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
           style={{
@@ -109,8 +109,8 @@ export const Footer = () => {
             backgroundSize: "60px 60px",
           }}
         />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[200px]
-          bg-gradient-to-tr from-violet-100/30 to-transparent blur-[70px] pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-75 h-50
+          bg-linear-to-tr from-violet-100/30 to-transparent blur-[70px] pointer-events-none" />
 
         {/* Email CTA strip */}
         <div className="relative border-b border-neutral-200/60 py-12 px-4 sm:px-6 text-center">

@@ -118,7 +118,7 @@ export const Navbar = () => {
       <motion.nav
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
           scrolled
-            ? "py-3 bg-[#faf7f2]/90 backdrop-blur-md border-b border-neutral-200/60 shadow-[0_1px_16px_rgba(0,0,0,0.05)]"
+            ? "py-3 bg-cream/90 backdrop-blur-md border-b border-neutral-200/60 shadow-[0_1px_16px_rgba(0,0,0,0.05)]"
             : "py-6 bg-transparent"
         }`}
         aria-label="Main navigation"
@@ -179,8 +179,8 @@ export const Navbar = () => {
               aria-label="Hire Kreshant Kumar"
             >
               <span
-                className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%]
-                  bg-gradient-to-r from-transparent via-white/25 to-transparent
+                className="absolute inset-0 translate-x-full group-hover:translate-x-full
+                  bg-linear-to-r from-transparent via-white/25 to-transparent
                   transition-transform duration-600"
               />
               <span className="relative">Hire Me</span>
@@ -193,7 +193,7 @@ export const Navbar = () => {
             onClick={() => setIsOpen(!isOpen)}
             aria-expanded={isOpen}
             aria-label={isOpen ? "Close menu" : "Open menu"}
-            className="md:hidden relative z-[70] w-10 h-10 flex items-center justify-center
+            className="md:hidden relative z-70 w-10 h-10 flex items-center justify-center
               rounded-xl bg-white/70 backdrop-blur-sm border border-neutral-200/80
               text-[#111] shadow-sm"
           >
@@ -235,7 +235,7 @@ export const Navbar = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className="fixed inset-0 z-[55] md:hidden bg-black/20 backdrop-blur-sm"
+              className="fixed inset-0 z-55 md:hidden bg-black/20 backdrop-blur-sm"
               onClick={() => setIsOpen(false)}
               aria-hidden
             />
@@ -250,9 +250,9 @@ export const Navbar = () => {
                 duration: prefersReducedMotion ? 0 : 0.35,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="fixed top-0 right-0 bottom-0 z-[60] md:hidden
+              className="fixed top-0 right-0 bottom-0 z-60 md:hidden
                 w-[min(340px,90vw)] flex flex-col
-                bg-[#faf7f2] border-l border-neutral-200/80
+                bg-cream border-l border-neutral-200/80
                 shadow-[-8px_0_40px_rgba(0,0,0,0.08)]"
               role="dialog"
               aria-modal="true"
@@ -432,8 +432,8 @@ export const Navbar = () => {
                   aria-label="Contact Kreshant for hire"
                 >
                   <span
-                    className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%]
-                      bg-gradient-to-r from-transparent via-white/20 to-transparent
+                    className="absolute inset-0 translate-x-full group-hover:translate-x-full
+                      bg-linear-to-r from-transparent via-white/20 to-transparent
                       transition-transform duration-600"
                   />
                   <span className="relative">Let's Work Together</span>

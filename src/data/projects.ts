@@ -159,9 +159,9 @@ export const projects: ProjectDetail[] = [
 
   // 🔥 TOP GALLERY (first impression)
   gallery: [
-    "/images/projects/vexels/stationary.webp",
-    "/images/projects/vexels/Artboard-5.webp",
-    "/images/projects/vexels/Artboard-8.webp",
+    "/images/projects/vexels/vmockup1.webp",
+    "/images/projects/vexels/vmockup2.webp",
+    "/images/projects/vexels/vmockup3.webp",
   ],
 
   sections: [
@@ -197,9 +197,10 @@ export const projects: ProjectDetail[] = [
       content:
         "The brand was extended into print and packaging applications including business cards, tags, and shopping bags. These elements demonstrate how the identity translates into physical formats while maintaining its expressive visual language.",
       images: [
-        "/images/projects/vexels/Business-Card.webp",
-        "/images/projects/vexels/tags.webp",
+        "/images/projects/vexels/card.webp",
+        "/images/projects/vexels/stickersheet.webp",
         "/images/projects/vexels/bag.webp",
+        "/images/projects/vexels/stationary.webp",
       ],
     },
 
@@ -280,7 +281,7 @@ export const projects: ProjectDetail[] = [
     category: "UI Prototype",
     tag: "APP",
     prototypeUrl: "/aura",
-    image: "/images/projects/aura/cover.svg",
+    image: "/images/projects/aura/cover.webp",
     description:
       "A mood-led music app concept translated from Figma into a working portfolio prototype with a soft editorial case study and interactive mobile flow.",
     client: "Personal Concept",
@@ -292,7 +293,7 @@ export const projects: ProjectDetail[] = [
     gallery: [
       "/images/projects/aura/mockup-overview.svg",
       "/images/projects/aura/screen-grid.svg",
-      "/images/projects/aura/hero.svg",
+      "/images/projects/aura/hero.webp",
     ],
     sections: [
       {
@@ -305,7 +306,7 @@ export const projects: ProjectDetail[] = [
         title: "Design Direction",
         content:
           "The visual system balances two references: immersive app UI and the softer editorial tone already present across this portfolio. Purple remained the anchor, but it is filtered through warmer creams, quieter typography, and rounded framing so the project still feels like part of the same site.\n\nThe interface relies on a compact mobile canvas, low-contrast glass surfaces, and expressive spacing rather than loud decoration.",
-        images: ["/images/projects/aura/hero.svg"],
+        images: ["/images/projects/aura/hero.webp"],
       },
       {
         title: "Core Flow",

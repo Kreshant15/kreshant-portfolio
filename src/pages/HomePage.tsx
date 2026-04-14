@@ -25,12 +25,12 @@ export const HomePage = () => {
       <LoadingScreen />
 
       <main
-        className="relative bg-[#faf7f2]"
+        className="relative bg-cream"
         aria-label="Kreshant Kumar — Graphic Designer Portfolio"
       >
         {/* ── Reading progress bar ── */}
         <motion.div
-          className="fixed top-0 left-0 right-0 h-[2px] z-[70] origin-left pointer-events-none"
+          className="fixed top-0 left-0 right-0 h-0.5 z-70 origin-left pointer-events-none"
           style={{
             scaleX,
             background: "linear-gradient(90deg, #7c3aed, #a855f7, #c084fc)",
@@ -52,7 +52,7 @@ export const HomePage = () => {
         {/* ── Global grain overlay ── */}
         {/* Static, no animation — grain animating causes repaints every frame */}
         <div
-          className="fixed inset-0 pointer-events-none z-[80] bg-grain opacity-[0.035]"
+          className="fixed inset-0 pointer-events-none z-80 bg-grain opacity-[0.035]"
           aria-hidden
         />
       </main>
