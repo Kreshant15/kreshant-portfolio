@@ -100,7 +100,7 @@ export default function SketchbookPortal() {
         <div className="torn-bottom" aria-hidden="true">
           <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <path
-              d="M0,0 L0,20 Q30,35 60,22 Q90,10 120,30 Q150,40 180,25 Q210,12 240,32 Q270,40 300,20 Q330,5 360,28 Q390,40 420,18 Q450,2 480,25 Q510,40 540,22 Q570,8 600,30 Q630,40 660,20 Q690,5 720,28 Q750,40 780,18 Q810,0 840,25 Q870,40 900,20 Q930,5 960,30 Q990,40 1020,22 Q1050,10 1080,32 Q1110,40 1140,18 Q1170,2 1200,25 Q1230,40 1260,20 Q1290,5 1320,30 Q1350,40 1380,22 Q1410,8 1440,25 L1440,0 Z"
+              d="M0,40 L0,20 Q30,35 60,22 Q90,10 120,30 Q150,40 180,25 Q210,12 240,32 Q270,40 300,20 Q330,5 360,28 Q390,40 420,18 Q450,2 480,25 Q510,40 540,22 Q570,8 600,30 Q630,40 660,20 Q690,5 720,28 Q750,40 780,18 Q810,0 840,25 Q870,40 900,20 Q930,5 960,30 Q990,40 1020,22 Q1050,10 1080,32 Q1110,40 1140,18 Q1170,2 1200,25 Q1230,40 1260,20 Q1290,5 1320,30 Q1350,40 1380,22 Q1410,8 1440,25 L1440,40 Z"
               fill="#faf7f0"
             />
           </svg>
@@ -187,6 +187,15 @@ export default function SketchbookPortal() {
         }
 
         .torn-top { transform: scaleY(-1); }
+
+        .torn-bottom {
+          margin-top: -1px;
+          transform: translateY(12px);
+        }
+
+        .torn-bottom svg {
+          display: block;
+        }
 
         .portal-inner {
           position: relative;
