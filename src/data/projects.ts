@@ -281,53 +281,107 @@ export const projects: ProjectDetail[] = [
 
 // aura app
   {
-    id: "aura-app",
-    title: "Aura",
-    category: "UI Design",
-    tag: "APP",
-    prototypeUrl: "/aura",
-    image: "/images/projects/aura/pcover.webp",
-    description:
-      "A mood-led music app concept translated from Figma into a working portfolio prototype with a soft editorial case study and interactive mobile flow.",
-    client: "Personal Concept",
-    date: "April 2026",
-    tags: ["Figma", "UI Prototype", "Mobile App", "Interaction Design"],
-    fullDescription:
-      "Aura started as a set of app screens exploring how music discovery could feel more emotional, ambient, and personal than a typical playlist interface.\n\nInstead of centering the product around search, the concept frames listening as calibration: the user signals a mood, the interface responds with an orb-like visual language, and sessions gradually shape a calmer or more focused state.\n\nThis portfolio version turns that concept into both a written case study and a working prototype. The case study explains the thinking behind the flow, while the prototype lets viewers step through onboarding, mood selection, tuning, playback, and reflection in a way that feels more alive than a static mockup.",
-    hero: "/images/projects/aura/hero.svg",
-    gallery: [
-      "/images/projects/aura/mockup-overview.svg",
-      "/images/projects/aura/screen-grid.svg",
-      "/images/projects/aura/hero.webp",
-    ],
-    sections: [
-      {
-        title: "Concept",
-        content:
-          "Aura is designed as a mood-first listening experience. Rather than asking the user to begin with a search bar, it begins with a feeling. The product language is built around calibration, resonance, and emotional drift.\n\nThat framing shaped both the interface and the narrative of the app. Screens use soft gradients, translucent cards, and glowing orbs to make the product feel atmospheric instead of purely utilitarian.",
-        images: ["/images/projects/aura/mockup-overview.svg"],
-      },
-      {
-        title: "Design Direction",
-        content:
-          "The visual system balances two references: immersive app UI and the softer editorial tone already present across this portfolio. Purple remained the anchor, but it is filtered through warmer creams, quieter typography, and rounded framing so the project still feels like part of the same site.\n\nThe interface relies on a compact mobile canvas, low-contrast glass surfaces, and expressive spacing rather than loud decoration.",
-        images: ["/images/projects/aura/hero.webp"],
-      },
-      {
-        title: "Core Flow",
-        content:
-          "The core prototype flow follows the most important emotional journey in the app: arrival, mood selection, permissions, calibration, playback, reflection, and profile.\n\nEach step answers a simple question. Who are you right now? What should the soundscape become? How did the session affect your state? That sequence turns a playlist app into something closer to a guided ritual.",
-        images: ["/images/projects/aura/screen-grid.svg"],
-      },
-      {
-        title: "Prototype Translation",
-        content:
-          "To move from Figma into a working prototype, I rebuilt the experience in React inside the portfolio. The result is not just a visual recreation but an interactive model: sliders respond, playback animates, navigation moves between states, and the app can be explored as a coherent product.\n\nThat made the project stronger as a portfolio piece because people can both read the intent and test the behavior.",
-        images: [
-          "/images/projects/aura/mockup-overview.svg",
-          "/images/projects/aura/screen-grid.svg",
-        ],
-      },
-    ],
-  }
+  id: "aura-app",
+  title: "Aura",
+  category: "UI Design",
+  tag: "APP",
+  prototypeUrl: "/aura",
+  image: "/images/projects/aura/pcover.webp",
+
+  description:
+    "A mood-first music experience that transforms listening into an emotional calibration ritual through a responsive, ambient interface.",
+
+  client: "Personal Concept",
+  date: "April 2026",
+
+  tags: ["Figma", "UI Prototype", "Interaction Design", "Product Thinking"],
+
+  // 🔥 HERO (STRONGER POSITIONING)
+  fullDescription:
+    "Aura explores a different approach to music interaction — one that begins with feeling instead of search.\n\nInstead of navigating playlists or algorithms, users enter a mood state, adjust it through a tactile interface, and experience sound as something that adapts to them.\n\nThis project combines interface design, interaction thinking, and a working prototype to present a more emotional, ambient, and personal listening experience.",
+
+  // 🔥 HERO VISUAL (IMPORTANT)
+  hero: "/images/projects/aura/hero-main.webp",
+
+  // 🔥 CURATED GALLERY (NO RANDOMS)
+  gallery: [
+    "/images/projects/aura/hero-main.webp",
+    "/images/projects/aura/player-main.webp",
+    "/images/projects/aura/calibration-main.webp",
+    "/images/projects/aura/orb-focus.webp",
+    "/images/projects/aura/flow-sequence.webp"
+  ],
+
+  // 🔥 NEW SECTION STRUCTURE
+  sections: [
+    // 1️⃣ WHAT IS AURA (HOOK)
+    {
+      title: "What is Aura",
+      content:
+        "Aura rethinks music as a state, not a library. Instead of searching for tracks, the experience begins with how you feel.\n\nThe interface responds to that emotional input through color, motion, and sound — turning listening into something closer to a guided ritual than a playlist.",
+      images: ["/images/projects/aura/mockup-overview.webp"],
+    },
+
+    // 2️⃣ EMOTIONAL SYSTEM (USP)
+    {
+      title: "Emotional System",
+      content:
+        "At the core of Aura is a simple system: mood drives everything.\n\nEach emotional state is mapped to a visual identity, interaction behavior, and sonic direction. The interface becomes a translation layer between internal feeling and external sound.\n\nMood → Color → Interface → Music → Outcome.",
+      images: [
+        "/images/projects/aura/mood-system.webp",
+        "/images/projects/aura/orb-focus.webp"
+      ],
+    },
+
+    // 3️⃣ DESIGN SYSTEM
+    {
+      title: "Design System",
+      content:
+        "The visual language balances immersive UI with a soft editorial tone. Instead of high contrast and sharp edges, the system uses glow, translucency, and spatial softness to create a calmer experience.\n\nColor represents emotion, typography balances expression and clarity, and surfaces feel layered rather than flat.",
+      images: [
+        "/images/projects/aura/brand-guidelines.webp",
+        "/images/projects/aura/ui-surfaces.webp"
+      ],
+    },
+
+    // 4️⃣ CORE EXPERIENCE FLOW (REDESIGNED)
+    {
+      title: "Experience Flow",
+      content:
+        "The experience is structured as a journey rather than a set of features.\n\nUsers arrive, signal their mood, calibrate it through interaction, experience playback, and reflect on the outcome. Each step answers a simple emotional question and builds continuity across the session.",
+      images: ["/images/projects/aura/flow-sequence.webp"],
+    },
+
+    // 5️⃣ INTERACTION MODEL (NEW — IMPORTANT)
+    {
+      title: "Interaction Model",
+      content:
+        "Aura is driven by interaction rather than navigation. The central orb acts as a control surface — representing mood intensity and state.\n\nSliders allow fine-tuning, while the interface reacts in real time through color shifts, motion, and feedback.\n\nEven subtle changes reshape the entire experience, reinforcing the idea of continuous calibration.",
+      images: [
+        "/images/projects/aura/orb-focus.webp",
+        "/images/projects/aura/calibration-main.webp"
+      ],
+    },
+
+    // 6️⃣ KEY SCREENS (CURATED)
+    {
+      title: "Key Screens",
+      content:
+        "The interface focuses on a few high-impact moments: onboarding, calibration, playback, and reflection. Each screen is designed to feel minimal yet atmospheric, avoiding clutter in favor of presence.",
+      images: [
+        "/images/projects/aura/player-main.webp",
+        "/images/projects/aura/calibration-main.webp",
+        "/images/projects/aura/timeline-main.webp"
+      ],
+    },
+
+    // 7️⃣ PROTOTYPE (BIG EMPHASIS)
+    {
+      title: "Live Prototype",
+      content:
+        "This project extends beyond static visuals. The prototype recreates the experience with real interactions — including mood switching, live calibration, animated playback, and dynamic UI responses.\n\nIt allows viewers to engage with the system as a product rather than just observe it as a design.",
+      images: ["/images/projects/aura/prototype-preview.webp"],
+    }
+  ]
+}
 ];
