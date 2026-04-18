@@ -137,10 +137,10 @@ export const projects: ProjectDetail[] = [
   ],
 },
 
-// vexels
+// vexel
   {
-  id: "vexels",
-  title: "Vexels",
+  id: "vexel",
+  title: "Vexel",
   category: "Branding",
   tag: "BRAND",
 
@@ -154,7 +154,7 @@ export const projects: ProjectDetail[] = [
   tags: ["Branding", "Visual Identity", "Packaging", "Social Media"],
 
   fullDescription:
-    "Vexels — A Visual Playground.\n\nVexels is a concept brand built around comic-inspired storytelling, bold colors, and expressive visuals. The project explores how playful graphics and dynamic layouts can create an engaging and memorable identity.\n\nUnlike minimal corporate branding, Vexels embraces energy, personality, and visual experimentation — making it vibrant, youthful, and full of character.",
+    "Vexel — A Visual Playground.\n\nVexel is a concept brand built around comic-inspired storytelling, bold colors, and expressive visuals. The project explores how playful graphics and dynamic layouts can create an engaging and memorable identity.\n\nUnlike minimal corporate branding, Vexel embraces energy, personality, and visual experimentation — making it vibrant, youthful, and full of character.",
 
   // 🔥 HERO (choose your strongest visual)
   hero: "/images/projects/vexels/hero.webp",
@@ -170,7 +170,7 @@ export const projects: ProjectDetail[] = [
     {
       title: "Concept",
       content:
-        "Vexels was designed as a playful brand identity inspired by comic culture, pop art, and visual storytelling. The goal was to create a system that feels expressive, vibrant, and full of personality.\n\nThe identity embraces bold shapes, bursts, stickers, and dynamic compositions to create an energetic and engaging visual language.",
+        "Vexel was designed as a playful brand identity inspired by comic culture, pop art, and visual storytelling. The goal was to create a system that feels expressive, vibrant, and full of personality.\n\nThe identity embraces bold shapes, bursts, stickers, and dynamic compositions to create an energetic and engaging visual language.",
       images: [],
     },
 
@@ -241,7 +241,7 @@ export const projects: ProjectDetail[] = [
     {
       title: "Conclusion",
       content:
-        "Vexels is an exploration of expressive branding — combining color, typography, and playful elements to create a lively and engaging identity.\n\nThis project demonstrates my ability to build flexible design systems that balance creativity with structure across multiple touchpoints.",
+        "Vexel is an exploration of expressive branding — combining color, typography, and playful elements to create a lively and engaging identity.\n\nThis project demonstrates my ability to build flexible design systems that balance creativity with structure across multiple touchpoints.",
       images: [],
     },
   ],

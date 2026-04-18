@@ -6,7 +6,7 @@ import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { projects } from "../data/projects";
 
-// ─── Vexels Brand Tokens ───────────────────────────────────
+// ─── Vexel Brand Tokens ───────────────────────────────────
 const VX = {
   red:    "#FA4C56",
   orange: "#FFB429",
@@ -95,11 +95,11 @@ const ComicGrid = ({ images, title, accent }: { images: string[]; title: string;
 
 // ─── MAIN ──────────────────────────────────────────────────
 export const VexelsProject = () => {
-  const project = projects.find((p) => p.id === "vexels")!;
+  const project = projects.find((p) => p.id === "vexel")!;
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-    document.title = "Vexels — Brand Identity | Kreshant Kumar";
+    document.title = "Vexel — Brand Identity | Kreshant Kumar";
   }, []);
 
   return (
@@ -154,7 +154,7 @@ export const VexelsProject = () => {
               }}
             >
               VEX
-              <span style={{ color: VX.blue }}>ELS</span>
+              <span style={{ color: VX.blue }}>EL</span>
             </h1>
 
             {/* Burst decorations */}

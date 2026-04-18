@@ -486,7 +486,7 @@ export const BananaQuestProject = () => {
               The full interactive game flow is available as a working Figma prototype — tap through the screens like a real app.
             </p>
             <a
-              href="https://www.figma.com/proto/banana-quest"
+              href=""
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-6 py-3 rounded-full border-2 border-black font-black text-sm transition-transform hover:scale-105 shadow-[3px_3px_0px_#1A0F00]"

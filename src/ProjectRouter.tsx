@@ -7,6 +7,7 @@ import { ProjectDetailPage } from "./pages/ProjectDetailPage";
 const customProjectPages: Record<string, React.LazyExoticComponent<() => React.JSX.Element>> = {
   // Branding
   "driphive":     lazy(() => import("./projects/DripHiveProject").then(m => ({ default: m.DripHiveProject }))),
+  "vexel":        lazy(() => import("./projects/VexelsProject").then(m => ({ default: m.VexelsProject }))),
   "vexels":       lazy(() => import("./projects/VexelsProject").then(m => ({ default: m.VexelsProject }))),
   // UI / Product
   "aura-app":     lazy(() => import("./projects/AuraProject").then(m => ({ default: m.AuraProject }))),
