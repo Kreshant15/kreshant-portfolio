@@ -3,50 +3,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { useState, useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { projects } from "../data/projects";
-
-interface ProjectCardData {
-  id: string;
-  title: string;
-  category: string;
-  image: string;
-  tag: string; // short mono tag shown on card
-}
-
-const customProjectCards: ProjectCardData[] = [
-  {
-    id: "banana-quest",
-    title: "Banana Quest",
-    category: "UI Design",
-    image: "/images/projects/bquest/cover.webp",
-    tag: "UI",
-  },
-  {
-    id: "pixel-era",
-    title: "Pixel Era",
-    category: "Poster Series",
-    image: "/images/projects/pixel/cover.webp",
-    tag: "PRINT",
-  },
-  {
-    id: "antaryatra",
-    title: "Antaryatra",
-    category: "Poster Series",
-    image: "/images/projects/antaryatra/antaryatra.webp",
-    tag: "ART",
-  },
-];
-
-const projectCards: ProjectCardData[] = [
-  ...projects.map((project) => ({
-    id: project.id,
-    title: project.title,
-    category: project.category,
-    image: project.image,
-    tag: project.tag,
-  })),
-  ...customProjectCards,
-];
+import { projectCards, type ProjectCardData } from "../data/projectCards";
 
 // ─── Individual Project Card ─────────────────────────────────────────────────
 
