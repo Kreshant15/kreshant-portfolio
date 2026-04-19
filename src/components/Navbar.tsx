@@ -127,7 +127,7 @@ export const Navbar = () => {
 
           {/* Logo */}
           <Link to="/" aria-label="Kreshant Kumar — Home">
-            <Logo size="sm" />
+            <Logo variant="site" size="sm" />
           </Link>
 
           {/* Desktop links */}

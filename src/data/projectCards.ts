@@ -20,7 +20,7 @@ export const customProjectCards: ProjectCardData[] = [
     id: "pixel-era",
     title: "Pixel Era",
     category: "Poster Series",
-    image: "/images/projects/pixel/cover.webp",
+    image: "/images/projects/pixel/Pixelation.webp",
     tag: "PRINT",
   },
   {
