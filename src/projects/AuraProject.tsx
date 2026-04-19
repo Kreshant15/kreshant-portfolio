@@ -428,7 +428,7 @@ export const AuraProject = () => {
                   whileHover={{ scale: 1.01 }}
                 >
                   <img src={src} alt={`Gallery ${i + 1}`} className="w-full h-full object-contain bg-[#0D1130] p-2" loading="lazy" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#080B1A]/60 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-[#080B1A]/60 to-transparent" />
                 </motion.div>
               ))}
             </div>

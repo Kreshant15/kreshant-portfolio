@@ -289,7 +289,7 @@ export const BananaQuestProject = () => {
       {/* ── Jungle atmosphere ─────────────────────────────── */}
       {/* Sky gradient at top */}
       <div
-        className="absolute top-0 left-0 right-0 h-[100dvh] pointer-events-none"
+        className="absolute top-0 left-0 right-0 h-dvh pointer-events-none"
         style={{
           background: `linear-gradient(to bottom, #87CEEB 0%, #4a9e60 40%, ${BQ.bg} 80%)`,
           opacity: 0.15,
@@ -309,7 +309,7 @@ export const BananaQuestProject = () => {
       <Navbar />
 
       {/* ── HERO ─────────────────────────────────────────── */}
-      <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-32 pb-20 min-h-[100dvh]">
+      <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-32 pb-20 min-h-dvh">
 
         {/* Tree canopy arch illustration (CSS) */}
         <div className="absolute top-20 left-0 right-0 flex justify-between pointer-events-none px-4">
