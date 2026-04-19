@@ -78,7 +78,7 @@ const ComicGrid = ({ images, title, accent }: { images: string[]; title: string;
           <img
             src={src}
             alt={`${title} ${i + 1}`}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain bg-[#fff7de] p-2"
             loading="lazy"
             decoding="async"
           />
@@ -319,7 +319,7 @@ export const VexelsProject = () => {
                   transition={{ delay: i * 0.1 }}
                   whileHover={{ scale: 1.01 }}
                 >
-                  <img src={src} alt={`Gallery ${i + 1}`} className="w-full h-full object-cover" loading="lazy" />
+                  <img src={src} alt={`Gallery ${i + 1}`} className="w-full h-full object-contain bg-[#fff7de] p-2" loading="lazy" />
                 </motion.div>
               ))}
             </div>

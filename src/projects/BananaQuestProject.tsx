@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
@@ -128,6 +128,39 @@ const Leaf = ({ x, delay, size }: { x: string; delay: number; size: number }) =>
   </motion.div>
 );
 
+const FallingLeaf = ({
+  x,
+  top,
+  delay,
+  size,
+  reducedMotion,
+}: {
+  x: string;
+  top: string;
+  delay: number;
+  size: number;
+  reducedMotion: boolean;
+}) => (
+  <motion.div
+    className="absolute pointer-events-none"
+    style={{ left: x, top, width: size, height: size, zIndex: 1, color: BQ.green, opacity: 0.8 }}
+    animate={
+      reducedMotion
+        ? { opacity: 0.6 }
+        : { y: ["-8vh", "95vh"], rotate: [0, 180, 360], x: [0, 18, -12, 8, 0] }
+    }
+    transition={
+      reducedMotion
+        ? undefined
+        : { duration: 8 + Math.random() * 6, delay, repeat: Infinity, ease: "linear" }
+    }
+  >
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M18.7 3.3c-4.8.5-8.5 2.2-10.9 5-2.8 3.1-3.7 7.5-2.8 12.4.1.5.5.9 1 .9h.2c.6-.1.9-.7.8-1.2-.4-2.1-.3-4 .2-5.7 1.1 1.2 2.5 1.9 4.2 1.9 4.9 0 8.5-5.9 9.3-12 .1-.3 0-.7-.3-.9-.4-.3-.9-.5-1.7-.4Zm-9 9.9c1.9-2.9 4.7-5.1 8.5-6.6-2.3 4.7-5.5 7.1-8.3 7.1-1 0-1.8-.2-2.5-.5.5-1 1.3-2 2.3-3Z" />
+    </svg>
+  </motion.div>
+);
+
 // ─── Section label ─────────────────────────────────────────
 const JungleLabel = ({ num, label }: { num: string; label: string }) => (
   <div className="flex items-center gap-3 mb-6">
@@ -183,7 +216,7 @@ const GameGrid = ({ images, title }: { images: string[]; title: string }) => {
       {images.map((src, i) => (
         <motion.div
           key={i}
-          className="relative overflow-hidden rounded-2xl border-2 border-black shadow-[3px_3px_0px_#1A0F00]"
+          className="relative overflow-hidden rounded-2xl border-2 border-black shadow-[3px_3px_0px_#1A0F00] bg-[#2B1807] p-2"
           style={{ aspectRatio: single ? "16/9" : "4/3" }}
           initial={{ opacity: 0, y: 20, scale: 0.96 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -191,7 +224,7 @@ const GameGrid = ({ images, title }: { images: string[]; title: string }) => {
           transition={{ duration: 0.4, delay: i * 0.08 }}
           whileHover={{ scale: 1.03, rotate: i % 2 === 0 ? 0.5 : -0.5 }}
         >
-          <img src={src} alt={`${title} ${i + 1}`} className="w-full h-full object-cover" loading="lazy" />
+          <img src={src} alt={`${title} ${i + 1}`} className="w-full h-full object-contain" loading="lazy" />
         </motion.div>
       ))}
     </div>
@@ -204,7 +237,7 @@ const ScreenCard = ({ src, label, index }: { src: string; label: string; index: 
 
   return (
     <motion.div
-      className="relative overflow-hidden rounded-2xl border-2 border-black cursor-pointer"
+      className="relative overflow-hidden rounded-2xl border-2 border-black cursor-pointer bg-[#2B1807] p-2"
       style={{
         aspectRatio: "4/3",
         boxShadow: hovered ? `0 8px 0 #1A0F00` : `4px 4px 0 #1A0F00`,
@@ -218,7 +251,7 @@ const ScreenCard = ({ src, label, index }: { src: string; label: string; index: 
       onHoverEnd={() => setHovered(false)}
       whileHover={{ y: -4 }}
     >
-      <img src={src} alt={label} className="w-full h-full object-cover" loading="lazy" />
+      <img src={src} alt={label} className="w-full h-full object-contain" loading="lazy" />
       <AnimatePresence>
         {hovered && (
           <motion.div
@@ -244,6 +277,8 @@ const ScreenCard = ({ src, label, index }: { src: string; label: string; index: 
 
 // ─── MAIN ──────────────────────────────────────────────────
 export const BananaQuestProject = () => {
+  const prefersReducedMotion = useReducedMotion();
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     document.title = "Banana Quest — Kids UI Design | Kreshant Kumar";
@@ -264,12 +299,12 @@ export const BananaQuestProject = () => {
 
       {/* Falling leaves */}
       {[
-        { x: "5%", delay: 0, size: 20 },
-        { x: "25%", delay: 3, size: 16 },
-        { x: "55%", delay: 1.5, size: 22 },
-        { x: "75%", delay: 4, size: 18 },
-        { x: "90%", delay: 2, size: 14 },
-      ].map((leaf, i) => <Leaf key={i} {...leaf} />)}
+        { x: "5%", top: "10%", delay: 0, size: 20 },
+        { x: "25%", top: "22%", delay: 3, size: 16 },
+        { x: "55%", top: "14%", delay: 1.5, size: 22 },
+        { x: "75%", top: "28%", delay: 4, size: 18 },
+        { x: "90%", top: "18%", delay: 2, size: 14 },
+      ].map((leaf, i) => <FallingLeaf key={i} {...leaf} reducedMotion={!!prefersReducedMotion} />)}
 
       <Navbar />
 

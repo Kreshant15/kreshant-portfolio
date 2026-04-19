@@ -80,7 +80,7 @@ const ImgGrid = ({ images, title }: { images: string[]; title: string }) => {
           <img
             src={src}
             alt={`${title} ${i + 1}`}
-            className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+            className="w-full h-full object-contain transition-transform duration-700 hover:scale-105 bg-[#0a0a0a] p-2"
             loading="lazy"
             decoding="async"
           />
@@ -299,7 +299,7 @@ export const DripHiveProject = () => {
                   <img
                     src={src}
                     alt={`Gallery ${i + 1}`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain bg-[#0a0a0a] p-2"
                     loading="lazy"
                   />
                 </motion.div>

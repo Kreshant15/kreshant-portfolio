@@ -113,9 +113,11 @@ The next pieces are already forming. The signal isn't done breaking yet.`,
 // ─── Scan line overlay ─────────────────────────────────────
 const ScanLines = () => (
   <div
-    className="pointer-events-none fixed inset-0 z-30 opacity-[0.03]"
+    className="pointer-events-none fixed inset-0 z-30"
     style={{
-      backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,1) 2px, rgba(255,255,255,1) 4px)`,
+      backgroundImage: `repeating-linear-gradient(0deg, rgba(255,255,255,0.08) 0, rgba(255,255,255,0.08) 1px, transparent 1px, transparent 4px)`,
+      mixBlendMode: "screen",
+      opacity: 0.2,
     }}
   />
 );
@@ -198,7 +200,7 @@ const PosterCard = ({ src, name, index }: { src: string; name: string; index: nu
         <>
           <motion.div
             className="absolute inset-0 z-10 pointer-events-none"
-            style={{ backgroundImage: `url(${src})`, backgroundSize: "cover", backgroundPosition: "center", mixBlendMode: "screen", opacity: 0.5 }}
+            style={{ backgroundImage: `url(${src})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center", mixBlendMode: "screen", opacity: 0.5 }}
             animate={{ x: [-3, 3, -3] }}
             transition={{ duration: 0.2, repeat: 2 }}
             onAnimationComplete={() => {}}
@@ -208,7 +210,7 @@ const PosterCard = ({ src, name, index }: { src: string; name: string; index: nu
       <img
         src={src}
         alt={name}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-contain bg-[#12001f]"
         loading="lazy"
       />
       <motion.div
@@ -239,7 +241,7 @@ const PixelGrid = ({ images, title }: { images: string[]; title: string }) => {
       {images.map((src, i) => (
         <motion.div
           key={i}
-          className="relative overflow-hidden"
+          className="relative overflow-hidden bg-[#12001f] p-2"
           style={{
             aspectRatio: single ? "16/9" : "3/4",
             border: `1px solid ${PE.magenta}30`,
@@ -251,7 +253,7 @@ const PixelGrid = ({ images, title }: { images: string[]; title: string }) => {
           transition={{ duration: 0.4, delay: i * 0.08 }}
           whileHover={{ scale: 1.02 }}
         >
-          <img src={src} alt={`${title} ${i + 1}`} className="w-full h-full object-cover" loading="lazy" />
+          <img src={src} alt={`${title} ${i + 1}`} className="w-full h-full object-contain" loading="lazy" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(10,0,16,0.4) 0%, transparent 60%)" }} />
           {/* Scan line accent */}
           <div className="absolute top-0 left-0 right-0 h-px" style={{ background: `linear-gradient(to right, ${PE.cyan}60, transparent)` }} />

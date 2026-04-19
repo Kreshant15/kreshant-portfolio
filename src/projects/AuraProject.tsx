@@ -92,7 +92,7 @@ const AuraGrid = ({ images, title, accent }: { images: string[]; title: string; 
           <img
             src={src}
             alt={`${title} ${i + 1}`}
-            className="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.04]"
+            className="w-full h-full object-contain transition-transform duration-700 hover:scale-[1.04] bg-[#0D1130] p-2"
             loading="lazy"
             decoding="async"
           />
@@ -427,7 +427,7 @@ export const AuraProject = () => {
                   transition={{ delay: i * 0.1 }}
                   whileHover={{ scale: 1.01 }}
                 >
-                  <img src={src} alt={`Gallery ${i + 1}`} className="w-full h-full object-cover" loading="lazy" />
+                  <img src={src} alt={`Gallery ${i + 1}`} className="w-full h-full object-contain bg-[#0D1130] p-2" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#080B1A]/60 to-transparent" />
                 </motion.div>
               ))}
@@ -445,29 +445,29 @@ export const AuraProject = () => {
           >
             <Glass className="p-10 text-center relative overflow-hidden">
               <div
-                className="absolute inset-0 opacity-30"
+                className="absolute inset-0 opacity-30 pointer-events-none"
                 style={{
                   background: `radial-gradient(circle at 50% 50%, ${AU.serenity}30, transparent 70%)`,
                 }}
               />
               <p
-                className="text-[10px] tracking-[0.4em] uppercase mb-4 opacity-50"
+                className="relative z-10 text-[10px] tracking-[0.4em] uppercase mb-4 opacity-50"
                 style={{ color: AU.serenity }}
               >
                 Interactive Experience
               </p>
               <h3
-                className="text-3xl font-black mb-4"
+                className="relative z-10 text-3xl font-black mb-4"
                 style={{ fontFamily: "'Syne', sans-serif", color: AU.text }}
               >
                 Try the Prototype
               </h3>
-              <p className="text-sm mb-8 max-w-md mx-auto" style={{ color: AU.muted }}>
+              <p className="relative z-10 text-sm mb-8 max-w-md mx-auto" style={{ color: AU.muted }}>
                 The prototype goes beyond static screens — interact with mood switching, live calibration, and dynamic UI responses.
               </p>
               <Link
                 to={project.prototypeUrl}
-                className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:scale-[1.02]"
+                className="relative z-10 inline-flex items-center gap-3 px-8 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:scale-[1.02]"
                 style={{
                   background: `linear-gradient(135deg, ${AU.serenity}, ${AU.calm})`,
                   color: AU.bg,

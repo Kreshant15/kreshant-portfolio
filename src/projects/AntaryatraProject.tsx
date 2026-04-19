@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
@@ -174,7 +174,7 @@ const SacredCard = ({ src, name, devanagari, index }: { src: string; name: strin
     transition={{ duration: 0.6, delay: index * 0.07 }}
     whileHover={{ scale: 1.02 }}
   >
-    <img src={src} alt={name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+    <img src={src} alt={name} className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 bg-[#1a0c00] p-2" loading="lazy" />
     <div
       className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex flex-col items-center justify-end p-4"
       style={{ background: `linear-gradient(to top, ${AT.bg}EE 0%, transparent 60%)` }}
@@ -205,7 +205,7 @@ const SacredGrid = ({ images, title }: { images: string[]; title: string }) => {
       {images.map((src, i) => (
         <motion.div
           key={i}
-          className="relative overflow-hidden group"
+          className="relative overflow-hidden group bg-[#1a0c00] p-2"
           style={{
             aspectRatio: single ? "16/9" : triple ? "2/3" : "3/4",
             border: `1px solid ${AT.gold}25`,
@@ -217,7 +217,7 @@ const SacredGrid = ({ images, title }: { images: string[]; title: string }) => {
           transition={{ duration: 0.55, delay: i * 0.1 }}
           whileHover={{ scale: 1.02 }}
         >
-          <img src={src} alt={`${title} ${i + 1}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+          <img src={src} alt={`${title} ${i + 1}`} className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105" loading="lazy" />
         </motion.div>
       ))}
     </div>
@@ -226,6 +226,7 @@ const SacredGrid = ({ images, title }: { images: string[]; title: string }) => {
 
 // ─── MAIN ──────────────────────────────────────────────────
 export const AntaryatraProject = () => {
+  const prefersReducedMotion = useReducedMotion();
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
@@ -282,7 +283,15 @@ export const AntaryatraProject = () => {
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
           style={{ rotate: mandalaRotate }}
         >
-          <Mandala size={600} opacity={0.06} />
+          <Mandala size={600} opacity={0.14} />
+        </motion.div>
+
+        <motion.div
+          className="absolute top-[18%] right-[10%] pointer-events-none"
+          animate={prefersReducedMotion ? undefined : { rotate: [0, -360] }}
+          transition={prefersReducedMotion ? undefined : { duration: 60, repeat: Infinity, ease: "linear" }}
+        >
+          <Mandala size={180} opacity={0.1} />
         </motion.div>
 
         {/* Hero text */}
@@ -462,8 +471,16 @@ export const AntaryatraProject = () => {
         </div>
 
         {/* Bottom ornament + nav */}
-        <div className="flex justify-center mb-16">
-          <Mandala size={120} opacity={0.3} />
+        <div className="flex justify-center gap-6 mb-16">
+          {[120, 90, 120].map((size, index) => (
+            <motion.div
+              key={size + index}
+              animate={prefersReducedMotion ? undefined : { rotate: index % 2 === 0 ? 360 : -360 }}
+              transition={prefersReducedMotion ? undefined : { duration: 28 + index * 6, repeat: Infinity, ease: "linear" }}
+            >
+              <Mandala size={size} opacity={index === 1 ? 0.4 : 0.28} />
+            </motion.div>
+          ))}
         </div>
 
         <motion.div
