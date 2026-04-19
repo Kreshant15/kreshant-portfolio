@@ -306,7 +306,7 @@ export const PixelEraProject = () => {
         {/* Hero BG — featured poster blurred */}
         <motion.div className="absolute inset-0" style={{ y: heroY, opacity: heroOpacity }}>
           <img
-            src="/images/projects/pixel/cover.webp"
+            src="/images/projects/pixel/Pixelation.webp"
             alt="Pixel Era"
             className="w-full h-full object-cover"
             loading="eager"

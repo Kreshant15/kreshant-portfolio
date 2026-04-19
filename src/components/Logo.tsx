@@ -1,126 +1,145 @@
 /**
- * kreshrts — Logo Component
- * Full logo system: icon · wordmark · lockup · favicon
+ * kreshrts — Logo Component v2
  *
- * Usage:
- *   <Logo />                        — full lockup, dark
- *   <Logo variant="wordmark" />     — wordmark only
- *   <Logo variant="icon" />         — square icon mark
- *   <Logo variant="favicon" />      — 32px icon, no animation
- *   <Logo theme="light" />          — soft light palette
- *   <Logo size="sm" />              — nav size (~40px height)
- *   <Logo size="md" />              — default
- *   <Logo size="lg" />              — hero / splash
- *   <Logo animated={false} />       — static, no hover
+ * Variants:
+ *   "lockup"   — icon + wordmark (default)
+ *   "wordmark" — text only
+ *   "icon"     — square mark only
+ *   "favicon"  — 32px static, no animation
+ *   "site"     — transparent icon bg, pastel gradient, matches portfolio cream bg
+ *
+ * Sizes:
+ *   "xs"  — mobile / footer small  (icon 24px, font 18px)
+ *   "sm"  — navbar                 (icon 32px, font 22px)
+ *   "md"  — default                (icon 56px, font 38px)
+ *   "lg"  — hero / splash          (icon 80px, font 54px)
+ *
+ * Props:
+ *   responsive  — uses CSS clamp() so the wordmark shrinks on mobile automatically
+ *   animated    — enables Framer Motion hover/tap (default true)
+ *
+ * Quick usage:
+ *   Navbar:  <Logo variant="site" size="sm" />
+ *   Footer:  <Logo variant="site" size="xs" />
+ *   Hero:    <Logo variant="site" size="lg" responsive />
+ *   Dark bg: <Logo size="md" />
+ *   Icon:    <Logo variant="icon" theme="dark" size="sm" />
  */
 
-import { motion, useMotionValue, useTransform, animate } from "motion/react";
-import { useEffect, useRef } from "react";
+import { motion } from "motion/react";
+import { useRef } from "react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type LogoVariant = "lockup" | "wordmark" | "icon" | "favicon";
+type LogoVariant = "lockup" | "wordmark" | "icon" | "favicon" | "site";
 type LogoTheme   = "dark" | "light";
-type LogoSize    = "sm" | "md" | "lg";
+type LogoSize    = "xs" | "sm" | "md" | "lg";
 
-interface LogoProps {
-  variant?:  LogoVariant;
-  theme?:    LogoTheme;
-  size?:     LogoSize;
-  animated?: boolean;
-  className?: string;
-  onClick?:  () => void;
+export interface LogoProps {
+  variant?:    LogoVariant;
+  theme?:      LogoTheme;
+  size?:       LogoSize;
+  animated?:   boolean;
+  responsive?: boolean;
+  className?:  string;
+  onClick?:    () => void;
 }
 
-// ─── Token maps ───────────────────────────────────────────────────────────────
+// ─── Size tokens ──────────────────────────────────────────────────────────────
 
-const SIZE = {
-  sm: { icon: 36, lockupHeight: 40, fontSize: 26, gap: 10, divH: 28 },
-  md: { icon: 72, lockupHeight: 72, fontSize: 52, gap: 16, divH: 56 },
-  lg: { icon: 96, lockupHeight: 96, fontSize: 68, gap: 20, divH: 76 },
-} as const;
-
-// Dark theme — vibrant holographic
-const DARK = {
-  bg:          "#0e0820",
-  border:      "rgba(248,114,198,0.35)",
-  dot1:        "#22d3ee",
-  dot2:        "#818cf8",
-  dot3:        "#f472b6",
-  gap:         "#0e0820",
-  wmGrad: [
-    { offset: "0%",   color: "#f9a8d4" },
-    { offset: "28%",  color: "#a5b4fc" },
-    { offset: "58%",  color: "#67e8f9" },
-    { offset: "100%", color: "#f472b6" },
-  ],
-  iconGrad: [
-    { offset: "0%",   color: "#f472b6" },
-    { offset: "42%",  color: "#818cf8" },
-    { offset: "100%", color: "#22d3ee" },
-  ],
-  divider: "rgba(132,90,248,0.28)",
+const SIZE: Record<LogoSize, { icon: number; font: number; gap: number; divH: number }> = {
+  xs: { icon: 24, font: 18, gap: 7,  divH: 14 },
+  sm: { icon: 32, font: 22, gap: 9,  divH: 20 },
+  md: { icon: 56, font: 38, gap: 14, divH: 40 },
+  lg: { icon: 80, font: 54, gap: 18, divH: 58 },
 };
 
-// Light theme — soft, desaturated, elegant
-const LIGHT = {
-  bg:          "#f2efe8",
-  border:      "rgba(139,92,246,0.2)",
-  dot1:        "#7dd3fc",   // sky-300
-  dot2:        "#c4b5fd",   // violet-300
-  dot3:        "#f9a8d4",   // pink-300
-  gap:         "#f2efe8",
-  wmGrad: [
-    { offset: "0%",   color: "#c084fc" },   // violet-400
-    { offset: "30%",  color: "#818cf8" },   // indigo-400
-    { offset: "65%",  color: "#38bdf8" },   // sky-400
-    { offset: "100%", color: "#a78bfa" },   // violet-400 soft
-  ],
-  iconGrad: [
-    { offset: "0%",   color: "#e879f9" },   // fuchsia-400
-    { offset: "42%",  color: "#818cf8" },   // indigo-400
-    { offset: "100%", color: "#38bdf8" },   // sky-400
-  ],
-  divider: "rgba(139,92,246,0.18)",
+// ─── Color themes ─────────────────────────────────────────────────────────────
+
+type GradStop = [string, string]; // [offset, color]
+
+interface ThemeTokens {
+  iconBg:     string;
+  iconBorder: string;
+  gapFill:    string;
+  dot1:       string;
+  dot2:       string;
+  dot3:       string;
+  iconGrad:   GradStop[];
+  wmGrad:     GradStop[];
+  divA:       string; // divider top color
+  divB:       string; // divider bottom color
+  transparent: boolean;
+}
+
+const THEMES: Record<"dark" | "light" | "site", ThemeTokens> = {
+  dark: {
+    iconBg:      "#0e0820",
+    iconBorder:  "rgba(248,114,198,0.38)",
+    gapFill:     "#0e0820",
+    dot1: "#22d3ee", dot2: "#818cf8", dot3: "#f472b6",
+    iconGrad: [["0%","#f472b6"],["42%","#818cf8"],["100%","#22d3ee"]],
+    wmGrad:   [["0%","#f9a8d4"],["28%","#a5b4fc"],["58%","#67e8f9"],["100%","#f472b6"]],
+    divA: "#818cf8", divB: "#22d3ee",
+    transparent: false,
+  },
+  light: {
+    iconBg:      "#f2efe8",
+    iconBorder:  "rgba(139,92,246,0.22)",
+    gapFill:     "#f2efe8",
+    dot1: "#7dd3fc", dot2: "#c4b5fd", dot3: "#f9a8d4",
+    iconGrad: [["0%","#e879f9"],["42%","#818cf8"],["100%","#38bdf8"]],
+    wmGrad:   [["0%","#c084fc"],["30%","#818cf8"],["65%","#38bdf8"],["100%","#a78bfa"]],
+    divA: "#818cf8", divB: "#38bdf8",
+    transparent: false,
+  },
+  // "site" variant — transparent icon bg, soft pastel gradient wordmark
+  // designed to sit on your portfolio's cream #f0ece3 background
+  site: {
+    iconBg:      "transparent",
+    iconBorder:  "rgba(167,139,250,0.18)",
+    gapFill:     "transparent",          // punches through to whatever bg is behind
+    dot1: "#a5b4fc", dot2: "#c4b5fd", dot3: "#f9a8d4",
+    iconGrad: [["0%","#f9a8d4"],["45%","#a5b4fc"],["100%","#67e8f9"]],
+    // warm pink → violet → sky — soft pastels that match portfolio accent palette
+    wmGrad:   [["0%","#f472b6"],["32%","#a78bfa"],["68%","#67e8f9"],["100%","#f9a8d4"]],
+    divA: "#a78bfa", divB: "#67e8f9",
+    transparent: true,
+  },
 };
 
-// ─── Gradient ID factory (unique per instance to avoid SVG conflicts) ─────────
+// ─── UID factory — prevents SVG gradient ID collisions across instances ───────
 
-let _id = 0;
-const uid = () => `kr${++_id}`;
+let _counter = 0;
+const uid = () => `kr${++_counter}`;
 
-// ─── Sub-components ───────────────────────────────────────────────────────────
+// ─── KMark SVG ────────────────────────────────────────────────────────────────
 
-/** The K mark — three rounded strokes + junction gap + dissolving dots */
-function KMark({
-  size,
-  theme,
-  ids,
-}: {
+interface KMarkProps {
   size: number;
-  theme: LogoTheme;
-  ids: { ig: string; gf: string };
-}) {
-  const tk = theme === "dark" ? DARK : LIGHT;
-  const sw = Math.max(9, size * 0.138);   // stroke-width scales with icon size
-  const r  = size / 96;                    // scale factor from 96px master
+  tk:   ThemeTokens;
+  ids:  { ig: string; gf: string };
+}
 
-  // All coordinates are in 96×96 master space, scaled via transform
+function KMark({ size, tk, ids }: KMarkProps) {
+  const sw = Math.max(7, size * 0.196); // stroke width scales with size
+
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 96 96"
       xmlns="http://www.w3.org/2000/svg"
-      style={{ flexShrink: 0 }}
+      style={{ display: "block", flexShrink: 0 }}
+      aria-hidden="true"
     >
       <defs>
         <linearGradient id={ids.ig} x1="0%" y1="0%" x2="100%" y2="100%">
-          {tk.iconGrad.map((s) => (
-            <stop key={s.offset} offset={s.offset} stopColor={s.color} />
+          {tk.iconGrad.map(([o, c]) => (
+            <stop key={o} offset={o} stopColor={c} />
           ))}
         </linearGradient>
-        <filter id={ids.gf} x="-25%" y="-25%" width="150%" height="150%">
+        <filter id={ids.gf} x="-30%" y="-30%" width="160%" height="160%">
           <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="b" />
           <feMerge>
             <feMergeNode in="b" />
@@ -129,14 +148,18 @@ function KMark({
         </filter>
       </defs>
 
-      {/* Background square */}
-      <rect width="96" height="96" rx="22" fill={tk.bg} />
+      {/* Solid background — only for dark/light, hidden for site */}
+      {!tk.transparent && (
+        <rect width="96" height="96" rx="22" fill={tk.iconBg} />
+      )}
+
+      {/* Border ring */}
       <rect
         x="1" y="1" width="94" height="94" rx="21"
         fill="none"
-        stroke={`url(#${ids.ig})`}
-        strokeWidth="0.75"
-        opacity="0.4"
+        stroke={tk.transparent ? tk.iconBorder : `url(#${ids.ig})`}
+        strokeWidth={tk.transparent ? "1" : "0.75"}
+        opacity={tk.transparent ? "0.5" : "0.4"}
       />
 
       {/* Stem */}
@@ -147,6 +170,7 @@ function KMark({
         strokeLinecap="round"
         filter={`url(#${ids.gf})`}
       />
+
       {/* Upper arm */}
       <line
         x1="26" y1="50" x2="68" y2="16"
@@ -155,6 +179,7 @@ function KMark({
         strokeLinecap="round"
         filter={`url(#${ids.gf})`}
       />
+
       {/* Lower arm — curved */}
       <path
         d="M26,52 Q46,62 70,80"
@@ -165,181 +190,164 @@ function KMark({
         filter={`url(#${ids.gf})`}
       />
 
-      {/* Junction gap — punches clean space at intersection */}
-      <circle cx="29" cy="51" r="4.5" fill={tk.gap} />
+      {/* Junction gap — punches clean hole at stroke intersection */}
+      <circle cx="29" cy="51" r="5" fill={tk.gapFill} />
 
-      {/* Dissolving dot trail off upper arm tip */}
-      <circle cx="72" cy="14" r="3.2" fill={tk.dot1} opacity="0.9" filter={`url(#${ids.gf})`} />
-      <circle cx="81" cy="10" r="2.1" fill={tk.dot2} opacity="0.6" />
-      <circle cx="88" cy="7"  r="1.3" fill={tk.dot3} opacity="0.32" />
+      {/* Dissolving dot trail — pixel signature */}
+      <circle cx="72" cy="14" r="3.2" fill={tk.dot1} opacity="0.9"  filter={`url(#${ids.gf})`} />
+      <circle cx="81" cy="10" r="2.1" fill={tk.dot2} opacity="0.65" />
+      <circle cx="88" cy="7"  r="1.3" fill={tk.dot3} opacity="0.35" />
     </svg>
   );
 }
 
-/** Wordmark SVG text — Unbounded 900, full kreshrts, gradient fill */
-function Wordmark({
-  fontSize,
-  theme,
-  ids,
-  animated,
-}: {
-  fontSize: number;
-  theme: LogoTheme;
-  ids: { wg: string; gf: string };
-  animated: boolean;
-}) {
-  const tk = theme === "dark" ? DARK : LIGHT;
-  // Approximate text width for viewBox (Unbounded is wide)
-  const approxW = fontSize * 7.4;
-  const h       = fontSize * 1.28;
+// ─── Wordmark (CSS gradient text — no SVG, works at all sizes) ────────────────
+
+interface WordmarkProps {
+  fontSize:   number;
+  tk:         ThemeTokens;
+  responsive: boolean;
+}
+
+function Wordmark({ fontSize, tk, responsive }: WordmarkProps) {
+  // CSS clamp: scales fluidly between ~75% size on mobile → full size on desktop
+  const fz = responsive
+    ? `clamp(${Math.round(fontSize * 0.72)}px, ${+(fontSize / 14).toFixed(2)}vw, ${fontSize}px)`
+    : `${fontSize}px`;
+
+  const gradientCss = `linear-gradient(110deg, ${tk.wmGrad
+    .map(([o, c]) => `${c} ${o}`)
+    .join(", ")})`;
 
   return (
+    <span
+      style={{
+        fontFamily:            "'Unbounded', sans-serif",
+        fontWeight:            900,
+        fontSize:              fz,
+        letterSpacing:         "-0.03em",
+        lineHeight:            1,
+        background:            gradientCss,
+        WebkitBackgroundClip:  "text",
+        WebkitTextFillColor:   "transparent",
+        backgroundClip:        "text",
+        // small bottom padding so descenders don't clip the gradient
+        paddingBottom:         "0.1em",
+        display:               "inline-block",
+        whiteSpace:            "nowrap",
+      }}
+    >
+      kreshrts
+    </span>
+  );
+}
+
+// ─── Divider ──────────────────────────────────────────────────────────────────
+
+function Divider({ height, tk, id }: { height: number; tk: ThemeTokens; id: string }) {
+  return (
     <svg
-      viewBox={`0 0 ${approxW} ${h}`}
-      height={fontSize}
-      style={{ overflow: "visible" }}
+      width="1"
+      height={height}
+      viewBox={`0 0 1 ${height}`}
+      style={{ flexShrink: 0, opacity: tk.transparent ? 0.18 : 0.28 }}
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
-        <linearGradient id={ids.wg} x1="0%" y1="20%" x2="100%" y2="80%">
-          {tk.wmGrad.map((s) => (
-            <stop key={s.offset} offset={s.offset} stopColor={s.color} />
-          ))}
+        <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stopColor="transparent" />
+          <stop offset="35%"  stopColor={tk.divA} />
+          <stop offset="65%"  stopColor={tk.divB} />
+          <stop offset="100%" stopColor="transparent" />
         </linearGradient>
-        <filter id={ids.gf} x="-5%" y="-10%" width="110%" height="120%">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="b" />
-          <feMerge>
-            <feMergeNode in="b" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
       </defs>
-      <text
-        x="2"
-        y={fontSize * 0.88}
-        fontFamily="'Unbounded', sans-serif"
-        fontWeight="900"
-        fontSize={fontSize}
-        letterSpacing={-fontSize * 0.03}
-        fill={`url(#${ids.wg})`}
-        filter={animated ? `url(#${ids.gf})` : undefined}
-      >
-        kreshrts
-      </text>
+      <rect width="1" height={height} fill={`url(#${id})`} />
     </svg>
   );
 }
 
-// ─── Main Logo component ──────────────────────────────────────────────────────
+// ─── Main Logo export ─────────────────────────────────────────────────────────
 
 export const Logo = ({
-  variant  = "lockup",
-  theme    = "dark",
-  size     = "md",
-  animated = true,
-  className = "",
+  variant    = "lockup",
+  theme      = "dark",
+  size       = "md",
+  animated   = true,
+  responsive = false,
+  className  = "",
   onClick,
 }: LogoProps) => {
   const s   = SIZE[size];
+  const tk  = variant === "site" ? THEMES.site : THEMES[theme];
   const ids = useRef({
-    ig: uid(), gf: uid(), wg: uid(), wg2: uid(), gf2: uid(),
+    ig: uid(), gf: uid(), dg: uid(),
   }).current;
 
-  // ── FAVICON — no animation, smallest footprint
+  const spring = { type: "spring" as const, stiffness: 420, damping: 20 };
+  const hoverScale = animated ? { whileHover: { scale: 1.04 }, whileTap: { scale: 0.96 }, transition: spring } : {};
+
+  // ── favicon: smallest static mark, no wrapper motion
   if (variant === "favicon") {
-    return (
-      <KMark size={32} theme={theme} ids={{ ig: ids.ig, gf: ids.gf }} />
-    );
+    return <KMark size={32} tk={THEMES.dark} ids={{ ig: ids.ig, gf: ids.gf }} />;
   }
 
-  // ── ICON ONLY
+  // ── icon only
   if (variant === "icon") {
     return (
       <motion.div
         className={className}
         style={{ display: "inline-flex", cursor: onClick ? "pointer" : "default" }}
-        whileHover={animated ? { scale: 1.06, rotate: -1 } : undefined}
-        whileTap={animated   ? { scale: 0.94 }             : undefined}
-        transition={{ type: "spring", stiffness: 420, damping: 18 }}
         onClick={onClick}
+        {...(animated
+          ? { whileHover: { scale: 1.06, rotate: -2 }, whileTap: { scale: 0.94 }, transition: { type: "spring", stiffness: 500, damping: 18 } }
+          : {})}
       >
-        <KMark size={s.icon} theme={theme} ids={{ ig: ids.ig, gf: ids.gf }} />
+        <KMark size={s.icon} tk={tk} ids={{ ig: ids.ig, gf: ids.gf }} />
       </motion.div>
     );
   }
 
-  // ── WORDMARK ONLY
+  // ── wordmark only
   if (variant === "wordmark") {
     return (
       <motion.div
         className={className}
         style={{ display: "inline-flex", cursor: onClick ? "pointer" : "default" }}
-        whileHover={animated ? { scale: 1.03 } : undefined}
-        whileTap={animated   ? { scale: 0.97 } : undefined}
-        transition={{ type: "spring", stiffness: 400, damping: 20 }}
         onClick={onClick}
+        {...hoverScale}
       >
-        <Wordmark
-          fontSize={s.fontSize}
-          theme={theme}
-          ids={{ wg: ids.wg, gf: ids.gf2 }}
-          animated={animated}
-        />
+        <Wordmark fontSize={s.font} tk={tk} responsive={responsive} />
       </motion.div>
     );
   }
 
-  // ── FULL LOCKUP (default)
-  const dividerColor = theme === "dark" ? DARK.divider : LIGHT.divider;
-
+  // ── lockup + site: icon · divider · wordmark
   return (
     <motion.div
       className={className}
       style={{
-        display:     "inline-flex",
-        alignItems:  "center",
-        gap:         s.gap,
-        cursor:      onClick ? "pointer" : "default",
-        userSelect:  "none",
+        display:    "inline-flex",
+        alignItems: "center",
+        gap:        s.gap,
+        cursor:     onClick ? "pointer" : "default",
+        userSelect: "none",
       }}
-      whileHover={animated ? { scale: 1.025 } : undefined}
-      whileTap={animated   ? { scale: 0.97  } : undefined}
-      transition={{ type: "spring", stiffness: 380, damping: 22 }}
       onClick={onClick}
+      {...hoverScale}
     >
-      {/* Icon mark */}
       <motion.div
-        whileHover={animated ? { rotate: -2, scale: 1.05 } : undefined}
-        transition={{ type: "spring", stiffness: 500, damping: 16 }}
+        style={{ flexShrink: 0 }}
+        {...(animated
+          ? { whileHover: { rotate: -3, scale: 1.07 }, transition: { type: "spring", stiffness: 500, damping: 16 } }
+          : {})}
       >
-        <KMark size={s.icon} theme={theme} ids={{ ig: ids.ig, gf: ids.gf }} />
+        <KMark size={s.icon} tk={tk} ids={{ ig: ids.ig, gf: ids.gf }} />
       </motion.div>
 
-      {/* Thin gradient divider */}
-      <svg
-        width="1"
-        height={s.divH}
-        viewBox={`0 0 1 ${s.divH}`}
-        style={{ flexShrink: 0, opacity: 0.3 }}
-      >
-        <defs>
-          <linearGradient id={ids.wg2} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"   stopColor="transparent" />
-            <stop offset="30%"  stopColor={theme === "dark" ? "#818cf8" : "#818cf8"} />
-            <stop offset="70%"  stopColor={theme === "dark" ? "#22d3ee" : "#38bdf8"} />
-            <stop offset="100%" stopColor="transparent" />
-          </linearGradient>
-        </defs>
-        <rect width="1" height={s.divH} fill={`url(#${ids.wg2})`} />
-      </svg>
+      <Divider height={s.divH} tk={tk} id={ids.dg} />
 
-      {/* Wordmark */}
-      <Wordmark
-        fontSize={s.fontSize}
-        theme={theme}
-        ids={{ wg: ids.wg, gf: ids.gf2 }}
-        animated={animated}
-      />
+      <Wordmark fontSize={s.font} tk={tk} responsive={responsive} />
     </motion.div>
   );
 };
