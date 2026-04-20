@@ -293,7 +293,7 @@ export const ProjectDetailPage = () => {
                       <img
                         src={img}
                         alt={`${section.title} ${i}`}
-                        className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                        className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                         loading="lazy"
                         decoding="async"
                       />
@@ -329,7 +329,7 @@ export const ProjectDetailPage = () => {
                   <img
                     src={img}
                     alt={`Project ${i + 1}`}
-                    className="w-full h-full object-contain transition-transform duration-500 hover:scale-105"
+                    className="w-full h-auto object-contain transition-transform duration-500 hover:scale-105"
                     loading="lazy"
                     decoding="async"
                   />

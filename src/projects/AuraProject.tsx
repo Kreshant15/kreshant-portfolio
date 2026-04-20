@@ -73,13 +73,12 @@ const AuraGrid = ({ images, title, accent }: { images: string[]; title: string; 
   const triple = images.length === 3;
 
   return (
-    <div className={`grid gap-4 mt-10 ${single ? "grid-cols-1" : triple ? "grid-cols-3" : "grid-cols-2"}`}>
+    <div className={`grid gap-4 mt-10 ${single ? "grid-cols-1" : triple ? "grid-cols-1 md:grid-cols-2 xl:grid-cols-3" : "grid-cols-1 md:grid-cols-2"}`}>
       {images.map((src, i) => (
         <motion.div
           key={i}
           className="relative overflow-hidden rounded-2xl"
           style={{
-            aspectRatio: single ? "16/9" : "4/3",
             border: "1px solid rgba(255,255,255,0.07)",
             boxShadow: `0 0 40px ${accent}22`,
           }}
@@ -92,7 +91,7 @@ const AuraGrid = ({ images, title, accent }: { images: string[]; title: string; 
           <img
             src={src}
             alt={`${title} ${i + 1}`}
-            className="w-full h-full object-contain transition-transform duration-700 hover:scale-[1.04] bg-[#0D1130] p-2"
+            className="w-full h-auto object-contain transition-transform duration-700 hover:scale-[1.04] bg-[#0D1130] p-2"
             loading="lazy"
             decoding="async"
           />
@@ -417,7 +416,6 @@ export const AuraProject = () => {
                   key={i}
                   className="relative overflow-hidden rounded-2xl"
                   style={{
-                    aspectRatio: "16/9",
                     border: "1px solid rgba(255,255,255,0.06)",
                     boxShadow: `0 0 60px ${AU.serenity}18`,
                   }}
@@ -427,7 +425,7 @@ export const AuraProject = () => {
                   transition={{ delay: i * 0.1 }}
                   whileHover={{ scale: 1.01 }}
                 >
-                  <img src={src} alt={`Gallery ${i + 1}`} className="w-full h-full object-contain bg-[#0D1130] p-2" loading="lazy" />
+                  <img src={src} alt={`Gallery ${i + 1}`} className="w-full h-auto object-contain bg-[#0D1130] p-2" loading="lazy" />
                   <div className="absolute inset-0 bg-linear-to-t from-[#080B1A]/60 to-transparent" />
                 </motion.div>
               ))}

@@ -185,8 +185,7 @@ const PosterCard = ({ src, name, index }: { src: string; name: string; index: nu
 
   return (
     <motion.div
-      className="relative overflow-hidden cursor-pointer"
-      style={{ aspectRatio: "2/3" }}
+      className="relative overflow-hidden cursor-pointer bg-[#12001f] p-3 border border-fuchsia-500/20"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -210,7 +209,7 @@ const PosterCard = ({ src, name, index }: { src: string; name: string; index: nu
       <img
         src={src}
         alt={name}
-        className="w-full h-full object-contain bg-[#12001f]"
+        className="w-full h-auto"
         loading="lazy"
       />
       <motion.div
@@ -237,13 +236,12 @@ const PixelGrid = ({ images, title }: { images: string[]; title: string }) => {
   const triple = images.length === 3;
 
   return (
-    <div className={`grid gap-3 mt-10 ${single ? "grid-cols-1" : triple ? "grid-cols-3" : "grid-cols-2"}`}>
+    <div className={`grid gap-4 mt-10 ${single ? "grid-cols-1" : triple ? "grid-cols-1 md:grid-cols-2 xl:grid-cols-3" : "grid-cols-1 md:grid-cols-2"}`}>
       {images.map((src, i) => (
         <motion.div
           key={i}
-          className="relative overflow-hidden bg-[#12001f] p-2"
+          className="relative overflow-hidden bg-[#12001f] p-3"
           style={{
-            aspectRatio: single ? "16/9" : "3/4",
             border: `1px solid ${PE.magenta}30`,
             boxShadow: `0 0 20px ${PE.magenta}15, inset 0 0 20px rgba(0,0,0,0.5)`,
           }}
@@ -253,7 +251,7 @@ const PixelGrid = ({ images, title }: { images: string[]; title: string }) => {
           transition={{ duration: 0.4, delay: i * 0.08 }}
           whileHover={{ scale: 1.02 }}
         >
-          <img src={src} alt={`${title} ${i + 1}`} className="w-full h-full object-contain" loading="lazy" />
+          <img src={src} alt={`${title} ${i + 1}`} className="w-full h-auto" loading="lazy" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(10,0,16,0.4) 0%, transparent 60%)" }} />
           {/* Scan line accent */}
           <div className="absolute top-0 left-0 right-0 h-px" style={{ background: `linear-gradient(to right, ${PE.cyan}60, transparent)` }} />
@@ -456,7 +454,7 @@ export const PixelEraProject = () => {
           <h2 className="text-2xl font-black mb-10" style={{ color: PE.white }}>
             All Posters
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             {caseStudy.posters.map((poster, i) => (
               <PosterCard key={i} src={poster.src} name={poster.name} index={i} />
             ))}

@@ -212,19 +212,18 @@ const GameGrid = ({ images, title }: { images: string[]; title: string }) => {
   const triple = images.length === 3;
 
   return (
-    <div className={`grid gap-4 mt-10 ${single ? "grid-cols-1" : triple ? "grid-cols-3" : "grid-cols-2"}`}>
+    <div className={`grid gap-4 mt-10 ${single ? "grid-cols-1" : triple ? "grid-cols-1 md:grid-cols-2 xl:grid-cols-3" : "grid-cols-1 md:grid-cols-2"}`}>
       {images.map((src, i) => (
         <motion.div
           key={i}
           className="relative overflow-hidden rounded-2xl border-2 border-black shadow-[3px_3px_0px_#1A0F00] bg-[#2B1807] p-2"
-          style={{ aspectRatio: single ? "16/9" : "4/3" }}
           initial={{ opacity: 0, y: 20, scale: 0.96 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: i * 0.08 }}
           whileHover={{ scale: 1.03, rotate: i % 2 === 0 ? 0.5 : -0.5 }}
         >
-          <img src={src} alt={`${title} ${i + 1}`} className="w-full h-full object-contain" loading="lazy" />
+          <img src={src} alt={`${title} ${i + 1}`} className="w-full h-auto" loading="lazy" />
         </motion.div>
       ))}
     </div>
@@ -239,7 +238,6 @@ const ScreenCard = ({ src, label, index }: { src: string; label: string; index: 
     <motion.div
       className="relative overflow-hidden rounded-2xl border-2 border-black cursor-pointer bg-[#2B1807] p-2"
       style={{
-        aspectRatio: "4/3",
         boxShadow: hovered ? `0 8px 0 #1A0F00` : `4px 4px 0 #1A0F00`,
         transition: "box-shadow 0.15s",
       }}
@@ -251,7 +249,7 @@ const ScreenCard = ({ src, label, index }: { src: string; label: string; index: 
       onHoverEnd={() => setHovered(false)}
       whileHover={{ y: -4 }}
     >
-      <img src={src} alt={label} className="w-full h-full object-contain" loading="lazy" />
+      <img src={src} alt={label} className="w-full h-auto" loading="lazy" />
       <AnimatePresence>
         {hovered && (
           <motion.div
@@ -492,7 +490,7 @@ export const BananaQuestProject = () => {
           >
             The Complete Game 🎮
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             {caseStudy.screens.map((screen, i) => (
               <ScreenCard key={i} src={screen.src} label={screen.label} index={i} />
             ))}

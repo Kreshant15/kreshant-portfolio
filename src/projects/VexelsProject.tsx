@@ -63,7 +63,7 @@ const ComicGrid = ({ images, title, accent }: { images: string[]; title: string;
   const single = images.length === 1;
 
   return (
-    <div className={`grid gap-4 mt-8 ${single ? "grid-cols-1" : images.length === 3 ? "grid-cols-3" : "grid-cols-2"}`}>
+    <div className={`grid gap-4 mt-8 ${single ? "grid-cols-1" : images.length === 3 ? "grid-cols-1 md:grid-cols-2 xl:grid-cols-3" : "grid-cols-1 md:grid-cols-2"}`}>
       {images.map((src, i) => (
         <motion.div
           key={i}
@@ -73,12 +73,11 @@ const ComicGrid = ({ images, title, accent }: { images: string[]; title: string;
           viewport={{ once: true }}
           transition={{ duration: 0.35, delay: i * 0.07 }}
           whileHover={{ rotate: i % 2 === 0 ? 0.5 : -0.5, scale: 1.02 }}
-          style={{ aspectRatio: single ? "16/9" : "4/3" }}
         >
           <img
             src={src}
             alt={`${title} ${i + 1}`}
-            className="w-full h-full object-contain bg-[#fff7de] p-2"
+            className="w-full h-auto object-contain bg-[#fff7de] p-2"
             loading="lazy"
             decoding="async"
           />
@@ -312,14 +311,13 @@ export const VexelsProject = () => {
                 <motion.div
                   key={i}
                   className="relative overflow-hidden border-2 border-black shadow-[5px_5px_0px_#231400]"
-                  style={{ aspectRatio: "16/9" }}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                   whileHover={{ scale: 1.01 }}
                 >
-                  <img src={src} alt={`Gallery ${i + 1}`} className="w-full h-full object-contain bg-[#fff7de] p-2" loading="lazy" />
+                  <img src={src} alt={`Gallery ${i + 1}`} className="w-full h-auto object-contain bg-[#fff7de] p-2" loading="lazy" />
                 </motion.div>
               ))}
             </div>
