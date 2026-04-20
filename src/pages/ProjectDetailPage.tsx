@@ -284,6 +284,7 @@ export const ProjectDetailPage = () => {
                     <motion.div
                       key={i}
                       className={`group relative overflow-hidden rounded-2xl shadow-md bg-neutral-100 p-2 ${getCenteredOddImageClass(i, section.images.length)}`}
+                      style={section.images.length > 1 ? { aspectRatio: "4 / 3" } : undefined}
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
@@ -293,7 +294,7 @@ export const ProjectDetailPage = () => {
                       <img
                         src={img}
                         alt={`${section.title} ${i}`}
-                        className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                        className={`w-full ${section.images.length > 1 ? "h-full object-cover" : "h-auto object-contain"} transition-transform duration-500 group-hover:scale-105`}
                         loading="lazy"
                         decoding="async"
                       />
@@ -320,6 +321,7 @@ export const ProjectDetailPage = () => {
                 <motion.div 
                   key={i} 
                   className={`rounded-xl overflow-hidden shadow-md bg-neutral-100 p-2 ${getCenteredOddImageClass(i, project.gallery.length)}`}
+                  style={project.gallery.length > 1 ? { aspectRatio: "4 / 3" } : undefined}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -329,7 +331,7 @@ export const ProjectDetailPage = () => {
                   <img
                     src={img}
                     alt={`Project ${i + 1}`}
-                    className="w-full h-auto object-contain transition-transform duration-500 hover:scale-105"
+                    className={`w-full ${project.gallery.length > 1 ? "h-full object-cover" : "h-auto object-contain"} transition-transform duration-500 hover:scale-105`}
                     loading="lazy"
                     decoding="async"
                   />

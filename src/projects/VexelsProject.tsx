@@ -63,11 +63,12 @@ const ComicGrid = ({ images, title, accent }: { images: string[]; title: string;
   const single = images.length === 1;
 
   return (
-    <div className={`grid gap-4 mt-8 ${single ? "grid-cols-1" : images.length === 3 ? "grid-cols-1 md:grid-cols-2 xl:grid-cols-3" : "grid-cols-1 md:grid-cols-2"}`}>
+    <div className={`grid gap-4 mt-8 ${single ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2"}`}>
       {images.map((src, i) => (
         <motion.div
           key={i}
           className="relative overflow-hidden border-2 border-black shadow-[4px_4px_0px_#231400]"
+          style={single ? undefined : { aspectRatio: "4 / 3" }}
           initial={{ opacity: 0, scale: 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -77,7 +78,7 @@ const ComicGrid = ({ images, title, accent }: { images: string[]; title: string;
           <img
             src={src}
             alt={`${title} ${i + 1}`}
-            className="w-full h-auto object-contain bg-[#fff7de] p-2"
+            className={`w-full ${single ? "h-auto object-contain" : "h-full object-cover"} bg-[#fff7de] p-2`}
             loading="lazy"
             decoding="async"
           />

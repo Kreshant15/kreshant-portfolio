@@ -197,15 +197,14 @@ const SacredCard = ({ src, name, devanagari, index }: { src: string; name: strin
 const SacredGrid = ({ images, title }: { images: string[]; title: string }) => {
   if (!images.length) return null;
   const single = images.length === 1;
-  const triple = images.length === 3;
-
   return (
-    <div className={`grid gap-4 mt-10 ${single ? "grid-cols-1" : triple ? "grid-cols-1 md:grid-cols-2 xl:grid-cols-3" : "grid-cols-1 md:grid-cols-2"}`}>
+    <div className={`grid gap-4 mt-10 ${single ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2"}`}>
       {images.map((src, i) => (
         <motion.div
           key={i}
           className="relative overflow-hidden group bg-[#1a0c00] p-2"
           style={{
+            ...(single ? {} : { aspectRatio: "3 / 4" }),
             border: `1px solid ${AT.gold}25`,
             boxShadow: `0 8px 40px rgba(0,0,0,0.6), inset 0 1px 0 ${AT.gold}15`,
           }}
@@ -215,7 +214,7 @@ const SacredGrid = ({ images, title }: { images: string[]; title: string }) => {
           transition={{ duration: 0.55, delay: i * 0.1 }}
           whileHover={{ scale: 1.02 }}
         >
-          <img src={src} alt={`${title} ${i + 1}`} className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+          <img src={src} alt={`${title} ${i + 1}`} className={`w-full ${single ? "h-auto object-contain" : "h-full object-cover"} transition-transform duration-700 group-hover:scale-105`} loading="lazy" />
         </motion.div>
       ))}
     </div>
@@ -455,7 +454,7 @@ export const AntaryatraProject = () => {
           >
             All Nine Concepts
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {caseStudy.posters.map((poster, i) => (
               <SacredCard
                 key={i}

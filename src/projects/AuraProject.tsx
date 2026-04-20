@@ -70,15 +70,14 @@ const Glass = ({ children, className = "" }: { children: React.ReactNode; classN
 const AuraGrid = ({ images, title, accent }: { images: string[]; title: string; accent: string }) => {
   if (!images.length) return null;
   const single = images.length === 1;
-  const triple = images.length === 3;
-
   return (
-    <div className={`grid gap-4 mt-10 ${single ? "grid-cols-1" : triple ? "grid-cols-1 md:grid-cols-2 xl:grid-cols-3" : "grid-cols-1 md:grid-cols-2"}`}>
+    <div className={`grid gap-4 mt-10 ${single ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2"}`}>
       {images.map((src, i) => (
         <motion.div
           key={i}
           className="relative overflow-hidden rounded-2xl"
           style={{
+            ...(single ? {} : { aspectRatio: "4 / 3" }),
             border: "1px solid rgba(255,255,255,0.07)",
             boxShadow: `0 0 40px ${accent}22`,
           }}
@@ -91,7 +90,7 @@ const AuraGrid = ({ images, title, accent }: { images: string[]; title: string; 
           <img
             src={src}
             alt={`${title} ${i + 1}`}
-            className="w-full h-auto object-contain transition-transform duration-700 hover:scale-[1.04] bg-[#0D1130] p-2"
+            className={`w-full ${single ? "h-auto object-contain" : "h-full object-cover"} transition-transform duration-700 hover:scale-[1.04] bg-[#0D1130] p-2`}
             loading="lazy"
             decoding="async"
           />

@@ -60,13 +60,14 @@ const ImgGrid = ({ images, title }: { images: string[]; title: string }) => {
   return (
     <div
       className={`grid gap-3 mt-8 ${
-        single ? "grid-cols-1" : triple ? "grid-cols-1 md:grid-cols-2 xl:grid-cols-3" : "grid-cols-1 md:grid-cols-2"
+        single ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2"
       }`}
     >
       {images.map((src, i) => (
         <motion.div
           key={i}
           className="relative overflow-hidden"
+          style={single ? undefined : { aspectRatio: "4 / 3" }}
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -79,7 +80,7 @@ const ImgGrid = ({ images, title }: { images: string[]; title: string }) => {
           <img
             src={src}
             alt={`${title} ${i + 1}`}
-            className="w-full h-auto object-contain transition-transform duration-700 hover:scale-105 bg-[#0a0a0a] p-2"
+            className={`w-full ${single ? "h-auto object-contain" : "h-full object-cover"} transition-transform duration-700 hover:scale-105 bg-[#0a0a0a] p-2`}
             loading="lazy"
             decoding="async"
           />
