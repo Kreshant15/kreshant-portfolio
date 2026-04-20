@@ -127,7 +127,12 @@ export const Navbar = () => {
 
           {/* Logo */}
           <Link to="/" aria-label="Kreshant Kumar — Home">
-            <Logo variant="site" size="sm" />
+            <span className="block md:hidden">
+              <Logo variant="site" size="xs" />
+            </span>
+            <span className="hidden md:block">
+              <Logo variant="site" size="sm" />
+            </span>
           </Link>
 
           {/* Desktop links */}
@@ -282,7 +287,7 @@ export const Navbar = () => {
               {/* ── Drawer header ── */}
               <div className="relative flex items-center justify-between px-6 py-5 border-b border-neutral-200/60">
                 <Link to="/" onClick={() => setIsOpen(false)} aria-label="Home">
-                  <Logo />
+                  <Logo variant="site" size="xs" />
                 </Link>
                 <motion.button
                   whileTap={{ scale: 0.9 }}

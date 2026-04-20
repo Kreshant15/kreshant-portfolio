@@ -138,7 +138,12 @@ export const Footer = () => {
         {/* Main row */}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <Logo />
+            <span className="block md:hidden">
+              <Logo variant="site" size="xs" />
+            </span>
+            <span className="hidden md:block">
+              <Logo variant="site" size="sm" />
+            </span>
 
             <nav aria-label="Footer navigation" className="flex flex-wrap justify-center gap-x-7 gap-y-2">
               {navLinks.map(({ label, href }) => (
