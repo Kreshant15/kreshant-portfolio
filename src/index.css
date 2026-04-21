@@ -5,6 +5,7 @@
    Caveat         — handwritten accent (retired from main UI, kept for fallback)
    JetBrains Mono — mono labels, tags, counters
 ───────────────────────────────────────────────────────────────── */
+@import './sketchbook.css';
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Caveat:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;700&display=swap');
