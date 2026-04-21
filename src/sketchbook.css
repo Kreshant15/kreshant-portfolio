@@ -15,13 +15,14 @@
   --sb-margin:       rgba(220, 100, 100, 0.25);
   --sb-violet:       #7c3aed;
   --sb-violet-light: #c4b5fd;
-  --sb-shadow:       rgba(0, 0, 0, 0.12);
-  --sb-shadow-deep:  rgba(0, 0, 0, 0.18);
-  --sb-card-bg:      #ffffff;
+  --sb-shadow:       rgba(0, 0, 0, 0.08);
+  --sb-shadow-deep:  rgba(0, 0, 0, 0.15);
+  --sb-card-bg:      rgba(255, 255, 255, 0.85); /* Glassy card */
   --sb-notebook-bg:  #ffffff;
   --sb-sticky-1:     #fff9c4;
-  --sb-sticky-2:     #c8f5e0;
-  --sb-sticky-3:     #ffd6e0;
+  --sb-sticky-2:     #dcedc8;
+  --sb-sticky-3:     #ffcdd2;
+  --sb-lamp-warm:    rgba(255, 230, 180, 0.15);
   --sb-transition:   background 0.5s ease, color 0.4s ease, border-color 0.4s ease;
 }
 
@@ -105,17 +106,40 @@
   transition: var(--sb-transition);
 }
 
-/* Paper texture — craft aesthetic */
+/* Notebook texture — more realistic desk grain */
 .sketchbook-main::after {
   content: '';
   position: fixed;
   inset: 0;
   background: 
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
-    radial-gradient(circle at 20% 30%, rgba(255,200,150,0.02) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(100,150,200,0.02) 0%, transparent 50%);
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"),
+    radial-gradient(circle at 70% 10%, var(--sb-lamp-warm) 0%, transparent 60%);
   pointer-events: none;
-  z-index: 0;
+  z-index: 10; /* Above most things for lamp effect */
+}
+
+/* Desk stains */
+.desk-stains {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.15;
+}
+
+.stain-coffee {
+  position: absolute;
+  width: 120px; height: 120px;
+  border: 4px solid #8B4513;
+  border-radius: 50%;
+  filter: blur(1px);
+}
+
+.stain-watercolor {
+  position: absolute;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.2), transparent 70%);
+  filter: blur(20px);
 }
 
 /* ── DOODLE LAYER ────────────────────────────────────────────── */
@@ -608,27 +632,29 @@
 }
 
 /* ── DRAWING CARD ────────────────────────────────────────────── */
+/* Advanced shadow system for depth */
 .drawing-card-wrap {
   position: absolute;
   cursor: pointer;
   transform-origin: center bottom;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
               z-index 0s,
-              box-shadow 0.25s;
+              box-shadow 0.3s;
   z-index: 2;
   transform: rotate(var(--card-rot, 0deg));
   opacity: 0;
+  filter: drop-shadow(4px 8px 12px var(--sb-shadow-deep));
 }
 
 /* Staggered drop-in entry */
 .drawing-card-wrap.card-visible {
-  animation: cardDrop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: cardDrop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 @keyframes cardDrop {
   from {
     opacity: 0;
-    transform: rotate(var(--card-rot, 0deg)) translateY(-40px) scale(0.75);
+    transform: rotate(var(--card-rot, 0deg)) translateY(-60px) scale(0.7);
   }
   to {
     opacity: 1;
@@ -636,10 +662,11 @@
   }
 }
 
-/* Hover: snap straight + lift */
+/* Hover: snap straight + lift + GLOW */
 .drawing-card-wrap:hover {
-  transform: rotate(0deg) scale(1.1) translateY(-8px) !important;
-  z-index: 20;
+  transform: rotate(0deg) scale(1.08) translateY(-12px) !important;
+  z-index: 50;
+  filter: drop-shadow(0 20px 30px var(--sb-shadow-deep));
 }
 
 @media (max-width: 768px) {
@@ -905,94 +932,107 @@
 @media (max-width: 480px) { .currently-grid { grid-template-columns: 1fr; gap: 12px; } }
 
 .currently-card {
-  background: var(--sb-card-bg);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  padding: 14px;
-  box-shadow: 3px 4px 12px var(--sb-shadow-deep);
+  background: linear-gradient(135deg, rgba(230, 225, 215, 0.9), rgba(210, 205, 195, 0.7));
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.4), 
+              4px 6px 16px var(--sb-shadow-deep);
   position: relative;
-  transition: transform 0.2s, var(--sb-transition), box-shadow 0.2s;
-  border-radius: 2px;
-}
-.currently-card:hover { 
-  transform: translateY(-3px) rotate(-0.5deg);
-  box-shadow: 5px 6px 16px var(--sb-shadow-deep);
-}
-.currently-card:active { transform: scale(0.97); }
-.currently-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--card-color);
-  opacity: 0.7;
-  border-radius: 2px 2px 0 0;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), var(--sb-transition), box-shadow 0.3s;
+  border-radius: 6px;
+  overflow: hidden;
 }
 
-.cc-emoji { font-size: clamp(18px, 5vw, 22px); margin-bottom: 6px; }
+.currently-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("https://www.transparenttextures.com/patterns/wood-pattern-milled.png");
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.currently-card:hover { 
+  transform: translateY(-8px) rotate(1deg);
+  box-shadow: 10px 15px 30px var(--sb-shadow-deep);
+}
+
+.currently-card:active { transform: scale(0.95); }
+
+.currently-card-header {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 32px;
+  background: var(--card-color);
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.cc-body { margin-top: 24px; }
+.cc-emoji { font-size: 20px; margin-right: 8px; }
 .cc-label {
   font-family: 'Patrick Hand', cursive;
   font-size: 11px;
-  color: var(--sb-muted);
+  color: #fff;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin-bottom: 4px;
-  transition: color 0.4s;
+  font-weight: 600;
 }
+
 .cc-value {
   font-family: 'Caveat', cursive;
-  font-size: clamp(13px, 3vw, 15px);
-  color: var(--sb-ink);
+  font-size: clamp(14px, 3vw, 17px);
+  color: #2c1810;
   line-height: 1.3;
-  transition: color 0.4s;
+  margin-top: 12px;
+  font-weight: 600;
 }
 
-/* ── FOOTER ──────────────────────────────────────────────────── */
+/* Torn paper footer */
 .sk-footer {
   position: relative;
-  z-index: 3;
-  padding: 40px 80px 80px;
+  z-index: 15;
+  padding: 100px 80px 80px;
   text-align: center;
+  background: #fdfdfd;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23000' d='M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,149.3C672,149,768,203,864,224C960,245,1056,235,1152,202.7C1248,171,1344,117,1392,90.7L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+  mask-repeat: no-repeat;
+  mask-position: top;
+  margin-top: -60px;
 }
-@media (max-width: 1024px) { .sk-footer { padding: 40px 60px 80px; } }
-@media (max-width: 768px) { .sk-footer { padding: 40px 24px 60px; } }
-@media (max-width: 480px) { .sk-footer { padding: 30px 16px 80px; } }
 
-.sk-footer-line {
-  width: 60%;
-  max-width: 400px;
-  height: 1px;
-  background: rgba(180, 200, 220, 0.4);
-  margin: 0 auto 24px;
-}
 .sk-footer-text {
-  font-family: 'Caveat', cursive;
-  font-size: clamp(16px, 4vw, 18px);
-  color: var(--sb-muted);
-  margin-bottom: 8px;
-  transition: color 0.4s;
+  font-family: 'Kalam', cursive;
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 12px;
 }
+
 .sk-footer-sub {
   font-family: 'Patrick Hand', cursive;
-  font-size: 13px;
-  color: var(--sb-muted);
-  margin-bottom: 24px;
-  transition: color 0.4s;
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 32px;
 }
+
 .sk-footer-back {
   font-family: 'Caveat', cursive;
-  font-size: 16px;
-  color: var(--sb-violet);
-  background: none;
-  border: 1.5px dashed rgba(124, 58, 237, 0.4);
-  padding: 8px 20px;
+  font-size: 18px;
+  color: #fff;
+  background: var(--sb-violet);
+  border: none;
+  padding: 12px 32px;
   cursor: pointer;
-  border-radius: 4px;
-  transition: transform 0.2s, background 0.2s, var(--sb-transition), box-shadow 0.2s;
+  border-radius: 50px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
 }
+
 .sk-footer-back:hover {
-  background: rgba(124, 58, 237, 0.05);
-  transform: rotate(-1deg);
-  box-shadow: 2px 4px 8px var(--sb-shadow);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.5);
 }
 .sk-footer-back:active { transform: scale(0.97); }
 

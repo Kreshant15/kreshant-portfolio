@@ -1,4 +1,4 @@
-﻿// SketchbookPage.tsx — Upgraded v2
+// SketchbookPage.tsx — Upgraded v2
 // 
 // WHAT'S NEW:
 //   ✅ Night mode toggle (warm dark theme, CSS variable swap)
@@ -31,21 +31,21 @@ import { useNavigate } from 'react-router-dom';
 // scatter positions: left/top are % of container width / px from top
 
 const drawings = [
-  { src: '/sketchbook/drawing-01.jpg', label: 'figure study',    note: 'pencil, 2023',      rotate: -4,  left: 2,  top: 20,  width: 160, delay: 0   },
-  { src: '/sketchbook/naruto.webp',    label: 'character thing', note: 'ballpoint',          rotate: 3,   left: 16, top: 0,   width: 150, delay: 80  },
-  { src: '/sketchbook/drawing-03.jpg', label: 'anatomy attempt', note: 'ink',                rotate: -2,  left: 29, top: 30,  width: 155, delay: 160 },
-  { src: '/sketchbook/drawing-04.jpg', label: 'random face',     note: '3am energy',         rotate: 5,   left: 43, top: 5,   width: 148, delay: 240 },
-  { src: '/sketchbook/landscape.webp', label: 'landscape thing', note: 'pencil',             rotate: -3,  left: 56, top: 25,  width: 158, delay: 320 },
-  { src: '/sketchbook/drawing-06.jpg', label: 'hands (ugh)',     note: 'still struggling',   rotate: 2,   left: 70, top: 8,   width: 152, delay: 400 },
+  { src: '/sketchbook/drawing-01.jpg', label: 'figure study',    note: 'pencil, 2023',      rotate: -4,  left: 5,  top: 240, width: 140, delay: 0   },
+  { src: '/sketchbook/naruto.webp',    label: 'character thing', note: 'ballpoint',          rotate: 3,   left: 14, top: 220, width: 130, delay: 80  },
+  { src: '/sketchbook/drawing-03.jpg', label: 'anatomy attempt', note: 'ink',                rotate: -2,  left: 23, top: 250, width: 135, delay: 160 },
+  { src: '/sketchbook/drawing-04.jpg', label: 'random face',     note: '3am energy',         rotate: 5,   left: 36, top: 230, width: 128, delay: 240 },
+  { src: '/sketchbook/landscape.webp', label: 'landscape thing', note: 'pencil',             rotate: -3,  left: 45, top: 260, width: 138, delay: 320 },
+  { src: '/sketchbook/drawing-06.jpg', label: 'hands (ugh)',     note: 'still struggling',   rotate: 2,   left: 58, top: 220, width: 132, delay: 400 },
 ];
 
-// Sticker config — add your PNGs in /public/sketchbook/stickers/
-const stickers: { src: string; style: React.CSSProperties; easterEgg?: boolean }[] = [
-  {
-    src: '/sketchbook/stickers/Skull.webp',
-    style: { top: '5%', left: '70%', width: 120, transform: 'rotate(8deg)' },
-    easterEgg: true,
-  },
+const stickers = [
+  { src: '/sketchbook/stickers/goku.png',    style: { top: '150px', left: '35%', width: 80, transform: 'rotate(0deg)', zIndex: 12 } },
+  { src: '/sketchbook/stickers/palette.png', style: { top: '30px',  right: '2%', width: 160, transform: 'rotate(15deg)', zIndex: 12 } },
+  { src: '/sketchbook/stickers/gameboy.png', style: { bottom: '150px', left: '180px', width: 70, transform: 'rotate(-10deg)', zIndex: 12 } },
+  { src: '/sketchbook/stickers/headphones.png', style: { bottom: '180px', right: '5%', width: 180, transform: 'rotate(20deg)', zIndex: 12 } },
+  { src: '/sketchbook/stickers/pencils.png', style: { top: '40px', left: '320px', width: 120, transform: 'rotate(-30deg)', zIndex: 12 } },
+  { src: '/sketchbook/stickers/Skull.webp',  style: { top: '420px', left: '33%', width: 70, transform: 'rotate(5deg)', zIndex: 12 }, easterEgg: true },
 ];
 
 // Music tracks — place in /public/sketchbook/
@@ -88,11 +88,11 @@ const annotations = [
 
 // Background doodles
 const doodleElements = [
-  { type: 'star',     x: 82, y: 8,  size: 14, color: '#c4b5fd', opacity: 0.5 },
-  { type: 'star',     x: 15, y: 45, size: 10, color: '#7c3aed', opacity: 0.4 },
-  { type: 'star',     x: 75, y: 72, size: 18, color: '#a78bfa', opacity: 0.35 },
-  { type: 'star',     x: 5,  y: 88, size: 8,  color: '#c4b5fd', opacity: 0.4 },
-  { type: 'star',     x: 92, y: 55, size: 12, color: '#7c3aed', opacity: 0.3 },
+  { type: 'star',     x: 82, y: 8,  size: 24, color: '#a78bfa', opacity: 0.8 },
+  { type: 'star',     x: 15, y: 45, size: 20, color: '#7c3aed', opacity: 0.6 },
+  { type: 'star',     x: 75, y: 72, size: 28, color: '#a78bfa', opacity: 0.7 },
+  { type: 'star',     x: 5,  y: 88, size: 18,  color: '#c4b5fd', opacity: 0.6 },
+  { type: 'star',     x: 92, y: 56, size: 22, color: '#7c3aed', opacity: 0.6 },
   { type: 'circle',   x: 30, y: 12, size: 24, color: 'rgba(100,150,200,0.15)', opacity: 1 },
   { type: 'circle',   x: 88, y: 30, size: 16, color: 'rgba(200,100,100,0.12)', opacity: 1 },
   { type: 'circle',   x: 10, y: 65, size: 30, color: 'rgba(160,200,100,0.1)',  opacity: 1 },
@@ -601,6 +601,38 @@ export default function SketchbookPage() {
           />
         ))}
 
+        {/* ── PHONE PLAYER ── */}
+        <div 
+          className="sb-sticker sticker-phone"
+          style={{ bottom: '260px', right: '18%', width: 140, transform: 'rotate(-5deg)', position: 'absolute', zIndex: 15, cursor: 'pointer' }}
+          onClick={toggleMusic}
+        >
+          <img src="/sketchbook/stickers/phone.png" alt="Phone" style={{ width: '100%', filter: 'drop-shadow(4px 10px 20px rgba(0,0,0,0.3))' }} />
+          <div className="phone-screen-overlay" style={{
+            position: 'absolute', top: '12%', left: '10%', right: '10%', bottom: '12%',
+            pointerEvents: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+            background: 'rgba(0,0,0,0.1)', borderRadius: '10px'
+          }}>
+            {musicPlaying && (
+              <>
+                <div className="music-eq" style={{ opacity: 0.9, marginBottom: 8 }}>
+                  <div className="eq-bar" style={{ animationDelay: '0.1s', background: '#a78bfa' }} />
+                  <div className="eq-bar" style={{ animationDelay: '0.3s', background: '#a78bfa' }} />
+                  <div className="eq-bar" style={{ animationDelay: '0s', background: '#a78bfa' }} />
+                </div>
+                <span style={{ fontSize: '8px', color: '#fff', textAlign: 'center', fontFamily: 'system-ui' }}>now playing...</span>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* ── DESK STAINS ── */}
+        <div className="desk-stains" aria-hidden="true">
+          <div className="stain-coffee" style={{ bottom: '40px', right: '320px' }} />
+          <div className="stain-watercolor" style={{ top: '20%', left: '45%' }} />
+          <div className="stain-watercolor" style={{ bottom: '10%', right: '10%', background: 'radial-gradient(circle, rgba(167, 139, 250, 0.15), transparent 70%)' }} />
+        </div>
+
         {/* ── NOTEBOOK ── */}
         <section className="notebook-section" aria-label="Notes">
           <div className="notebook-wrap" ref={notebookRef}>
@@ -648,10 +680,10 @@ export default function SketchbookPage() {
           <div className="currently-wrap">
             <h2 className="currently-title">currently into</h2>
             <div className="currently-grid">
-              <CurrentlyCard emoji="🎵" label="music"    value="looking for the perfect study playlist"   color="#c4b5fd" />
-              <CurrentlyCard emoji="📺" label="watching" value="Vinland Saga S2 — it's destroying me"      color="#fcd34d" />
-              <CurrentlyCard emoji="🎮" label="playing"  value="whatever runs on an RTX 3050"              color="#6ee7b7" />
-              <CurrentlyCard emoji="✏️" label="drawing"  value="anatomy, hands, hating myself"             color="#fca5a5" />
+              <CurrentlyCard emoji="🎵" label="music"    value="looking for the perfect study playlist"   color="#a78bfa" />
+              <CurrentlyCard emoji="📺" label="watching" value="Vinland Saga S2 — it's destroying me"      color="#fbbf24" />
+              <CurrentlyCard emoji="🎮" label="playing"  value="whatever runs on an RTX 3050"              color="#34d399" />
+              <CurrentlyCard emoji="✏️" label="drawing"  value="anatomy, hands, hating myself"             color="#f87171" />
             </div>
           </div>
         </section>
@@ -776,9 +808,13 @@ function CurrentlyCard({
       className="currently-card"
       style={{ '--card-color': color } as React.CSSProperties}
     >
-      <div className="cc-emoji">{emoji}</div>
-      <div className="cc-label">{label}</div>
-      <div className="cc-value">{value}</div>
+      <div className="currently-card-header">
+        <div className="cc-emoji">{emoji}</div>
+        <div className="cc-label">{label}</div>
+      </div>
+      <div className="cc-body">
+        <div className="cc-value">{value}</div>
+      </div>
     </div>
   );
 }
