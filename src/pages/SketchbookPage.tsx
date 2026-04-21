@@ -1,69 +1,59 @@
-// SketchbookPage.tsx — Upgraded v2
-// 
-// WHAT'S NEW:
-//   ✅ Night mode toggle (warm dark theme, CSS variable swap)
-//   ✅ True scatter layout — absolute positioned, not grid
-//   ✅ Staggered card drop-in animation with delay per card
-//   ✅ Hover snap-to-straight + ink splatter microinteraction
-//   ✅ Vinyl disc music player (spins when playing)
-//   ✅ Clickable sticky notes with thought bubbles
-//   ✅ Typewriter notebook — lines fade/slide in on scroll
-//   ✅ Mood-colored note entries
-//   ✅ Shake microinteraction on back button
-//   ✅ Lightbox close button spins 360° before dismiss
-//   ✅ Easter egg: triple-click skull → confetti explosion
-//   ✅ Floating/drifting stickers animation
-//   ✅ All styles extracted to sketchbook.css
+// SketchbookPage.tsx — v3 Visual Upgrade
 //
-// SETUP:
-//   1. Add sketchbook.css to your src/ folder
-//   2. In index.css add: @import './sketchbook.css';
-//      (or import directly here — both work)
-//   3. Put drawings in /public/sketchbook/
-//   4. Put sticker PNGs in /public/sketchbook/stickers/
-//   5. Put audio in /public/sketchbook/ (mp3, ~2MB each)
+// KEY CHANGES FROM v2:
+//   ✅ SVG doodle stars → fixed-px DOM elements (no more stretching)
+//   ✅ Lamp glow is CSS-only via ::after pseudo-element (no inline SVG)
+//   ✅ Desk stains as absolute divs with blur
+//   ✅ Torn paper notes positioned around the notebook
+//   ✅ Mobile: scatter switches to CSS Grid automatically
+//   ✅ Night mode toggle preserved
+//   ✅ All easter eggs, typewriter, sticky thoughts intact
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // ── CONTENT CONFIG ────────────────────────────────────────────
-// Replace placeholder paths with your actual files in /public/sketchbook/
-// scatter positions: left/top are % of container width / px from top
-
 const drawings = [
-  { src: '/sketchbook/drawing-01.jpg', label: 'figure study',    note: 'pencil, 2023',      rotate: -4,  left: 5,  top: 240, width: 140, delay: 0   },
-  { src: '/sketchbook/naruto.webp',    label: 'character thing', note: 'ballpoint',          rotate: 3,   left: 14, top: 220, width: 130, delay: 80  },
-  { src: '/sketchbook/drawing-03.jpg', label: 'anatomy attempt', note: 'ink',                rotate: -2,  left: 23, top: 250, width: 135, delay: 160 },
-  { src: '/sketchbook/drawing-04.jpg', label: 'random face',     note: '3am energy',         rotate: 5,   left: 36, top: 230, width: 128, delay: 240 },
-  { src: '/sketchbook/landscape.webp', label: 'landscape thing', note: 'pencil',             rotate: -3,  left: 45, top: 260, width: 138, delay: 320 },
-  { src: '/sketchbook/drawing-06.jpg', label: 'hands (ugh)',     note: 'still struggling',   rotate: 2,   left: 58, top: 220, width: 132, delay: 400 },
+  { src: '/sketchbook/drawing-01.jpg', label: 'figure study',    note: 'pencil, 2023',    rotate: -4, left: 2,  top: 200, width: 148, delay: 0   },
+  { src: '/sketchbook/naruto.webp',    label: 'character thing', note: 'ballpoint',        rotate: 3,  left: 14, top: 175, width: 138, delay: 80  },
+  { src: '/sketchbook/drawing-03.jpg', label: 'anatomy attempt', note: 'ink',              rotate: -2, left: 26, top: 215, width: 144, delay: 160 },
+  { src: '/sketchbook/drawing-04.jpg', label: 'random face',     note: '3am energy',       rotate: 5,  left: 39, top: 185, width: 136, delay: 240 },
+  { src: '/sketchbook/landscape.webp', label: 'landscape thing', note: 'pencil',           rotate: -3, left: 51, top: 205, width: 146, delay: 320 },
+  { src: '/sketchbook/drawing-06.jpg', label: 'hands (ugh)',     note: 'still struggling', rotate: 2,  left: 64, top: 178, width: 140, delay: 400 },
 ];
 
-const stickers = [
-  { src: '/sketchbook/stickers/goku.png',    style: { top: '150px', left: '35%', width: 80, transform: 'rotate(0deg)', zIndex: 12 } },
-  { src: '/sketchbook/stickers/palette.png', style: { top: '30px',  right: '2%', width: 160, transform: 'rotate(15deg)', zIndex: 12 } },
-  { src: '/sketchbook/stickers/gameboy.png', style: { bottom: '150px', left: '180px', width: 70, transform: 'rotate(-10deg)', zIndex: 12 } },
-  { src: '/sketchbook/stickers/headphones.png', style: { bottom: '180px', right: '5%', width: 180, transform: 'rotate(20deg)', zIndex: 12 } },
-  { src: '/sketchbook/stickers/pencils.png', style: { top: '40px', left: '320px', width: 120, transform: 'rotate(-30deg)', zIndex: 12 } },
-  { src: '/sketchbook/stickers/Skull.webp',  style: { top: '420px', left: '33%', width: 70, transform: 'rotate(5deg)', zIndex: 12 }, easterEgg: true },
+// ── FIXED-SIZE STARS — positioned in viewport %, size in px (no SVG viewBox)
+const STARS = [
+  { top: '8%',  left: '82%', size: 38, color: '#a78bfa', opacity: 0.88 },
+  { top: '45%', left: '14%', size: 30, color: '#7c3aed', opacity: 0.72 },
+  { top: '72%', left: '76%', size: 44, color: '#c4b5fd', opacity: 0.80 },
+  { top: '48%', left: '93%', size: 34, color: '#a78bfa', opacity: 0.75 },
+  { top: '88%', left: '4%',  size: 26, color: '#7c3aed', opacity: 0.60 },
 ];
 
-// Music tracks — place in /public/sketchbook/
-const musicList = [
-  '/sketchbook/ambience.mp3',
-  '/sketchbook/chill.mp3',
-  '/sketchbook/piano.mp3',
+// Stickers — physical desk objects
+const stickers: { src: string; style: React.CSSProperties; easterEgg?: boolean }[] = [
+  { src: '/sketchbook/stickers/goku.png',     style: { top: '155px', left: '34%',  width: 80,  transform: 'rotate(-4deg)', zIndex: 12 } },
+  { src: '/sketchbook/stickers/palette.png',  style: { top: '28px',  right: '2%',  width: 160, transform: 'rotate(14deg)', zIndex: 12 } },
+  { src: '/sketchbook/stickers/pencils.png',  style: { top: '44px',  left: '310px', width: 120, transform: 'rotate(-28deg)',zIndex: 12 } },
+  { src: '/sketchbook/stickers/headphones.png',style:{ bottom:'185px',right: '4%', width: 185, transform: 'rotate(18deg)', zIndex: 12 } },
+  { src: '/sketchbook/stickers/gameboy.png',  style: { bottom:'155px',left: '170px',width: 72,  transform: 'rotate(-9deg)', zIndex: 12 } },
+  {
+    src: '/sketchbook/stickers/Skull.webp',
+    style: { top: '425px', left: '32%', width: 72, transform: 'rotate(4deg)', zIndex: 12 },
+    easterEgg: true,
+  },
 ];
-const trackColors = ['#a78bfa', '#fca5a5', '#6ee7b7'];
 
-// Sticky note thought bubbles
+const musicList   = ['/sketchbook/ambience.mp3','/sketchbook/chill.mp3','/sketchbook/piano.mp3'];
+const trackColors = ['#a78bfa','#fca5a5','#6ee7b7'];
+
 const stickyThoughts = [
-  'drew this right after watching a Studio Ghibli film at 2am',
+  'drew this right after watching studio ghibli at 2am',
   'this one took 3 tries and i still hate the proportions',
-  'hands are impossible. no one can tell me otherwise.',
+  'hands are impossible. no one can convince me otherwise.',
 ];
 
-// Notebook entries with mood metadata
 const NOTE_ENTRIES = [
   { text: 'things to draw next:', style: 'heading', mood: 'focused' },
   { text: 'more hands (ugh)',      style: 'normal',  mood: 'frustrated' },
@@ -71,523 +61,326 @@ const NOTE_ENTRIES = [
   { text: 'that forest scene from dark', style: 'normal', mood: 'curious' },
   { text: 'character from vinland saga', style: 'normal', mood: null },
   { text: 'crossed: portrait of toji',   style: 'crossed', mood: 'nostalgic' },
-  { text: '', style: 'blank', mood: null },
-  { text: 'currently listening:', style: 'heading', mood: 'focused' },
+  { text: '',                      style: 'blank',   mood: null },
+  { text: 'currently listening:',  style: 'heading', mood: 'focused' },
   { text: '→ trying to find the perfect study playlist', style: 'normal', mood: null },
-  { text: '', style: 'blank', mood: null },
+  { text: '',                      style: 'blank',   mood: null },
   { text: 'last watched: vinland saga s2 (crying inside)', style: 'note', mood: 'nostalgic' },
 ];
 
-// Margin annotations
 const annotations = [
-  { text: '← need to redo this',  top: '18%', left: '2%',  rotate: -90, color: '#5a7abf' },
-  { text: 'reference from pinterest', top: '35%', right: '2%', rotate: 90, color: '#888' },
-  { text: '★ fav',               top: '55%', left: '1%',  rotate: -90, color: '#d4a017' },
-  { text: 'drew this at 2am lol', top: '70%', right: '1%', rotate: 90, color: '#888' },
-];
-
-// Background doodles
-const doodleElements = [
-  { type: 'star',     x: 82, y: 8,  size: 32, color: '#a78bfa', opacity: 0.9 },
-  { type: 'star',     x: 15, y: 45, size: 28, color: '#7c3aed', opacity: 0.7 },
-  { type: 'star',     x: 75, y: 72, size: 36, color: '#a78bfa', opacity: 0.8 },
-  { type: 'star',     x: 94, y: 48, size: 30, color: '#a78bfa', opacity: 0.75 },
-  { type: 'circle',   x: 30, y: 12, size: 24, color: 'rgba(100,150,200,0.2)', opacity: 1 },
-  { type: 'circle',   x: 88, y: 30, size: 16, color: 'rgba(200,100,100,0.15)', opacity: 1 },
-  { type: 'circle',   x: 10, y: 65, size: 30, color: 'rgba(160,200,100,0.12)',  opacity: 1 },
-  { type: 'squiggle', x: 55, y: 15, opacity: 0.4, color: '#8b4513' },
-  { type: 'squiggle2',x: 20, y: 80, opacity: 0.35, color: '#5a7abf' },
-  { type: 'arrow',    x: 68, y: 38, opacity: 0.5, color: '#8b4513', rotate: 125 },
+  { text: '← need to redo this',     top: '18%', left: '2%',  rotate: -90, color: '#5a7abf' },
+  { text: 'reference from pinterest', top: '35%', right: '2%', rotate: 90,  color: '#8a8070' },
+  { text: '★ fav',                   top: '55%', left: '1%',  rotate: -90, color: '#c4900a' },
+  { text: 'drew this at 2am lol',    top: '70%', right: '1%', rotate: 90,  color: '#8a8070' },
 ];
 
 const tapeColors = [
-  'repeating-linear-gradient(45deg, rgba(196,181,255,.5), rgba(196,181,255,.5) 4px, rgba(167,139,250,.3) 4px, rgba(167,139,250,.3) 8px)',
-  'repeating-linear-gradient(45deg, rgba(253,230,138,.5), rgba(253,230,138,.5) 4px, rgba(252,211,77,.3)  4px, rgba(252,211,77,.3)  8px)',
-  'repeating-linear-gradient(45deg, rgba(167,243,208,.5), rgba(167,243,208,.5) 4px, rgba(110,231,183,.3) 4px, rgba(110,231,183,.3) 8px)',
-  'repeating-linear-gradient(45deg, rgba(252,165,165,.5), rgba(252,165,165,.5) 4px, rgba(248,113,113,.3) 4px, rgba(248,113,113,.3) 8px)',
+  'repeating-linear-gradient(45deg,rgba(196,181,255,.55),rgba(196,181,255,.55) 4px,rgba(167,139,250,.3) 4px,rgba(167,139,250,.3) 8px)',
+  'repeating-linear-gradient(45deg,rgba(253,230,138,.55),rgba(253,230,138,.55) 4px,rgba(252,211,77,.3)  4px,rgba(252,211,77,.3)  8px)',
+  'repeating-linear-gradient(45deg,rgba(167,243,208,.55),rgba(167,243,208,.55) 4px,rgba(110,231,183,.3) 4px,rgba(110,231,183,.3) 8px)',
+  'repeating-linear-gradient(45deg,rgba(252,165,165,.55),rgba(252,165,165,.55) 4px,rgba(248,113,113,.3) 4px,rgba(248,113,113,.3) 8px)',
 ];
 
 // ── COMPONENT ──────────────────────────────────────────────────
 
 export default function SketchbookPage() {
-  const navigate = useNavigate();
-  const audioRef  = useRef<HTMLAudioElement>(null);
-  const shouldResumeRef = useRef(false);
-  const notebookRef = useRef<HTMLDivElement>(null);
+  const navigate      = useNavigate();
+  const audioRef      = useRef<HTMLAudioElement>(null);
+  const shouldResume  = useRef(false);
+  const notebookRef   = useRef<HTMLDivElement>(null);
 
-  const [showCustomCursor, setShowCustomCursor] = useState(false);
-  const [cursorPos, setCursorPos]   = useState({ x: -100, y: -100 });
-  const [entryAnim, setEntryAnim]   = useState(false);
-  const [nightMode, setNightMode]   = useState(false);
-  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+  const [showCursor, setShowCursor]       = useState(false);
+  const [cursorPos,  setCursorPos]        = useState({ x: -100, y: -100 });
+  const [entryAnim,  setEntryAnim]        = useState(false);
+  const [nightMode,  setNightMode]        = useState(false);
+  const [lightboxSrc,setLightboxSrc]      = useState<string | null>(null);
 
-  // Music
-  const [musicPlaying, setMusicPlaying] = useState(false);
-  const [musicError, setMusicError]     = useState<string | null>(null);
-  const [currentTrack, setCurrentTrack] = useState(0);
-  const [volume, setVolume]             = useState(0.4);
+  const [musicPlaying, setMusicPlaying]   = useState(false);
+  const [musicError,   setMusicError]     = useState<string | null>(null);
+  const [currentTrack, setCurrentTrack]   = useState(0);
+  const [volume,       setVolume]         = useState(0.4);
   const currentColor = trackColors[currentTrack];
 
-  // Cards — staggered visibility
-  const [visibleCards, setVisibleCards] = useState<boolean[]>(
-    new Array(drawings.length).fill(false)
-  );
-
-  // Notebook lines visibility (typewriter effect)
-  const [visibleLines, setVisibleLines] = useState<boolean[]>(
-    new Array(NOTE_ENTRIES.length).fill(false)
-  );
-
-  // Sticky note thought bubble
+  const [visibleCards, setVisibleCards]   = useState<boolean[]>(new Array(drawings.length).fill(false));
+  const [visibleLines, setVisibleLines]   = useState<boolean[]>(new Array(NOTE_ENTRIES.length).fill(false));
   const [activeStickyIdx, setActiveStickyIdx] = useState<number | null>(null);
-  const [stickyPos, setStickyPos] = useState({ x: 0, y: 0 });
+  const [stickyPos, setStickyPos]         = useState({ x: 0, y: 0 });
 
-  // Easter egg — skull click counter
-  const skullClicksRef = useRef(0);
-  const skullTimerRef  = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const skullClicks = useRef(0);
+  const skullTimer  = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // ── Entry animation
-  useEffect(() => {
-    const t = setTimeout(() => setEntryAnim(true), 80);
-    return () => clearTimeout(t);
-  }, []);
+  // Entry
+  useEffect(() => { const t = setTimeout(() => setEntryAnim(true), 80); return () => clearTimeout(t); }, []);
 
-  // ── Staggered card drop-in
+  // Staggered card drop-in
   useEffect(() => {
     drawings.forEach((d, i) => {
       const t = setTimeout(() => {
-        setVisibleCards(prev => {
-          const next = [...prev];
-          next[i] = true;
-          return next;
-        });
+        setVisibleCards(prev => { const n=[...prev]; n[i]=true; return n; });
       }, 400 + d.delay);
       return () => clearTimeout(t);
     });
   }, []);
 
-  // ── Notebook typewriter on scroll
+  // Notebook typewriter on scroll
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          NOTE_ENTRIES.forEach((_, i) => {
-            const t = setTimeout(() => {
-              setVisibleLines(prev => {
-                const next = [...prev];
-                next[i] = true;
-                return next;
-              });
-            }, i * 100);
-            return () => clearTimeout(t);
-          });
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-    if (notebookRef.current) observer.observe(notebookRef.current);
-    return () => observer.disconnect();
+    const obs = new IntersectionObserver(entries => {
+      if (!entries[0].isIntersecting) return;
+      NOTE_ENTRIES.forEach((_, i) => {
+        const t = setTimeout(() => {
+          setVisibleLines(prev => { const n=[...prev]; n[i]=true; return n; });
+        }, i * 95);
+        return () => clearTimeout(t);
+      });
+      obs.disconnect();
+    }, { threshold: 0.15 });
+    if (notebookRef.current) obs.observe(notebookRef.current);
+    return () => obs.disconnect();
   }, []);
 
-  // ── Custom cursor
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    setCursorPos({ x: e.clientX, y: e.clientY });
-  }, []);
-
+  // Pencil cursor
+  const onMouseMove = useCallback((e: MouseEvent) => { setCursorPos({ x: e.clientX, y: e.clientY }); }, []);
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const mq = window.matchMedia('(pointer: fine)');
-    const update = () => setShowCustomCursor(mq.matches);
-    update();
-    mq.addEventListener('change', update);
+    const update = () => setShowCursor(mq.matches);
+    update(); mq.addEventListener('change', update);
     return () => mq.removeEventListener('change', update);
   }, []);
-
   useEffect(() => {
-    if (!showCustomCursor) return;
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [handleMouseMove, showCustomCursor]);
+    if (!showCursor) return;
+    window.addEventListener('mousemove', onMouseMove);
+    return () => window.removeEventListener('mousemove', onMouseMove);
+  }, [showCursor, onMouseMove]);
 
-  // ── Volume sync
-  useEffect(() => {
-    if (audioRef.current) audioRef.current.volume = volume;
-  }, [volume, currentTrack]);
+  // Volume
+  useEffect(() => { if (audioRef.current) audioRef.current.volume = volume; }, [volume, currentTrack]);
 
-  // ── Auto-play next track
+  // Auto next track
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio || !shouldResumeRef.current) return;
+    if (!audio || !shouldResume.current) return;
     const play = async () => {
-      try {
-        audio.load();
-        await audio.play();
-        setMusicError(null);
-      } catch {
-        shouldResumeRef.current = false;
-        setMusicPlaying(false);
-        setMusicError('Unable to play this track.');
-      }
+      try { audio.load(); await audio.play(); setMusicError(null); }
+      catch { shouldResume.current=false; setMusicPlaying(false); setMusicError('Unable to play.'); }
     };
     void play();
   }, [currentTrack]);
 
-  // ── Audio controls
   const playAudio = async () => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    audio.volume = volume;
-    audio.muted  = false;
-    audio.load();
-    try {
-      await audio.play();
-      setMusicError(null);
-    } catch {
-      shouldResumeRef.current = false;
-      setMusicPlaying(false);
-      setMusicError('Unable to play this track.');
-    }
+    const audio = audioRef.current; if (!audio) return;
+    audio.volume = volume; audio.muted = false; audio.load();
+    try { await audio.play(); setMusicError(null); }
+    catch { shouldResume.current=false; setMusicPlaying(false); setMusicError('Unable to play.'); }
   };
-
   const toggleMusic = async () => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    if (musicPlaying) {
-      shouldResumeRef.current = false;
-      audio.pause();
-    } else {
-      shouldResumeRef.current = true;
-      await playAudio();
+    const audio = audioRef.current; if (!audio) return;
+    if (musicPlaying) { shouldResume.current=false; audio.pause(); }
+    else { shouldResume.current=true; await playAudio(); }
+  };
+  const handleEnded = () => {
+    const keep = shouldResume.current; setMusicPlaying(false);
+    if (musicList.length <= 1) { shouldResume.current=false; return; }
+    shouldResume.current = keep;
+    setCurrentTrack(p => (p+1) % musicList.length);
+  };
+
+  // Confetti
+  const triggerConfetti = (x: number, y: number) => {
+    const colors = ['#c4b5fd','#fca5a5','#6ee7b7','#fcd34d','#a78bfa','#f0abfc'];
+    for (let i=0; i<44; i++) {
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+      el.style.cssText = `left:${x+(Math.random()-.5)*70}px;top:${y}px;background:${colors[Math.floor(Math.random()*colors.length)]};transform:rotate(${Math.random()*360}deg);animation-delay:${Math.random()*.3}s;animation-duration:${1.2+Math.random()*.8}s;border-radius:${Math.random()>.5?'50%':'2px'};`;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 2600);
     }
   };
 
-  const handleAudioEnded = () => {
-    const keep = shouldResumeRef.current;
-    setMusicPlaying(false);
-    if (musicList.length <= 1) { shouldResumeRef.current = false; return; }
-    shouldResumeRef.current = keep;
-    setCurrentTrack(prev => (prev + 1) % musicList.length);
+  const handleStickerClick = (e: React.MouseEvent, isEgg: boolean) => {
+    if (!isEgg) return;
+    skullClicks.current += 1;
+    if (skullTimer.current) clearTimeout(skullTimer.current);
+    skullTimer.current = setTimeout(() => { skullClicks.current=0; }, 1500);
+    if (skullClicks.current >= 3) { skullClicks.current=0; triggerConfetti(e.clientX, e.clientY); }
   };
 
-  // ── Easter egg — confetti
-  const triggerConfetti = (originX: number, originY: number) => {
-    const colors = ['#c4b5fd', '#fca5a5', '#6ee7b7', '#fcd34d', '#a78bfa', '#f0abfc'];
-    const container = document.body;
-    for (let i = 0; i < 40; i++) {
-      const piece = document.createElement('div');
-      piece.className = 'confetti-piece';
-      piece.style.cssText = `
-        left: ${originX + (Math.random() - 0.5) * 60}px;
-        top: ${originY}px;
-        background: ${colors[Math.floor(Math.random() * colors.length)]};
-        transform: rotate(${Math.random() * 360}deg);
-        animation-delay: ${Math.random() * 0.3}s;
-        animation-duration: ${1.2 + Math.random() * 0.8}s;
-        border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
-      `;
-      container.appendChild(piece);
-      setTimeout(() => piece.remove(), 2500);
-    }
-  };
-
-  const handleStickerClick = (
-    e: React.MouseEvent,
-    isEasterEgg: boolean,
-    idx: number
-  ) => {
-    if (!isEasterEgg) return;
-    skullClicksRef.current += 1;
-    if (skullTimerRef.current) clearTimeout(skullTimerRef.current);
-    skullTimerRef.current = setTimeout(() => {
-      skullClicksRef.current = 0;
-    }, 1500);
-    if (skullClicksRef.current >= 3) {
-      skullClicksRef.current = 0;
-      triggerConfetti(e.clientX, e.clientY);
-    }
-  };
-
-  // ── Sticky note thought bubble
   const handleStickyClick = (e: React.MouseEvent, idx: number) => {
     e.stopPropagation();
-    const rect = (e.target as HTMLElement).getBoundingClientRect();
-    setStickyPos({ x: rect.left, y: rect.top - 10 });
+    const r = (e.target as HTMLElement).getBoundingClientRect();
+    setStickyPos({ x: r.left, y: r.top });
     setActiveStickyIdx(activeStickyIdx === idx ? null : idx);
   };
 
-  // Close thought on outside click
   useEffect(() => {
     const close = () => setActiveStickyIdx(null);
     document.addEventListener('click', close);
     return () => document.removeEventListener('click', close);
   }, []);
 
-  const handleBack = () => navigate(-1);
-
-  // Scatter field height — enough to fit tallest card + top offset
-  const scatterHeight = Math.max(...drawings.map(d => d.top + 280));
+  const scatterHeight = Math.max(...drawings.map(d => d.top + 300));
 
   return (
     <>
-      {/* ── CUSTOM CURSOR ── */}
-      {showCustomCursor && (
-        <div
-          className="pencil-cursor"
-          style={{ left: cursorPos.x, top: cursorPos.y }}
-          aria-hidden="true"
-        />
+      {/* Pencil cursor */}
+      {showCursor && (
+        <div className="pencil-cursor" style={{ left: cursorPos.x, top: cursorPos.y }} aria-hidden />
       )}
 
-      {/* ── AUDIO ── */}
+      {/* Audio */}
       <audio
         key={musicList[currentTrack]}
-        ref={audioRef}
-        src={musicList[currentTrack]}
-        playsInline
+        ref={audioRef} src={musicList[currentTrack]} playsInline preload="auto"
         onCanPlay={() => setMusicError(null)}
         onPlay={() => setMusicPlaying(true)}
         onPause={() => setMusicPlaying(false)}
-        onEnded={handleAudioEnded}
-        onError={() => {
-          shouldResumeRef.current = false;
-          setMusicPlaying(false);
-          setMusicError('Audio file could not be loaded.');
-        }}
-        preload="auto"
+        onEnded={handleEnded}
+        onError={() => { shouldResume.current=false; setMusicPlaying(false); setMusicError('Audio file could not be loaded.'); }}
       />
 
-      {/* ── NIGHT MODE TOGGLE ── */}
-      <button
-        className="night-mode-btn"
-        onClick={() => setNightMode(n => !n)}
-        aria-label={nightMode ? 'Switch to day mode' : 'Switch to night mode'}
-      >
+      {/* Night mode button */}
+      <button className="night-mode-btn" onClick={() => setNightMode(n => !n)} aria-label="Toggle night mode">
         {nightMode ? '☀️ day mode' : '🌙 night mode'}
       </button>
 
-      {/* ── VINYL MUSIC PLAYER ── */}
+      {/* Vinyl music player */}
       <div className="music-player">
-        <div
-          className={`music-player-inner ${musicPlaying ? 'is-playing' : ''}`}
-          style={{
-            borderColor: musicPlaying ? currentColor : undefined,
-          }}
-        >
-          {/* Vinyl disc — click to toggle */}
+        <div className={`music-player-inner ${musicPlaying ? 'is-playing' : ''}`} style={{ borderColor: musicPlaying ? currentColor : undefined }}>
           <div
             className={`vinyl-disc ${musicPlaying ? 'spinning' : ''}`}
-            onClick={toggleMusic}
-            role="button"
-            aria-label={musicPlaying ? 'Pause music' : 'Play music'}
-            tabIndex={0}
-            onKeyDown={e => e.key === 'Enter' && toggleMusic()}
-            style={{
-              boxShadow: musicPlaying
-                ? `0 0 12px ${currentColor}60`
-                : undefined,
-            }}
+            onClick={toggleMusic} role="button" tabIndex={0}
+            aria-label={musicPlaying ? 'Pause' : 'Play ambient music'}
+            onKeyDown={e => e.key==='Enter' && toggleMusic()}
+            style={{ boxShadow: musicPlaying ? `0 0 14px ${currentColor}55` : undefined }}
           />
-
-          {/* Track dots */}
           {musicPlaying && (
-            <div className="track-dots" aria-hidden="true">
-              {musicList.map((_, i) => (
-                <div
-                  key={i}
-                  className={`track-dot ${i === currentTrack ? 'active' : ''}`}
-                  style={i === currentTrack ? { background: currentColor } : undefined}
-                />
+            <div className="track-dots" aria-hidden>
+              {musicList.map((_,i) => (
+                <div key={i} className={`track-dot ${i===currentTrack?'active':''}`}
+                  style={i===currentTrack ? { background: currentColor } : undefined} />
               ))}
             </div>
           )}
-
-          <div className="music-label">
-            {musicPlaying ? `track ${currentTrack + 1}` : 'ambient'}
-          </div>
-
-          {musicError && (
-            <div className="music-error" role="status">{musicError}</div>
-          )}
-
+          <div className="music-label">{musicPlaying ? `track ${currentTrack+1}` : 'ambient'}</div>
+          {musicError && <div className="music-error" role="status">{musicError}</div>}
           {musicPlaying && (
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.05"
-              value={volume}
-              onChange={e => {
-                const v = parseFloat(e.target.value);
-                setVolume(v);
-                if (audioRef.current) audioRef.current.volume = v;
-              }}
-              className="vol-slider"
-              aria-label="Volume"
-              style={{ accentColor: currentColor }}
-            />
+            <input type="range" min="0" max="1" step="0.05" value={volume} className="vol-slider"
+              aria-label="Volume" style={{ accentColor: currentColor }}
+              onChange={e => { const v=parseFloat(e.target.value); setVolume(v); if(audioRef.current) audioRef.current.volume=v; }} />
           )}
         </div>
       </div>
 
-      {/* ── BACK BUTTON ── */}
-      <button className="back-btn" onClick={handleBack} aria-label="Back to portfolio">
-        ← back to the real world
-      </button>
+      {/* Back button */}
+      <button className="back-btn" onClick={() => navigate(-1)} aria-label="Back">← back to the real world</button>
 
-      {/* ── STICKY NOTE THOUGHT BUBBLE ── */}
+      {/* Sticky thought bubble */}
       {activeStickyIdx !== null && (
-        <div
-          className="sticky-thought"
-          style={{ left: stickyPos.x, top: stickyPos.y - 80 }}
-          onClick={e => e.stopPropagation()}
-        >
+        <div className="sticky-thought" style={{ left: stickyPos.x, top: stickyPos.y - 85 }} onClick={e => e.stopPropagation()}>
           {stickyThoughts[activeStickyIdx]}
         </div>
       )}
 
-      {/* ── SVG FILTERS (hidden) ── */}
-      <svg style={{ position: 'absolute', width: 0, height: 0, pointerEvents: 'none' }} aria-hidden="true">
+      {/* SVG filters for ink bleed effect */}
+      <svg style={{ position:'absolute', width:0, height:0, pointerEvents:'none' }} aria-hidden>
         <defs>
           <filter id="ink-bleed">
-            <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="4" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" />
+            <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="6"/>
           </filter>
         </defs>
       </svg>
 
-      {/* ── MAIN PAGE ── */}
-      <main
-        className={`sketchbook-main ${entryAnim ? 'entered' : ''} ${nightMode ? 'sb-night' : ''}`}
-        aria-label="Kreshant's sketchbook"
-      >
-        {/* SVG doodle layer */}
-        <div className="doodle-layer" aria-hidden="true">
-          <svg
-            width="100%"
-            height="100%"
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-            className="doodle-svg"
-          >
-            {doodleElements.map((d, i) => {
-              if (d.type === 'star') return (
-                <text key={i} x={`${d.x}%`} y={`${d.y}%`} fontSize={d.size} fill={d.color} opacity={d.opacity} textAnchor="middle">✦</text>
-              );
-              if (d.type === 'circle') return (
-                <circle key={i} cx={`${d.x}%`} cy={`${d.y}%`} r={`${d.size / 2}%`} fill={d.color} />
-              );
-              if (d.type === 'squiggle') return (
-                <path key={i}
-                  d={`M${d.x}% ${d.y}% Q${d.x+3}% ${d.y-2}% ${d.x+6}% ${d.y}% Q${d.x+9}% ${d.y+2}% ${d.x+12}% ${d.y}%`}
-                  stroke={d.color} strokeWidth="0.4%" fill="none" opacity={d.opacity} strokeLinecap="round"
-                />
-              );
-              if (d.type === 'squiggle2') return (
-                <path key={i}
-                  d={`M${d.x}% ${d.y}% Q${d.x+2}% ${d.y-1.5}% ${d.x+4}% ${d.y}% Q${d.x+6}% ${d.y+1.5}% ${d.x+8}% ${d.y}%`}
-                  stroke={d.color} strokeWidth="0.3%" fill="none" opacity={d.opacity} strokeLinecap="round"
-                />
-              );
-              if (d.type === 'arrow') return (
-                <g key={i} transform={`translate(${d.x} ${d.y}) rotate(${d.rotate || 0})`} opacity={d.opacity}>
-                  <line x1="-3" y1="0" x2="3" y2="0" stroke={d.color} strokeWidth="0.4" />
-                  <path d="M1.5,-1 L3,0 L1.5,1" fill="none" stroke={d.color} strokeWidth="0.4" />
-                </g>
-              );
-              return null;
-            })}
-          </svg>
+      {/* ── MAIN ── */}
+      <main className={`sketchbook-main ${entryAnim?'entered':''} ${nightMode?'sb-night':''}`} aria-label="Kreshant's sketchbook">
+
+        {/* Desk stains */}
+        <div className="desk-stains" aria-hidden>
+          <div className="stain-coffee" style={{ width:110, height:110, bottom:'48px', right:'320px' }} />
+          <div className="stain-coffee" style={{ width:70, height:70, top:'200px', left:'48%', opacity:0.6 }} />
+          <div className="stain-watercolor" style={{ width:260, height:260, top:'140px',  left:'40%',  background:'radial-gradient(circle,rgba(124,58,237,0.22),transparent 70%)',    opacity:0.22 }} />
+          <div className="stain-watercolor" style={{ width:340, height:340, top:'48%',    left:'4%',   background:'radial-gradient(circle,rgba(44,24,16,0.18),transparent 70%)',      opacity:0.18 }} />
+          <div className="stain-watercolor" style={{ width:300, height:300, bottom:'180px',right:'14%', background:'radial-gradient(circle,rgba(180,100,40,0.12),transparent 70%)',   opacity:0.16 }} />
         </div>
 
-        {/* Margin annotations */}
-        {annotations.map((a, i) => (
-          <div
+        {/* ── FIXED-PX DOODLE STARS (no SVG viewBox, no stretching) ── */}
+        {STARS.map((s,i) => (
+          <span
             key={i}
-            className="margin-annotation"
-            style={{
-              top: a.top,
-              left: 'left' in a ? a.left : undefined,
-              right: 'right' in a ? (a as typeof a & { right: string }).right : undefined,
-              transform: `rotate(${a.rotate}deg)`,
-              color: a.color,
-            }}
-            aria-hidden="true"
+            className="doodle-star"
+            aria-hidden
+            style={{ top:s.top, left:s.left, fontSize:`${s.size}px`, color:s.color, '--star-opacity':s.opacity } as React.CSSProperties}
           >
+            ✦
+          </span>
+        ))}
+
+        {/* Squiggle lines — fixed size SVG, not scaled */}
+        <svg className="doodle-squiggle-svg" aria-hidden style={{ top:'15%', left:'54%', width:120, height:30 }}>
+          <path d="M0,15 Q15,5 30,15 Q45,25 60,15 Q75,5 90,15 Q105,25 120,15"
+            stroke="#8b4513" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+        </svg>
+        <svg className="doodle-squiggle-svg" aria-hidden style={{ top:'80%', left:'19%', width:90, height:22 }}>
+          <path d="M0,11 Q11,3 22,11 Q33,19 44,11 Q55,3 66,11 Q77,19 88,11"
+            stroke="#5a7abf" strokeWidth="1.2" fill="none" strokeLinecap="round"/>
+        </svg>
+        {/* Arrow doodle */}
+        <svg className="doodle-squiggle-svg" aria-hidden style={{ top:'38%', left:'67%', width:40, height:40, opacity:0.42 }}>
+          <line x1="5" y1="20" x2="35" y2="20" stroke="#8b4513" strokeWidth="1.5" strokeLinecap="round"/>
+          <path d="M28,13 L35,20 L28,27" fill="none" stroke="#8b4513" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+
+        {/* Margin annotations */}
+        {annotations.map((a,i) => (
+          <div key={i} className="margin-annotation" aria-hidden
+            style={{ top:a.top, left:'left' in a?a.left:undefined, right:'right' in a?(a as typeof a & {right:string}).right:undefined, transform:`rotate(${a.rotate}deg)`, color:a.color }}>
             {a.text}
           </div>
         ))}
 
         {/* ── HEADER ── */}
         <div className="sk-header">
-          <div className="washi-tape washi-1" aria-hidden="true" />
-          <div className="washi-tape washi-2" aria-hidden="true" />
-
+          <div className="washi-tape washi-1" aria-hidden />
+          <div className="washi-tape washi-2" aria-hidden />
           <p className="sk-volume">Vol. I · 2024</p>
-          <h1 className="sk-title">
-            Kresh's<br />
-            <span className="sk-title-messy">Sketchbook</span>
-          </h1>
+          <h1 className="sk-title">Kresh's<br /><span className="sk-title-messy">Sketchbook</span></h1>
           <p className="sk-desc">
-            drawings / doodles / 3am thoughts
-            <br />
+            drawings / doodles / 3am thoughts<br />
             <span className="sk-desc-small">not everything here is finished. that's the point.</span>
           </p>
-
-          {/* Clickable sticky notes */}
           <div className="sticky-cluster" aria-label="Artist notes">
-            {(['these r wip ok', '↑ obsessed w this one', 'trying to get better at hands...'] as const).map((text, i) => (
-              <div
-                key={i}
-                className={`sticky-note sn-${i + 1}`}
+            {(['these r wip ok','↑ obsessed w this one','trying to get better at hands...'] as const).map((text,i) => (
+              <div key={i} className={`sticky-note sn-${i+1}`}
                 onClick={e => handleStickyClick(e, i)}
-                role="button"
-                tabIndex={0}
-                aria-label={`Note: ${text}`}
-                onKeyDown={e => e.key === 'Enter' && handleStickyClick(e as unknown as React.MouseEvent, i)}
-              >
+                role="button" tabIndex={0} aria-label={`Note: ${text}`}
+                onKeyDown={e => e.key==='Enter' && handleStickyClick(e as unknown as React.MouseEvent,i)}>
                 {text}
               </div>
             ))}
           </div>
-
-          <div className="coffee-ring" aria-hidden="true" />
+          <div className="coffee-ring" aria-hidden />
         </div>
 
-        {/* ── DRAWINGS — TRUE SCATTER ── */}
+        {/* ── DRAWINGS ── */}
         <section className="drawings-section" aria-label="Drawings">
           <div className="section-label">
             <span className="section-label-text">// drawings</span>
             <span className="section-label-underline" />
           </div>
-
-          <div
-            className="drawings-scatter"
-            style={{ height: scatterHeight }}
-          >
-            {drawings.map((drawing, i) => (
-              <DrawingCard
-                key={i}
-                drawing={drawing}
-                index={i}
-                visible={visibleCards[i]}
-                onClick={() => setLightboxSrc(drawing.src)}
-              />
+          <div className="drawings-scatter" style={{ height: scatterHeight }}>
+            {drawings.map((d,i) => (
+              <DrawingCard key={i} drawing={d} index={i} visible={visibleCards[i]}
+                onClick={() => setLightboxSrc(d.src)} />
             ))}
-
-            {/* More coming placeholder */}
-            <div
-              className="drawing-card-wrap drawing-placeholder-card"
+            {/* Placeholder card */}
+            <div className="drawing-card-wrap drawing-placeholder-card"
               style={{
-                left: '84%',
-                top: 15,
-                width: 140,
-                '--card-rot': '3deg',
-                opacity: visibleCards[drawings.length - 1] ? 1 : 0,
-                transition: 'opacity 0.5s ease 0.6s',
-              } as React.CSSProperties}
-              aria-hidden="true"
-            >
+                left:'82%', top:180, width:138,
+                '--card-rot':'3deg',
+                opacity: visibleCards[drawings.length-1] ? 1 : 0,
+                transition:'opacity .5s ease .65s',
+              } as React.CSSProperties} aria-hidden>
               <div className="placeholder-inner">
                 <span className="placeholder-plus">+</span>
                 <span className="placeholder-text">more coming<br />when i stop<br />being lazy</span>
@@ -596,95 +389,62 @@ export default function SketchbookPage() {
           </div>
         </section>
 
-        {/* ── STICKERS ── */}
-        {stickers.map((s, i) => (
-          <img
-            key={i}
-            src={s.src}
-            className="sb-sticker"
-            style={{ ...s.style, position: 'absolute' } as React.CSSProperties}
-            alt=""
-            aria-hidden="true"
-            onClick={e => s.easterEgg && handleStickerClick(e, true, i)}
+        {/* ── STICKERS / DESK OBJECTS ── */}
+        {stickers.map((s,i) => (
+          <img key={i} src={s.src} className="sb-sticker"
+            style={{ ...s.style, position:'absolute' } as React.CSSProperties}
+            alt="" aria-hidden
+            onClick={e => s.easterEgg && handleStickerClick(e,true)}
             title={s.easterEgg ? 'click me...' : undefined}
           />
         ))}
 
-        {/* ── PHONE PLAYER ── */}
-        <div 
-          className="sb-sticker sticker-phone"
-          style={{ bottom: '260px', right: '18%', width: 140, transform: 'rotate(-5deg)', position: 'absolute', zIndex: 15, cursor: 'pointer' }}
-          onClick={toggleMusic}
-        >
-          <img src="/sketchbook/stickers/phone.png" alt="Phone" style={{ width: '100%', filter: 'drop-shadow(4px 10px 20px rgba(0,0,0,0.3))' }} />
-          <div className="phone-screen-overlay" style={{
-            position: 'absolute', top: '12%', left: '10%', right: '10%', bottom: '12%',
-            pointerEvents: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-            background: 'rgba(0,0,0,0.1)', borderRadius: '10px'
-          }}>
-            {musicPlaying && (
-              <>
-                <div className="music-eq" style={{ opacity: 0.9, marginBottom: 8 }}>
-                  <div className="eq-bar" style={{ animationDelay: '0.1s', background: '#a78bfa' }} />
-                  <div className="eq-bar" style={{ animationDelay: '0.3s', background: '#a78bfa' }} />
-                  <div className="eq-bar" style={{ animationDelay: '0s', background: '#a78bfa' }} />
-                </div>
-                <span style={{ fontSize: '8px', color: '#fff', textAlign: 'center', fontFamily: 'system-ui' }}>now playing...</span>
-              </>
-            )}
-          </div>
+        {/* Phone music player sticker */}
+        <div className="sb-sticker sticker-phone"
+          style={{ bottom:'265px', right:'17%', width:145, transform:'rotate(-5deg)', position:'absolute', zIndex:15, cursor:'pointer' }}
+          onClick={toggleMusic} role="button" aria-label="Toggle music">
+          <img src="/sketchbook/stickers/phone.png" alt="Phone music player"
+            style={{ width:'100%', filter:'drop-shadow(4px 10px 20px rgba(42,26,12,0.3))' }} />
+          {musicPlaying && (
+            <div style={{ position:'absolute', top:'12%', left:'10%', right:'10%', bottom:'12%', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:6 }}>
+              <div className="music-eq">
+                <div className="eq-bar" style={{ animationDelay:'.1s', background:'#a78bfa' }}/>
+                <div className="eq-bar" style={{ animationDelay:'.3s', background:'#a78bfa' }}/>
+                <div className="eq-bar" style={{ animationDelay:'0s',  background:'#a78bfa' }}/>
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* ── TORN NOTES ── */}
-        <TornNote 
-          text="things to draw next: more hands (ugh), perspective study, that forest scene from dark, character from vinland saga, portrait of toji" 
-          style={{ top: '680px', left: '6%', width: 260, transform: 'rotate(-2deg)' }} 
+        {/* ── TORN PAPER NOTES ── */}
+        <TornNote
+          text="things to draw next:"
+          lines={['more hands (ugh)','perspective study','that forest scene from dark','character from vinland saga']}
+          style={{ top:'700px', left:'5%', width:265, transform:'rotate(-1.5deg)' }}
         />
-        <TornNote 
-          text="currently listening: → trying to find the perfect study playlist, last watched: vinland saga s2 (crying inside)" 
-          style={{ bottom: '420px', left: '35%', width: 200, transform: 'rotate(5deg)' }} 
+        <TornNote
+          text="more coming soon..."
+          lines={['trying to get better','at hands. slowly.','maybe.']}
+          style={{ bottom:'400px', right:'40%', width:150, transform:'rotate(4deg)' }}
+          small
         />
-        <TornNote 
-          text="more coming and a their ter get better at handle." 
-          style={{ bottom: '380px', right: '40%', width: 140, transform: 'rotate(-3deg)' }} 
-        />
-
-        {/* ── DESK STAINS ── */}
-        <div className="desk-stains" aria-hidden="true">
-          <div className="stain-coffee" style={{ bottom: '40px', right: '320px' }} />
-          <div className="stain-watercolor" style={{ top: '150px', left: '42%', width: 250, height: 250 }} />
-          <div className="stain-watercolor" style={{ top: '50%', left: '5%', width: 350, height: 350, background: 'radial-gradient(circle, rgba(44, 24, 16, 0.1), transparent 70%)' }} />
-          <div className="stain-watercolor" style={{ bottom: '200px', right: '15%', width: 300, height: 300, transform: 'rotate(-45deg)' }} />
-          <div className="stain-watercolor" style={{ top: '30%', right: '5%', width: 200, height: 200, opacity: 0.15 }} />
-        </div>
 
         {/* ── NOTEBOOK ── */}
         <section className="notebook-section" aria-label="Notes">
           <div className="notebook-wrap" ref={notebookRef}>
-            <div className="notebook-margin" aria-hidden="true" />
+            <div className="notebook-margin" aria-hidden />
             <div className="notebook-lines">
-              {NOTE_ENTRIES.map((entry, i) => (
-                <div
-                  key={i}
-                  className={[
-                    'note-line',
-                    `note-${entry.style}`,
-                    entry.mood ? `note-mood-${entry.mood}` : '',
-                    visibleLines[i] ? 'line-visible' : '',
-                  ].join(' ')}
-                  style={{ transitionDelay: `${i * 60}ms` }}
-                >
-                  {entry.style === 'crossed' ? (
-                    <span className="note-crossed">
-                      {entry.text.replace('crossed: ', '')}
-                    </span>
-                  ) : (
-                    entry.text
-                  )}
+              {NOTE_ENTRIES.map((entry,i) => (
+                <div key={i}
+                  className={['note-line',`note-${entry.style}`,entry.mood?`note-mood-${entry.mood}`:'',visibleLines[i]?'line-visible':''].join(' ')}
+                  style={{ transitionDelay:`${i*60}ms` }}>
+                  {entry.style==='crossed'
+                    ? <span className="note-crossed">{entry.text.replace('crossed:','').trim()}</span>
+                    : entry.text}
                 </div>
               ))}
             </div>
-            <div className="nb-doodles" aria-hidden="true">
+            <div className="nb-doodles" aria-hidden>
               <div className="nb-star nb-star-1">✦</div>
               <div className="nb-star nb-star-2">✧</div>
               <div className="nb-star nb-star-3">★</div>
@@ -705,92 +465,49 @@ export default function SketchbookPage() {
           <div className="currently-wrap">
             <h2 className="currently-title">currently into</h2>
             <div className="currently-grid">
-              <CurrentlyCard emoji="🎵" label="music"    value="looking for the perfect study playlist"   color="#a78bfa" />
-              <CurrentlyCard emoji="📺" label="watching" value="Vinland Saga S2 — it's destroying me"      color="#fbbf24" />
-              <CurrentlyCard emoji="🎮" label="playing"  value="whatever runs on an RTX 3050"              color="#34d399" />
-              <CurrentlyCard emoji="✏️" label="drawing"  value="anatomy, hands, hating myself"             color="#f87171" />
+              <CurrentlyCard emoji="🎵" label="music"    value="looking for the perfect study playlist" color="#a78bfa" />
+              <CurrentlyCard emoji="📺" label="watching" value="Vinland Saga S2 — it's destroying me"    color="#fbbf24" />
+              <CurrentlyCard emoji="🎮" label="playing"  value="whatever runs on an RTX 3050"            color="#34d399" />
+              <CurrentlyCard emoji="✏️" label="drawing"  value="anatomy, hands, hating myself"           color="#f87171" />
             </div>
           </div>
         </section>
 
         {/* ── FOOTER ── */}
         <div className="sk-footer">
-          <div className="sk-footer-line" aria-hidden="true" />
-          <p className="sk-footer-text">
-            this is the part of me that doesn't make it to the portfolio
-          </p>
+          <div className="sk-footer-line" aria-hidden />
+          <p className="sk-footer-text">this is the part of me that doesn't make it to the portfolio</p>
           <p className="sk-footer-sub">@kreshrts · kreshantkumar.com</p>
-          <button className="sk-footer-back" onClick={handleBack}>
-            ← back to the professional version of me
-          </button>
+          <button className="sk-footer-back" onClick={() => navigate(-1)}>← back to the professional version of me</button>
         </div>
       </main>
 
       {/* ── LIGHTBOX ── */}
       {lightboxSrc && (
-        <div
-          className="lightbox"
-          onClick={() => setLightboxSrc(null)}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Drawing enlarged"
-        >
-          <button
-            className="lightbox-close"
-            onClick={() => setLightboxSrc(null)}
-            aria-label="Close"
-          >
-            ✕
-          </button>
-          <img
-            src={lightboxSrc}
-            alt="Drawing enlarged"
-            className="lightbox-img"
-            onClick={e => e.stopPropagation()}
-          />
+        <div className="lightbox" onClick={() => setLightboxSrc(null)} role="dialog" aria-modal aria-label="Drawing enlarged">
+          <button className="lightbox-close" onClick={() => setLightboxSrc(null)} aria-label="Close">✕</button>
+          <img src={lightboxSrc} alt="Drawing enlarged" className="lightbox-img" onClick={e => e.stopPropagation()} />
         </div>
       )}
     </>
   );
 }
 
-// ── SUB COMPONENTS ─────────────────────────────────────────────
+// ── SUB-COMPONENTS ─────────────────────────────────────────────
 
-function DrawingCard({
-  drawing,
-  index,
-  visible,
-  onClick,
-}: {
-  drawing: typeof drawings[0];
-  index: number;
-  visible: boolean;
-  onClick: () => void;
+function DrawingCard({ drawing, index, visible, onClick }: {
+  drawing: typeof drawings[0]; index: number; visible: boolean; onClick: () => void;
 }) {
   const tape      = tapeColors[index % tapeColors.length];
   const tapeWidth = 36 + (index % 3) * 12;
-
   return (
     <div
-      className={`drawing-card-wrap ${visible ? 'card-visible' : ''}`}
-      style={{
-        left: `${drawing.left}%`,
-        top: drawing.top,
-        width: drawing.width,
-        '--card-rot': `${drawing.rotate}deg`,
-        animationDelay: `${drawing.delay}ms`,
-      } as React.CSSProperties}
-      onClick={onClick}
-      role="button"
-      tabIndex={0}
+      className={`drawing-card-wrap ${visible?'card-visible':''}`}
+      style={{ left:`${drawing.left}%`, top:drawing.top, width:drawing.width, '--card-rot':`${drawing.rotate}deg`, animationDelay:`${drawing.delay}ms` } as React.CSSProperties}
+      onClick={onClick} role="button" tabIndex={0}
       aria-label={`View drawing: ${drawing.label}`}
-      onKeyDown={e => e.key === 'Enter' && onClick()}
-    >
-      <div
-        className="drawing-tape"
-        style={{ width: tapeWidth, background: tape }}
-        aria-hidden="true"
-      />
+      onKeyDown={e => e.key==='Enter' && onClick()}>
+      <div className="drawing-tape" style={{ width:tapeWidth, background:tape }} aria-hidden />
       <div className="drawing-img-box">
         <ImageWithFallback src={drawing.src} alt={drawing.label} />
       </div>
@@ -802,58 +519,39 @@ function DrawingCard({
   );
 }
 
-function TornNote({ text, style }: { text: string; style: React.CSSProperties }) {
-  return (
-    <div className="torn-paper" style={style}>
-      {text.split(', ').map((line, i) => (
-        <div key={i} style={{ 
-          marginBottom: i === 0 ? 8 : 2, 
-          fontSize: i === 0 ? 18 : 14, 
-          fontWeight: i === 0 ? 700 : 400,
-          opacity: i === 0 ? 1 : 0.8,
-          borderBottom: i === 0 ? '1px dashed rgba(0,0,0,0.1)' : 'none',
-          paddingBottom: i === 0 ? 4 : 0
-        }}>
-          {line.startsWith('→') ? (
-            <span style={{ color: 'var(--sb-violet)', fontWeight: 600 }}>{line}</span>
-          ) : line}
-        </div>
-      ))}
-    </div>
-  );
-}
-
 function ImageWithFallback({ src, alt }: { src: string; alt: string }) {
   const [failed, setFailed] = useState(false);
   if (failed) {
     return (
       <div className="drawing-img-placeholder">
         <span className="placeholder-pencil">✏️</span>
-        <span className="placeholder-info">add {alt}<br />to /public/sketchbook/</span>
+        <span className="placeholder-info">add {alt}<br/>to /public/sketchbook/</span>
       </div>
     );
   }
+  return <img src={src} alt={alt} className="drawing-img" onError={() => setFailed(true)} loading="lazy" />;
+}
+
+function TornNote({ text, lines, style, small }: {
+  text: string; lines: string[]; style: React.CSSProperties; small?: boolean;
+}) {
   return (
-    <img
-      src={src}
-      alt={alt}
-      className="drawing-img"
-      onError={() => setFailed(true)}
-      loading="lazy"
-    />
+    <div className="torn-paper" style={style}>
+      <div style={{ fontFamily:"'Caveat',cursive", fontSize: small?14:17, fontWeight:700, color:'#7c3aed', marginBottom:6, paddingBottom:4, borderBottom:'1px dashed rgba(0,0,0,0.1)' }}>
+        {text}
+      </div>
+      {lines.map((l,i) => (
+        <div key={i} style={{ fontFamily:"'Caveat',cursive", fontSize:small?12:14, opacity:.82, lineHeight:1.5, color:'#2a1a0c' }}>{l}</div>
+      ))}
+    </div>
   );
 }
 
-function CurrentlyCard({
-  emoji, label, value, color,
-}: {
+function CurrentlyCard({ emoji, label, value, color }: {
   emoji: string; label: string; value: string; color: string;
 }) {
   return (
-    <div
-      className="currently-card"
-      style={{ '--card-color': color } as React.CSSProperties}
-    >
+    <div className="currently-card" style={{ '--card-color':color } as React.CSSProperties}>
       <div className="currently-card-header">
         <div className="cc-emoji">{emoji}</div>
         <div className="cc-label">{label}</div>
