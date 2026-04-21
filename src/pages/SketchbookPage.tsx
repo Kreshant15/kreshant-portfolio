@@ -88,17 +88,16 @@ const annotations = [
 
 // Background doodles
 const doodleElements = [
-  { type: 'star',     x: 82, y: 8,  size: 24, color: '#a78bfa', opacity: 0.8 },
-  { type: 'star',     x: 15, y: 45, size: 20, color: '#7c3aed', opacity: 0.6 },
-  { type: 'star',     x: 75, y: 72, size: 28, color: '#a78bfa', opacity: 0.7 },
-  { type: 'star',     x: 5,  y: 88, size: 18,  color: '#c4b5fd', opacity: 0.6 },
-  { type: 'star',     x: 92, y: 56, size: 22, color: '#7c3aed', opacity: 0.6 },
-  { type: 'circle',   x: 30, y: 12, size: 24, color: 'rgba(100,150,200,0.15)', opacity: 1 },
-  { type: 'circle',   x: 88, y: 30, size: 16, color: 'rgba(200,100,100,0.12)', opacity: 1 },
-  { type: 'circle',   x: 10, y: 65, size: 30, color: 'rgba(160,200,100,0.1)',  opacity: 1 },
-  { type: 'squiggle', x: 55, y: 15, opacity: 0.3, color: '#888' },
-  { type: 'squiggle2',x: 20, y: 80, opacity: 0.25, color: '#5a7abf' },
-  { type: 'arrow',    x: 68, y: 42, opacity: 0.35, color: '#888', rotate: 45 },
+  { type: 'star',     x: 82, y: 8,  size: 32, color: '#a78bfa', opacity: 0.9 },
+  { type: 'star',     x: 15, y: 45, size: 28, color: '#7c3aed', opacity: 0.7 },
+  { type: 'star',     x: 75, y: 72, size: 36, color: '#a78bfa', opacity: 0.8 },
+  { type: 'star',     x: 94, y: 48, size: 30, color: '#a78bfa', opacity: 0.75 },
+  { type: 'circle',   x: 30, y: 12, size: 24, color: 'rgba(100,150,200,0.2)', opacity: 1 },
+  { type: 'circle',   x: 88, y: 30, size: 16, color: 'rgba(200,100,100,0.15)', opacity: 1 },
+  { type: 'circle',   x: 10, y: 65, size: 30, color: 'rgba(160,200,100,0.12)',  opacity: 1 },
+  { type: 'squiggle', x: 55, y: 15, opacity: 0.4, color: '#8b4513' },
+  { type: 'squiggle2',x: 20, y: 80, opacity: 0.35, color: '#5a7abf' },
+  { type: 'arrow',    x: 68, y: 38, opacity: 0.5, color: '#8b4513', rotate: 125 },
 ];
 
 const tapeColors = [
@@ -447,6 +446,16 @@ export default function SketchbookPage() {
         </div>
       )}
 
+      {/* ── SVG FILTERS (hidden) ── */}
+      <svg style={{ position: 'absolute', width: 0, height: 0, pointerEvents: 'none' }} aria-hidden="true">
+        <defs>
+          <filter id="ink-bleed">
+            <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="4" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" />
+          </filter>
+        </defs>
+      </svg>
+
       {/* ── MAIN PAGE ── */}
       <main
         className={`sketchbook-main ${entryAnim ? 'entered' : ''} ${nightMode ? 'sb-night' : ''}`}
@@ -626,11 +635,27 @@ export default function SketchbookPage() {
           </div>
         </div>
 
+        {/* ── TORN NOTES ── */}
+        <TornNote 
+          text="things to draw next: more hands (ugh), perspective study, that forest scene from dark, character from vinland saga, portrait of toji" 
+          style={{ top: '680px', left: '6%', width: 260, transform: 'rotate(-2deg)' }} 
+        />
+        <TornNote 
+          text="currently listening: → trying to find the perfect study playlist, last watched: vinland saga s2 (crying inside)" 
+          style={{ bottom: '420px', left: '35%', width: 200, transform: 'rotate(5deg)' }} 
+        />
+        <TornNote 
+          text="more coming and a their ter get better at handle." 
+          style={{ bottom: '380px', right: '40%', width: 140, transform: 'rotate(-3deg)' }} 
+        />
+
         {/* ── DESK STAINS ── */}
         <div className="desk-stains" aria-hidden="true">
           <div className="stain-coffee" style={{ bottom: '40px', right: '320px' }} />
-          <div className="stain-watercolor" style={{ top: '20%', left: '45%' }} />
-          <div className="stain-watercolor" style={{ bottom: '10%', right: '10%', background: 'radial-gradient(circle, rgba(167, 139, 250, 0.15), transparent 70%)' }} />
+          <div className="stain-watercolor" style={{ top: '150px', left: '42%', width: 250, height: 250 }} />
+          <div className="stain-watercolor" style={{ top: '50%', left: '5%', width: 350, height: 350, background: 'radial-gradient(circle, rgba(44, 24, 16, 0.1), transparent 70%)' }} />
+          <div className="stain-watercolor" style={{ bottom: '200px', right: '15%', width: 300, height: 300, transform: 'rotate(-45deg)' }} />
+          <div className="stain-watercolor" style={{ top: '30%', right: '5%', width: 200, height: 200, opacity: 0.15 }} />
         </div>
 
         {/* ── NOTEBOOK ── */}
@@ -773,6 +798,27 @@ function DrawingCard({
         <div className="drawing-caption-label">{drawing.label}</div>
         <div className="drawing-caption-note">{drawing.note}</div>
       </div>
+    </div>
+  );
+}
+
+function TornNote({ text, style }: { text: string; style: React.CSSProperties }) {
+  return (
+    <div className="torn-paper" style={style}>
+      {text.split(', ').map((line, i) => (
+        <div key={i} style={{ 
+          marginBottom: i === 0 ? 8 : 2, 
+          fontSize: i === 0 ? 18 : 14, 
+          fontWeight: i === 0 ? 700 : 400,
+          opacity: i === 0 ? 1 : 0.8,
+          borderBottom: i === 0 ? '1px dashed rgba(0,0,0,0.1)' : 'none',
+          paddingBottom: i === 0 ? 4 : 0
+        }}>
+          {line.startsWith('→') ? (
+            <span style={{ color: 'var(--sb-violet)', fontWeight: 600 }}>{line}</span>
+          ) : line}
+        </div>
+      ))}
     </div>
   );
 }
