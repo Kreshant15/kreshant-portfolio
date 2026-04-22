@@ -287,7 +287,7 @@ export const projects: ProjectDetail[] = [
       title: "What is Aura",
       content:
         "Aura rethinks music as a state, not a library. Instead of searching for tracks, the experience begins with how you feel.\n\nThe interface responds to that emotional input through color, motion, and sound — turning listening into something closer to a guided ritual than a playlist.",
-      images: ["/images/projects/aura/onboard-mockup.webp"],
+      images: ["/images/projects/aura/onboard-mockup.png"],
     },
 
     // 2️⃣ EMOTIONAL SYSTEM (USP)
