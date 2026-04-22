@@ -146,7 +146,7 @@ const SacredGrid = ({ images, title }: { images: string[]; title: string }) => {
     <div className={`grid gap-3 md:gap-4 mt-10 ${grid}`}>
       {images.map((src,i)=>(
         <motion.div key={i} className="relative overflow-hidden group"
-          style={{background:AT.bgCard,border:`1px solid ${AT.gold}20`,boxShadow:`0 6px 28px rgba(0,0,0,0.55),inset 0 1px 0 ${AT.gold}10`}}
+          style={{border:`1px solid ${AT.gold}20`,boxShadow:`0 4px 20px rgba(0,0,0,0.4)`}}
           initial={{opacity:0,y:18}} whileInView={{opacity:1,y:0}} viewport={{once:true}}
           transition={{duration:0.55,delay:i*0.08}} whileHover={{scale:1.015}}>
           {/* top shimmer */}
@@ -173,7 +173,7 @@ const SacredCard = ({ src, name, devanagari, index }: {
   src: string; name: string; devanagari: string; index: number;
 }) => (
   <motion.div className="relative overflow-hidden group cursor-pointer"
-    style={{border:`1px solid ${AT.gold}22`,background:AT.bgCard}}
+    style={{border:`1px solid ${AT.gold}22`}}
     initial={{opacity:0,y:22}} whileInView={{opacity:1,y:0}} viewport={{once:true}}
     transition={{duration:0.5,delay:index*0.055}} whileHover={{scale:1.02}}>
     <div className="absolute top-0 left-0 right-0 h-px z-10"
