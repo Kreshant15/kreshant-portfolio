@@ -75,7 +75,8 @@
 
   body {
     font-family: var(--font-sans);
-    @apply bg-cream text-ink;
+    background-color: var(--color-cream);
+color: var(--color-ink);
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
     @apply selection:bg-violet-200 selection:text-violet-900;
   }
