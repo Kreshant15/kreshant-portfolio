@@ -354,7 +354,7 @@ export const PixelEraProject = () => {
       {/* ── HERO ─────────────────────────────────────────── */}
       <div ref={heroRef} className="relative flex items-center justify-center overflow-hidden" style={{ height: "100dvh" }}>
         <motion.div className="absolute inset-0" style={{ y: heroY, opacity: heroOpacity }}>
-          <img src="/images/projects/pixel/cover.webp" alt="Pixel Era"
+          <img src="/images/projects/pixel/phero.png" alt="Pixel Era"
             className="w-full h-full object-cover" loading="eager" />
           <div className="absolute inset-0"
             style={{ background: `linear-gradient(to bottom,${PE.bg}CC 0%,${PE.bg}60 30%,${PE.bg}99 65%,${PE.bg} 100%)` }} />
