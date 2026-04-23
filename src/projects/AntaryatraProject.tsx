@@ -227,7 +227,7 @@ export const AntaryatraProject = () => {
       {/* HERO */}
       <div ref={heroRef} className="relative flex flex-col items-center justify-center text-center overflow-hidden" style={{height:"100dvh"}}>
         <motion.div className="absolute inset-0" style={{y:heroY,opacity:heroOpacity}}>
-          <img src="/images/projects/antaryatra/antaryatra.webp" alt="Antaryatra" className="w-full h-full object-cover" loading="eager"/>
+          <img src="/images/projects/antaryatra/ahero.png" alt="Antaryatra" className="w-full h-full object-cover" loading="eager"/>
           <div className="absolute inset-0" style={{background:`linear-gradient(to bottom,${AT.bg}C0 0%,${AT.bg}55 35%,${AT.bg}CC 70%,${AT.bg} 100%)`}}/>
         </motion.div>
 
