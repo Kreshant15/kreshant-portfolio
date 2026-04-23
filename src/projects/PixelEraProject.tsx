@@ -190,7 +190,7 @@ const PixelGrid = ({ images, title }: { images: string[]; title: string }) => {
   const n = images.length;
   const grid =
     n === 1 ? "grid-cols-1 max-w-3xl mx-auto" :
-    n === 2 ? "grid-cols-1 md:grid-cols-2" :
+    n === 2 ? "grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto" :
               "grid-cols-1 md:grid-cols-3";   // 3 → single row, no orphan
 
   return (

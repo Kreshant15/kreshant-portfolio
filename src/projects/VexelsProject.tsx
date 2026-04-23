@@ -253,7 +253,7 @@ export const VexelsProject = () => {
                 color: VX.red,
                 letterSpacing: "0.04em",
               }}>
-              VEX<span style={{ color: VX.blue }}>ELS</span>
+              VEX<span style={{ color: VX.blue }}>EL</span>
             </h1>
 
             {/* spinning burst — top right */}

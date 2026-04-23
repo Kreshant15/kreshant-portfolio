@@ -139,8 +139,16 @@ const SacredLabel = ({ num, label }: { num: string; label: string }) => (
 const SacredGrid = ({ images, title }: { images: string[]; title: string }) => {
   if (!images.length) return null;
   const n = images.length;
-  const grid = n===1?"grid-cols-1": n===2?"grid-cols-1 md:grid-cols-2": n===3?"grid-cols-3": "grid-cols-2";
-  const cap  = n===1?"max-h-[520px]": n===2?"max-h-[440px]": n===3?"max-h-[310px]": "max-h-[380px]";
+  const grid =
+  n===1 ? "grid-cols-1 max-w-3xl mx-auto" :
+  n===2 ? "grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto" :
+  n===3 ? "grid-cols-1 md:grid-cols-3 max-w-5xl mx-auto" :
+          "grid-cols-2";
+  const cap =
+  n===1 ? "max-h-[520px]" :
+  n===2 ? "max-h-[360px]" :
+  n===3 ? "max-h-[360px]" :   // increased from 320
+          "max-h-[380px]";
 
   return (
     <div className={`grid gap-3 md:gap-4 mt-10 ${grid}`}>
@@ -339,21 +347,53 @@ export const AntaryatraProject = () => {
         </div>
 
         {/* sections */}
-        {caseStudy.sections.map((section,idx)=>(
-          <motion.div key={idx} className="mb-24 md:mb-32"
-            initial={{opacity:0,y:36}} whileInView={{opacity:1,y:0}}
-            viewport={{once:true,margin:"-80px"}} transition={{duration:0.65}}>
-            <SacredLabel num={String(idx+1).padStart(2,"0")} label={section.title}/>
-            <h2 className="font-bold leading-tight mb-6"
-              style={{fontFamily:"Georgia,'Times New Roman',serif",fontSize:"clamp(1.6rem,3.5vw,2.6rem)",color:AT.cream}}>
-              {section.title}
-            </h2>
-            <p className="text-[15px] leading-loose max-w-3xl whitespace-pre-line" style={{color:AT.muted,fontFamily:"Georgia,serif"}}>
-              {section.content}
-            </p>
-            <SacredGrid images={section.images} title={section.title}/>
-          </motion.div>
-        ))}
+        {/* sections */}
+{caseStudy.sections.map((section, idx) => (
+  <motion.div
+    key={idx}
+    className="mb-24 md:mb-32"
+    initial={{ opacity: 0, y: 36 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-80px" }}
+    transition={{ duration: 0.65 }}
+  >
+
+    <SacredLabel
+      num={String(idx + 1).padStart(2, "0")}
+      label={section.title}
+    />
+
+    {/* TEXT CONTAINER */}
+    <div className="max-w-3xl">
+      <h2
+        className="font-bold leading-tight mb-6"
+        style={{
+          fontFamily: "Georgia,'Times New Roman',serif",
+          fontSize: "clamp(1.6rem,3.5vw,2.6rem)",
+          color: AT.cream
+        }}
+      >
+        {section.title}
+      </h2>
+
+      <p
+        className="text-[15px] leading-loose whitespace-pre-line"
+        style={{ color: AT.muted, fontFamily: "Georgia,serif" }}
+      >
+        {section.content}
+      </p>
+    </div>
+
+    {/* GRID CONTAINER */}
+    <div className="mt-10">
+      <SacredGrid
+        images={section.images}
+        title={section.title}
+      />
+    </div>
+
+  </motion.div>
+))}
 
         <DividerOrnament/>
 
