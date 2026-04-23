@@ -146,8 +146,6 @@ const SacredGrid = ({ images, title }: { images: string[]; title: string }) => {
     <div className={`grid gap-3 md:gap-4 mt-10 ${grid}`}>
       {images.map((src,i)=>(
         <motion.div key={i} className="relative overflow-hidden group"
-          style={{border:`1px solid ${AT.gold}20`,boxShadow:`0 4px 20px rgba(0,0,0,0.4)`}}
-          initial={{opacity:0,y:18}} whileInView={{opacity:1,y:0}} viewport={{once:true}}
           transition={{duration:0.55,delay:i*0.08}} whileHover={{scale:1.015}}>
           {/* top shimmer */}
           <div className="absolute top-0 left-0 right-0 h-px z-10"
@@ -157,11 +155,11 @@ const SacredGrid = ({ images, title }: { images: string[]; title: string }) => {
             className={`w-full object-contain block mx-auto ${cap} transition-transform duration-700 group-hover:scale-[1.04]`}
             loading="lazy"/>
           {/* corner brackets */}
-          {["top-1.5 left-1.5 border-t border-l","top-1.5 right-1.5 border-t border-r",
+          {/* {["top-1.5 left-1.5 border-t border-l","top-1.5 right-1.5 border-t border-r",
             "bottom-1.5 left-1.5 border-b border-l","bottom-1.5 right-1.5 border-b border-r"].map((cls,ci)=>(
             <div key={ci} className={`absolute w-3 h-3 pointer-events-none z-10 ${cls}`}
               style={{borderColor:`${AT.gold}48`}}/>
-          ))}
+          ))} */}
         </motion.div>
       ))}
     </div>
@@ -249,7 +247,7 @@ export const AntaryatraProject = () => {
         </motion.div>
 
         {/* hero text */}
-        <div className="relative z-10 px-6 max-w-4xl mx-auto">
+        <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center">
           <motion.div initial={{opacity:0,y:32}} animate={{opacity:1,y:0}} transition={{duration:1.1,ease:[0.16,1,0.3,1]}}>
             <p className="text-[9px] tracking-[0.6em] uppercase mb-8" style={{color:AT.gold,fontFamily:"Georgia,serif",opacity:0.65}}>
               Poster Series · Personal Work
@@ -262,7 +260,7 @@ export const AntaryatraProject = () => {
               <span style={{color:AT.gold,fontSize:"0.5rem",opacity:0.4,letterSpacing:"0.25em"}}>✦ ✦ ✦</span>
               <div className="h-px w-10 opacity-25" style={{background:AT.gold}}/>
             </div>
-            <h1 className="font-black leading-none tracking-tight mb-6 text-center"
+            <h1 className="font-black leading-none tracking-tight mb-6"
               style={{fontFamily:"Georgia,'Times New Roman',serif",fontSize:"clamp(3rem,11vw,8.5rem)",color:AT.cream,textShadow:"0 4px 48px rgba(0,0,0,0.75)"}}>
               ANTARYATRA
             </h1>
@@ -325,7 +323,7 @@ export const AntaryatraProject = () => {
         {/* overview */}
         <div className="mb-24 mt-16">
           <SacredLabel num="00" label="Overview"/>
-          <p className="text-[15px] leading-[2] max-w-3xl whitespace-pre-line" style={{color:AT.muted,fontFamily:"Georgia,serif"}}>
+          <p className="text-[15px] leading-loose max-w-3xl whitespace-pre-line" style={{color:AT.muted,fontFamily:"Georgia,serif"}}>
             {caseStudy.overview}
           </p>
         </div>
@@ -350,7 +348,7 @@ export const AntaryatraProject = () => {
               style={{fontFamily:"Georgia,'Times New Roman',serif",fontSize:"clamp(1.6rem,3.5vw,2.6rem)",color:AT.cream}}>
               {section.title}
             </h2>
-            <p className="text-[15px] leading-[2] max-w-3xl whitespace-pre-line" style={{color:AT.muted,fontFamily:"Georgia,serif"}}>
+            <p className="text-[15px] leading-loose max-w-3xl whitespace-pre-line" style={{color:AT.muted,fontFamily:"Georgia,serif"}}>
               {section.content}
             </p>
             <SacredGrid images={section.images} title={section.title}/>
@@ -380,8 +378,9 @@ export const AntaryatraProject = () => {
 
         {/* mandala trinity */}
         <div className="flex items-center justify-center gap-6 mb-20">
-          {[{size:88,op:0.22,d:1,dur:34},{size:128,op:0.38,d:-1,dur:25},{size:88,op:0.22,d:1,dur:42}].map(({size,op,d,dur},i)=>(
+          {[{size:110,op:0.35,d:1,dur:34},{size:160,op:0.55,d:-1,dur:25},{size:110,op:0.35,d:1,dur:42}].map(({size,op,d,dur},i)=>(
             <motion.div key={i}
+            style={{ filter: "drop-shadow(0 0 8px rgba(212,175,55,0.25))" }}
               animate={prefersReducedMotion?undefined:{rotate:[0,360*d]}}
               transition={prefersReducedMotion?undefined:{duration:dur,repeat:Infinity,ease:"linear"}}>
               <Mandala size={size} opacity={op}/>
