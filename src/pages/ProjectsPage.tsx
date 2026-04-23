@@ -18,10 +18,10 @@ export const ProjectsPage = () => {
 
         {/* Background — same as every other section */}
         <div className="absolute inset-0 pointer-events-none" aria-hidden>
-          <div className="absolute top-0 right-0 w-[500px] h-[400px]
-            bg-gradient-to-bl from-violet-100/35 to-transparent blur-[100px] rounded-full" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[300px]
-            bg-gradient-to-tr from-amber-100/25 to-transparent blur-[80px] rounded-full" />
+          <div className="absolute top-0 right-0 w-125 h-100
+            bg-linear-to-bl from-violet-100/35 to-transparent blur-[100px] rounded-full" />
+          <div className="absolute bottom-0 left-0 w-100 h-75
+            bg-linear-to-tr from-amber-100/25 to-transparent blur-[80px] rounded-full" />
           <div
             className="absolute inset-0 opacity-[0.025]"
             style={{
@@ -114,7 +114,7 @@ export const ProjectsPage = () => {
 
       {/* Grain overlay */}
       <div
-        className="fixed inset-0 pointer-events-none z-[80] bg-grain opacity-[0.035]"
+        className="fixed inset-0 pointer-events-none z-80 bg-grain opacity-[0.035]"
         aria-hidden
       />
     </main>
