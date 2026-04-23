@@ -249,7 +249,7 @@ export const AntaryatraProject = () => {
         </motion.div>
 
         {/* hero text */}
-        <div className="relative z-10 px-6 max-w-4xl mx-auto text-center">
+        <div className="relative z-10 px-6 max-w-4xl mx-auto">
           <motion.div initial={{opacity:0,y:32}} animate={{opacity:1,y:0}} transition={{duration:1.1,ease:[0.16,1,0.3,1]}}>
             <p className="text-[9px] tracking-[0.6em] uppercase mb-8" style={{color:AT.gold,fontFamily:"Georgia,serif",opacity:0.65}}>
               Poster Series · Personal Work
@@ -262,7 +262,7 @@ export const AntaryatraProject = () => {
               <span style={{color:AT.gold,fontSize:"0.5rem",opacity:0.4,letterSpacing:"0.25em"}}>✦ ✦ ✦</span>
               <div className="h-px w-10 opacity-25" style={{background:AT.gold}}/>
             </div>
-            <h1 className="font-black leading-none tracking-tight mb-6"
+            <h1 className="font-black leading-none tracking-tight mb-6 text-center"
               style={{fontFamily:"Georgia,'Times New Roman',serif",fontSize:"clamp(3rem,11vw,8.5rem)",color:AT.cream,textShadow:"0 4px 48px rgba(0,0,0,0.75)"}}>
               ANTARYATRA
             </h1>
