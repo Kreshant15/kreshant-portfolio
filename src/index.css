@@ -6,7 +6,7 @@
    JetBrains Mono — mono labels, tags, counters
 ───────────────────────────────────────────────────────────────── */
 /* Core font system (cleaned) */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Caveat:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Nunito:wght@400;600;700;800&family=Fredoka:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Caveat:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Nunito:wght@400;600;700;800&family=Fredoka:wght@400;500;600&family=Kalam:wght@300;400;700&family=Patrick+Hand&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap');
 
 /* Tailwind */
 @import "tailwindcss";

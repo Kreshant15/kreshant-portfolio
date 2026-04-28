@@ -1,14 +1,13 @@
-/* ============================================================
-   SKETCHBOOK PAGE — sketchbook.css  v4
-   Aesthetic: warm desk flatlay · lamp glow · craft materials
-   Upgrade: 3D card physics · cursor trails · parallax depth
+﻿/* ============================================================
+   SKETCHBOOK PAGE â€” sketchbook.css  v4
+   Aesthetic: warm desk flatlay Â· lamp glow Â· craft materials
+   Upgrade: 3D card physics Â· cursor trails Â· parallax depth
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Kalam:wght@300;400;700&family=Patrick+Hand&display=swap');
 
-/* ── DESIGN TOKENS ──────────────────────────────────────────── */
+/* â”€â”€ DESIGN TOKENS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 :root {
-  /* Desk surface — aged kraft/manila paper */
+  /* Desk surface â€” aged kraft/manila paper */
   --sb-paper:        #e4dccb;
   --sb-paper-mid:    #ddd4c0;
   --sb-ink:          #2a1a0c;
@@ -47,7 +46,7 @@
   --sb-transition:   background 0.5s ease, color 0.4s ease;
 }
 
-/* ── NIGHT MODE ─────────────────────────────────────────────── */
+/* â”€â”€ NIGHT MODE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .sb-night,
 .night-mode {
   --sb-paper:        #1a1510;
@@ -71,7 +70,7 @@
   --sb-violet-light: #8b5cf6;
 }
 
-/* ── BASE & RESET ───────────────────────────────────────────── */
+/* â”€â”€ BASE & RESET â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .sketchbook-container {
   min-height: 100vh;
   background: var(--sb-paper);
@@ -102,7 +101,7 @@
   opacity: 0.8;
 }
 
-/* ── CURSOR & TRAILS ────────────────────────────────────────── */
+/* â”€â”€ CURSOR & TRAILS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media (pointer: fine) {
   body:has(.sketchbook-container) { cursor: none !important; }
 }
@@ -118,7 +117,7 @@
 }
 
 .pencil-cursor::after {
-  content: '✏️';
+  content: 'âœï¸';
   font-size: 20px;
   display: block;
   filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
@@ -133,7 +132,7 @@
   will-change: transform, opacity;
 }
 
-/* ── BACKGROUND LAYERS ─────────────────────────────────────── */
+/* â”€â”€ BACKGROUND LAYERS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .paper-texture {
   position: fixed;
   inset: 0;
@@ -173,7 +172,7 @@
   mix-blend-mode: screen;
 }
 
-/* ── DESK STAINS & DECORATIONS ─────────────────────────────── */
+/* â”€â”€ DESK STAINS & DECORATIONS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .desk-stains {
   position: absolute;
   inset: 0;
@@ -212,7 +211,7 @@
   mix-blend-mode: multiply;
 }
 
-/* ── FIXED UI CONTROLS ──────────────────────────────────────── */
+/* â”€â”€ FIXED UI CONTROLS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .back-btn {
   position: fixed;
   top: 16px;
@@ -376,7 +375,7 @@
   cursor: pointer;
 }
 
-/* ── DOODLE STARS & PARALLAX ───────────────────────────────── */
+/* â”€â”€ DOODLE STARS & PARALLAX â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .doodle-star {
   position: fixed;
   pointer-events: none;
@@ -403,7 +402,7 @@
   50%     { transform: translateY(-10px); }
 }
 
-/* ── STICKERS & DESK OBJECTS ───────────────────────────────── */
+/* â”€â”€ STICKERS & DESK OBJECTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .desk-sticker {
   position: absolute;
   pointer-events: auto;
@@ -466,7 +465,7 @@
   pointer-events: none;
 }
 
-/* ── HEADER ─────────────────────────────────────────────────── */
+/* â”€â”€ HEADER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .sketchbook-header {
   position: relative;
   z-index: 5;
@@ -651,7 +650,7 @@
   border: 2px solid rgba(110,70,30,0.06);
 }
 
-/* ── DRAWINGS SECTION ───────────────────────────────────────── */
+/* â”€â”€ DRAWINGS SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .drawings-section {
   position: relative;
   z-index: 5;
@@ -711,7 +710,7 @@
 }
 
 .drawing-card-wrap::after {
-  content: '✦';
+  content: 'âœ¦';
   position: absolute;
   top: -10px;
   right: -6px;
@@ -890,7 +889,7 @@
   line-height: 1.4;
 }
 
-/* ── TORN PAPER NOTES ───────────────────────────────────────── */
+/* â”€â”€ TORN PAPER NOTES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .torn-paper {
   background: var(--sb-torn-bg);
   font-family: 'Caveat', cursive;
@@ -929,7 +928,7 @@
 .torn-edge-top { top: -3px; }
 .torn-edge-bottom { bottom: -3px; }
 
-/* ── NOTEBOOK ───────────────────────────────────────────────── */
+/* â”€â”€ NOTEBOOK â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .notebook-section {
   position: relative;
   z-index: 5;
@@ -1040,7 +1039,7 @@
 .nb-doodle.star-1 { top: 10px; right: 10px; }
 .nb-doodle.star-2 { top: 48px; right: 28px; font-size: 11px; color: rgba(240,180,40,.3); }
 
-/* ── CURRENTLY INTO ─────────────────────────────────────────── */
+/* â”€â”€ CURRENTLY INTO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .currently-section {
   position: relative;
   z-index: 5;
@@ -1121,7 +1120,7 @@
   padding: 4px 12px 14px;
 }
 
-/* ── FOOTER ─────────────────────────────────────────────────── */
+/* â”€â”€ FOOTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .sketchbook-footer {
   position: relative;
   z-index: 5;
@@ -1167,7 +1166,7 @@
   margin-bottom: 28px;
 }
 
-/* ── LIGHTBOX ───────────────────────────────────────────────── */
+/* â”€â”€ LIGHTBOX â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .lightbox {
   position: fixed;
   inset: 0;
@@ -1222,7 +1221,7 @@
   margin-top: 16px;
 }
 
-/* ── CONFETTI & ANIMATIONS ─────────────────────────────────── */
+/* â”€â”€ CONFETTI & ANIMATIONS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .confetti-piece {
   position: fixed;
   pointer-events: none;
@@ -1244,7 +1243,7 @@
   100% { opacity: 0; transform: translateY(420px) rotate(720deg) scale(0.4); }
 }
 
-/* ── MOBILE RESPONSIVE ─────────────────────────────────────── */
+/* â”€â”€ MOBILE RESPONSIVE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media (max-width: 1024px) {
   .sketchbook-header { padding: 72px 48px 40px; }
   .drawings-section { padding: 0 48px 50px; }

@@ -1,13 +1,13 @@
 {
-  "name": "react-example",
+  "name": "kreshrts-portfolio",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --port=3000 --host=0.0.0.0",
-    "build": "vite build",
+    "dev": "vite --configLoader runner --port=3000 --host=0.0.0.0",
+    "build": "vite build --configLoader runner",
     "preview": "vite preview",
-    "clean": "rm -rf dist",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{ recursive: true, force: true })\"",
     "lint": "tsc --noEmit"
   },
   "dependencies": {

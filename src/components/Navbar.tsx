@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+﻿import React, { useState, useEffect, useRef } from "react";
 import { Menu, X as CloseIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
@@ -9,7 +9,7 @@ import { Logo } from "./Logo";
 import NavSketchbookLink from './NavSketchbookLink';
 
 
-// ─── Data ────────────────────────────────────────────────────────────────────
+// â”€â”€â”€ Data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const navLinks = [
   { name: "Projects", href: "/projects",  isRoute: true  },
@@ -25,7 +25,7 @@ const socialIcons = [
   { Icon: FaTwitter,   href: "https://x.com/kreshrts",                    label: "Twitter"   },
 ];
 
-// ─── NavLink (desktop) ───────────────────────────────────────────────────────
+// â”€â”€â”€ NavLink (desktop) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 type DesktopNavLinkProps = {
   name: string;
@@ -61,7 +61,7 @@ const DesktopNavLink: React.FC<DesktopNavLinkProps> = ({
   );
 };
 
-// ─── Main Navbar ─────────────────────────────────────────────────────────────
+// â”€â”€â”€ Main Navbar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const Navbar = () => {
   const [isOpen,   setIsOpen]   = useState(false);
@@ -114,7 +114,7 @@ export const Navbar = () => {
 
   return (
     <>
-      {/* ── DESKTOP / SCROLL-AWARE NAV ───────────────────────────── */}
+      {/* â”€â”€ DESKTOP / SCROLL-AWARE NAV â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <motion.nav
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
           scrolled
@@ -126,7 +126,7 @@ export const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
 
           {/* Logo */}
-          <Link to="/" aria-label="Kreshant Kumar — Home">
+          <Link to="/" aria-label="Kreshant Kumar â€” Home">
             <span className="block md:hidden">
               <Logo variant="site" size="xs" />
             </span>
@@ -229,7 +229,7 @@ export const Navbar = () => {
         </div>
       </motion.nav>
 
-      {/* ── MOBILE MENU ──────────────────────────────────────────── */}
+      {/* â”€â”€ MOBILE MENU â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <AnimatePresence>
         {isOpen && (
           <>
@@ -245,7 +245,7 @@ export const Navbar = () => {
               aria-hidden
             />
 
-            {/* Drawer — slides in from right */}
+            {/* Drawer â€” slides in from right */}
             <motion.div
               key="drawer"
               initial={{ x: "100%", opacity: 0 }}
@@ -284,7 +284,7 @@ export const Navbar = () => {
                 aria-hidden
               />
 
-              {/* ── Drawer header ── */}
+              {/* â”€â”€ Drawer header â”€â”€ */}
               <div className="relative flex items-center justify-between px-6 py-5 border-b border-neutral-200/60">
                 <Link to="/" onClick={() => setIsOpen(false)} aria-label="Home">
                   <Logo variant="site" size="xs" />
@@ -301,7 +301,7 @@ export const Navbar = () => {
                 </motion.button>
               </div>
 
-              {/* ── Nav links ── */}
+              {/* â”€â”€ Nav links â”€â”€ */}
               <nav className="relative flex-1 flex flex-col justify-center px-8 gap-1" aria-label="Mobile links">
                 <motion.div
                   initial={{ opacity: 0, x: 24 }}
@@ -366,7 +366,7 @@ export const Navbar = () => {
                           className="text-neutral-300 group-hover:text-violet-400
                             transition-colors duration-200 font-mono text-xs"
                         >
-                          ↗
+                          {"->"}
                         </span>
                       </Link>
                     ) : (
@@ -387,7 +387,7 @@ export const Navbar = () => {
                           className="text-neutral-300 group-hover:text-violet-400
                             transition-colors duration-200 font-mono text-xs"
                         >
-                          ↗
+                          {"->"}
                         </span>
                       </a>
                     )}
@@ -395,7 +395,7 @@ export const Navbar = () => {
                 ))}
               </nav>
 
-              {/* ── Drawer footer ── */}
+              {/* â”€â”€ Drawer footer â”€â”€ */}
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -446,7 +446,7 @@ export const Navbar = () => {
 
                 {/* Availability note */}
                 <p className="font-mono text-[9px] uppercase tracking-[0.25em] text-neutral-400 text-center">
-                  Open to freelance & full-time ✦
+                  Open to freelance and full-time
                 </p>
               </motion.div>
             </motion.div>
@@ -456,3 +456,4 @@ export const Navbar = () => {
     </>
   );
 };
+

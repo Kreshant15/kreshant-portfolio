@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+﻿import React, { useState, useRef, useEffect, useCallback } from "react";
 import {
   motion,
   useScroll,
@@ -10,7 +10,7 @@ import {
 } from "motion/react";
 import { ArrowUpRight, Download } from "lucide-react";
 
-// ─── Design Tool Icons floating behind name ─────────────────────────────────
+// â”€â”€â”€ Design Tool Icons floating behind name â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const DESIGN_TOOLS = [
   { label: "Ps", color: "#31A8FF", x: "8%",  y: "22%", size: 44, delay: 0 },
@@ -21,7 +21,7 @@ const DESIGN_TOOLS = [
   { label: "Xd", color: "#FF61F6", x: "75%", y: "80%", size: 36, delay: 1.2 },
 ];
 
-// ─── Orbital shape decorations ───────────────────────────────────────────────
+// â”€â”€â”€ Orbital shape decorations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const ORBITAL_SHAPES = [
   { type: "circle",   cx: "15%", cy: "30%", r: 6,  color: "#c084fc", delay: 0 },
@@ -33,7 +33,7 @@ const ORBITAL_SHAPES = [
   { type: "circle",   cx: "3%",  cy: "50%", r: 4,  color: "#60a5fa", delay: 0.9 },
 ];
 
-// ─── Floating design tool badge ──────────────────────────────────────────────
+// â”€â”€â”€ Floating design tool badge â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const ToolBadge = ({
   label, color, x, y, size, delay, prefersReducedMotion,
@@ -78,7 +78,7 @@ const ToolBadge = ({
   </motion.div>
 );
 
-// ─── Tiny floating shape ─────────────────────────────────────────────────────
+// â”€â”€â”€ Tiny floating shape â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const OrbitalShape = ({
   type, cx, cy, r, color, delay, prefersReducedMotion,
@@ -125,7 +125,7 @@ const OrbitalShape = ({
   );
 };
 
-// ─── Text scramble hook ──────────────────────────────────────────────────────
+// â”€â”€â”€ Text scramble hook â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&";
 
@@ -164,7 +164,7 @@ function useTextScramble(target: string, trigger: boolean) {
   return display;
 }
 
-// ─── Cursor follower (desktop only) ─────────────────────────────────────────
+// â”€â”€â”€ Cursor follower (desktop only) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const CursorGlow = () => {
   const x = useMotionValue(-200);
@@ -192,7 +192,7 @@ const CursorGlow = () => {
   );
 };
 
-// ─── Main Hero ───────────────────────────────────────────────────────────────
+// â”€â”€â”€ Main Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -218,33 +218,16 @@ export const Hero = () => {
 
   return (
     <>
-      {/* structured data for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Person",
-            name: "Kreshant Kumar",
-            jobTitle: "Graphic Designer",
-            url: "https://kreshrts-portfolio.vercel.app",
-            sameAs: ["https://instagram.com/kreshrts"],
-            description:
-              "Graphic designer specialising in bold, concept-driven visuals — branding, poster design, and digital aesthetics.",
-          }),
-        }}
-      />
-
       <CursorGlow />
 
       <section
         ref={containerRef}
-        aria-label="Hero — Kreshant Kumar, Graphic Designer"
+        aria-label="Hero - Kreshant Kumar, Graphic Designer"
         className="relative min-h-[100svh] flex items-center justify-center overflow-hidden
           pt-[72px] pb-20 md:pb-28
           bg-[#faf7f2]"
       >
-        {/* ── BACKGROUND ── */}
+        {/* â”€â”€ BACKGROUND â”€â”€ */}
         <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden>
           {/* Grain texture via SVG filter */}
           <svg width="0" height="0" className="absolute">
@@ -278,21 +261,21 @@ export const Hero = () => {
           />
         </div>
 
-        {/* ── DESIGN TOOL BADGES (behind name) ── */}
+        {/* â”€â”€ DESIGN TOOL BADGES (behind name) â”€â”€ */}
         <div className="absolute inset-0 z-[2] pointer-events-none hidden sm:block" aria-hidden>
           {DESIGN_TOOLS.map((t) => (
             <ToolBadge key={t.label} {...t} prefersReducedMotion={prefersReducedMotion} />
           ))}
         </div>
 
-        {/* ── ORBITAL SHAPES ── */}
+        {/* â”€â”€ ORBITAL SHAPES â”€â”€ */}
         <div className="absolute inset-0 z-[1] pointer-events-none" aria-hidden>
           {ORBITAL_SHAPES.map((s, i) => (
             <OrbitalShape key={i} {...s} prefersReducedMotion={prefersReducedMotion} />
           ))}
         </div>
 
-        {/* ── CONTENT ── */}
+        {/* â”€â”€ CONTENT â”€â”€ */}
         <motion.div
           style={{ opacity, y: translateY }}
           className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-8 text-center"
@@ -315,7 +298,7 @@ export const Hero = () => {
             Available for Freelance
           </motion.div>
 
-          {/* ── NAME ── */}
+          {/* â”€â”€ NAME â”€â”€ */}
           <div
             className="mb-4 md:mb-6 relative"
             onMouseEnter={() => !prefersReducedMotion && setNameHovered(true)}
@@ -357,7 +340,7 @@ export const Hero = () => {
                 </span>
               </motion.span>
 
-              {/* KUMAR — outline style */}
+              {/* KUMAR â€” outline style */}
               <motion.span
                 className="block"
                 initial={{ opacity: 0, y: 40 }}
@@ -388,7 +371,7 @@ export const Hero = () => {
                   className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px]
                     text-purple-400 tracking-widest uppercase font-mono whitespace-nowrap"
                 >
-                  hover to glitch ✦
+                  hover to glitch
                 </motion.p>
               )}
             </AnimatePresence>
@@ -415,10 +398,10 @@ export const Hero = () => {
           >
             I design bold, concept-driven visuals that blend culture, emotion,
             and digital aesthetics. From glitchy experiments to meaningful visual
-            stories — ideas that feel something.
+            stories - ideas that feel something.
           </motion.p>
 
-          {/* ── CTAs ── */}
+          {/* â”€â”€ CTAs â”€â”€ */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -438,7 +421,7 @@ export const Hero = () => {
               style={{
                 background: "linear-gradient(135deg, #7c3aed, #a855f7, #c084fc)",
               }}
-              aria-label="Let's work together — jump to contact"
+              aria-label="Let's work together - jump to contact"
             >
               {/* shine sweep */}
               <span
@@ -472,7 +455,7 @@ export const Hero = () => {
                 className={`w-4 h-4 md:w-5 md:h-5 text-purple-500
                   ${isDownloading && !prefersReducedMotion ? "animate-bounce" : ""}`}
               />
-              <span>{isDownloading ? "Downloading…" : "Download Resume"}</span>
+              <span>{isDownloading ? "Downloading..." : "Download Resume"}</span>
             </motion.a>
           </motion.div>
 

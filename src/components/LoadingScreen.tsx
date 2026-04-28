@@ -1,7 +1,7 @@
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+﻿import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 
-// ─── Design tool labels that cycle during load ────────────────────────────────
+// â”€â”€â”€ Design tool labels that cycle during load â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const TOOLS = ["Ps", "Ai", "Fg", "Cv", "Xd", "Cd"];
 
@@ -14,7 +14,7 @@ const TOOL_COLORS: Record<string, string> = {
   Cd: "#00A950",
 };
 
-// ─── Loading Screen ───────────────────────────────────────────────────────────
+// â”€â”€â”€ Loading Screen â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const LoadingScreen = () => {
   const [phase,   setPhase]   = useState<"in" | "hold" | "out">("in");
@@ -30,10 +30,10 @@ export const LoadingScreen = () => {
     }
 
     // Phase timeline:
-    //  0ms   → letters animate in
-    //  700ms → progress bar starts (hold)
-    //  2200ms→ exit begins
-    //  3000ms→ unmount
+    //  0ms   â†’ letters animate in
+    //  700ms â†’ progress bar starts (hold)
+    //  2200msâ†’ exit begins
+    //  3000msâ†’ unmount
 
     const t1 = setTimeout(() => setPhase("hold"), 700);
     const t2 = setTimeout(() => setPhase("out"),  2200);
@@ -70,7 +70,7 @@ export const LoadingScreen = () => {
           aria-live="polite"
         >
 
-          {/* ── Background grid — same system, dark tinted ── */}
+          {/* â”€â”€ Background grid â€” same system, dark tinted â”€â”€ */}
           <div
             className="absolute inset-0 pointer-events-none opacity-[0.04]"
             style={{
@@ -83,7 +83,7 @@ export const LoadingScreen = () => {
             aria-hidden
           />
 
-          {/* ── Ambient blob ── */}
+          {/* â”€â”€ Ambient blob â”€â”€ */}
           <div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
               w-[600px] h-[300px] rounded-full pointer-events-none"
@@ -94,7 +94,7 @@ export const LoadingScreen = () => {
             aria-hidden
           />
 
-          {/* ── Tool badge (cycling) ── */}
+          {/* â”€â”€ Tool badge (cycling) â”€â”€ */}
           <motion.div
             key={activeTool}
             initial={{ opacity: 0, scale: 0.7, y: -8 }}
@@ -114,7 +114,7 @@ export const LoadingScreen = () => {
             </div>
           </motion.div>
 
-          {/* ── Main wordmark ── */}
+          {/* â”€â”€ Main wordmark â”€â”€ */}
           <div className="relative flex flex-col items-center gap-6">
             <div className="flex items-end gap-1 sm:gap-2">
               {letters.map((char, i) => (
@@ -175,11 +175,11 @@ export const LoadingScreen = () => {
               transition={{ delay: 1.0, duration: 0.4 }}
               className="font-mono text-[9px] uppercase tracking-[0.4em] text-neutral-600"
             >
-              {phase === "out" ? "Ready ✦" : "Initialising..."}
+              {phase === "out" ? "Ready" : "Initialising..."}
             </motion.p>
           </div>
 
-          {/* ── Corner marks ── */}
+          {/* â”€â”€ Corner marks â”€â”€ */}
           {(["tl","tr","bl","br"] as const).map((corner) => (
             <motion.div
               key={corner}
@@ -204,7 +204,7 @@ export const LoadingScreen = () => {
             </motion.div>
           ))}
 
-          {/* ── URL watermark bottom ── */}
+          {/* â”€â”€ URL watermark bottom â”€â”€ */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
