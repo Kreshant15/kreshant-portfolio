@@ -78,7 +78,7 @@ const AuraGrid = ({ images, title, accent }: { images: string[]; title: string; 
           className="relative overflow-hidden rounded-2xl"
           style={{
             ...(single ? {} : { aspectRatio: "4 / 3" }),
-            border: "1px solid rgba(255,255,255,0.07)",
+             border: "1px solid rgba(255,255,255,0.07)",
             boxShadow: `0 0 40px ${accent}22`,
           }}
           initial={{ opacity: 0, y: 20 }}
@@ -90,7 +90,7 @@ const AuraGrid = ({ images, title, accent }: { images: string[]; title: string; 
           <img
             src={src}
             alt={`${title} ${i + 1}`}
-            className={`w-full ${single ? "h-auto object-contain" : "h-full object-cover"} transition-transform duration-700 hover:scale-[1.04] bg-[#0D1130] p-2`}
+            className={`w-full ${single ? "h-auto object-contain" : "h-full object-cover"} transition-transform duration-700 hover:scale-[1.04] p-2`}
             loading="lazy"
             decoding="async"
           />
@@ -414,18 +414,14 @@ export const AuraProject = () => {
                 <motion.div
                   key={i}
                   className="relative overflow-hidden rounded-2xl"
-                  style={{
-                    border: "1px solid rgba(255,255,255,0.06)",
-                    boxShadow: `0 0 60px ${AU.serenity}18`,
-                  }}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                   whileHover={{ scale: 1.01 }}
                 >
-                  <img src={src} alt={`Gallery ${i + 1}`} className="w-full h-auto object-contain bg-[#0D1130] p-2" loading="lazy" />
-                  <div className="absolute inset-0 bg-linear-to-t from-[#080B1A]/60 to-transparent" />
+                  <img src={src} alt={`Gallery ${i + 1}`} className="w-full h-auto object-contain p-2" loading="lazy" />
+                  <div className="absolute inset-0" />
                 </motion.div>
               ))}
             </div>

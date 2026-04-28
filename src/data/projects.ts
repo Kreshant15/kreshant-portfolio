@@ -275,10 +275,10 @@ export const projects: ProjectDetail[] = [
 
   // 🔥 CURATED GALLERY (NO RANDOMS)
   gallery: [
-    "/images/projects/aura/hero-main.webp",
-    "/images/projects/aura/player-main.webp",
-    "/images/projects/aura/calibration-main.webp",
-    "/images/projects/aura/orb-focus.webp",
+    "/images/projects/aura/hero-product.webp",
+    "/images/projects/aura/mood.webp",
+    "/images/projects/aura/calb-product.webp",
+    "/images/projects/aura/product1.webp",
     "/images/projects/aura/flow-sequence.webp"
   ],
 
