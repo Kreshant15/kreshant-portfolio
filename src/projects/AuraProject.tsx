@@ -44,7 +44,7 @@ const AuraLabel = ({ num, label, color }: { num: string; label: string; color: s
   <div className="flex items-center gap-4 mb-6">
     <span
       className="text-[9px] tracking-[0.4em] uppercase font-medium"
-      style={{ color, fontFamily: "'DM Sans', sans-serif" }}
+      style={{ color, fontFamily: "'Space Grotesk', sans-serif" }}
     >
       {num} · {label}
     </span>
@@ -199,7 +199,7 @@ export const AuraProject = () => {
             {/* Label */}
             <p
               className="text-[10px] tracking-[0.5em] uppercase mb-8 opacity-50"
-              style={{ color: AU.serenity, fontFamily: "'DM Sans', sans-serif" }}
+              style={{ color: AU.serenity, fontFamily: "'Space Grotesk', sans-serif" }}
             >
               UI Design · Interaction · Product Concept
             </p>
@@ -215,7 +215,7 @@ export const AuraProject = () => {
             {/* Subtitle */}
             <p
               className="text-sm md:text-base max-w-lg mx-auto leading-relaxed"
-              style={{ color: AU.muted, fontFamily: "'DM Sans', sans-serif" }}
+              style={{ color: AU.muted, fontFamily: "'Space Grotesk', sans-serif" }}
             >
               {project.description}
             </p>
@@ -264,7 +264,7 @@ export const AuraProject = () => {
         <Link
           to="/projects"
           className="inline-flex items-center gap-2 text-xs tracking-widest uppercase mb-20 transition-opacity hover:opacity-60"
-          style={{ color: AU.muted, fontFamily: "'DM Sans', sans-serif" }}
+          style={{ color: AU.muted, fontFamily: "'Space Grotesk', sans-serif" }}
         >
           <ArrowLeft className="w-3 h-3" /> All Projects
         </Link>
@@ -342,7 +342,7 @@ export const AuraProject = () => {
           <AuraLabel num="01" label="Overview" color={AU.calm} />
           <p
             className="text-base md:text-lg leading-[1.9] max-w-3xl whitespace-pre-line"
-            style={{ color: AU.muted, fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}
+            style={{ color: AU.muted, fontFamily: "'Space Grotesk', sans-serif", fontWeight: 300 }}
           >
             {project.fullDescription}
           </p>
@@ -395,7 +395,7 @@ export const AuraProject = () => {
 
               <p
                 className="text-[15px] leading-[1.95] max-w-3xl whitespace-pre-line"
-                style={{ color: AU.muted, fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}
+                style={{ color: AU.muted, fontFamily: "'Space Grotesk', sans-serif", fontWeight: 300 }}
               >
                 {section.content}
               </p>

@@ -41,13 +41,14 @@ export const projects: ProjectDetail[] = [
     "DripHive — The Pulse of Street Culture.\n\nDripHive is a conceptual streetwear brand built as an exploration of bold visual identity, urban expression, and youth-driven aesthetics. The project focuses on crafting a rebellious and high-energy brand language that stands out through typography, color, and composition.",
 
   // 🔥 HERO (use your best clean wide image)
-  hero: "/images/projects/driphive/hero.webp",
+  hero: "/images/projects/driphive/hero1.webp",
 
   // 🔥 MAIN GALLERY (top visuals / highlights)
   gallery: [
-    "/images/projects/driphive/hero.webp",
-    "/images/projects/driphive/ad-banner-skateboard.webp",
-    "/images/projects/driphive/Mockup.webp",
+    "/images/projects/driphive/hero2.webp",
+    "/images/projects/driphive/hero1.webp",
+    "/images/projects/driphive/modelpost.webp",
+    "/images/projects/driphive/modelpost2.webp",
   ],
 
   // 🔥 FULL CASE STUDY SECTIONS
@@ -66,7 +67,7 @@ export const projects: ProjectDetail[] = [
       images: [
         "/images/projects/driphive/Logos.webp",
         "/images/projects/driphive/Colours.webp",
-        "/images/projects/driphive/Typography-Fonts.webp",
+        "/images/projects/driphive/typography.webp",
       ],
     },
 
@@ -75,9 +76,8 @@ export const projects: ProjectDetail[] = [
       content:
         "Multiple design explorations were created to experiment with layout, typography, and visual hierarchy. These iterations helped refine the balance between bold expression and readability.\n\nThe process focused on pushing boundaries while maintaining a cohesive system across all assets.",
       images: [
-        // "/images/projects/driphive/Artboard-1.webp",
-        "/images/projects/driphive/typography.webp",
-        // "/images/projects/driphive/typography-2.webp",
+        "/images/projects/driphive/explore1.webp",
+        "/images/projects/driphive/explore2.webp",
       ],
     },
 
@@ -91,6 +91,7 @@ export const projects: ProjectDetail[] = [
         "/images/projects/driphive/Hanging-tshirt-1.webp",
         "/images/projects/driphive/Free-Skateboard.webp",
         "/images/projects/driphive/Nike-Mockup.webp",
+        "/images/projects/driphive/sweatshirt.webp",
       ],
     },
 
@@ -99,10 +100,10 @@ export const projects: ProjectDetail[] = [
       content:
         "A series of social media creatives were designed to explore how the brand communicates in a digital space. The focus was on scroll-stopping visuals using contrast, bold typography, and dynamic compositions.\n\nThese posts simulate real-world campaigns and help establish a consistent online presence.",
       images: [
-        "/images/projects/driphive/Social-Media-Post-1.webp",
-        "/images/projects/driphive/Social-Media-Post-2.webp",
-        "/images/projects/driphive/Social-Media-Post-3.webp",
-        "/images/projects/driphive/Social-Media-Post-4.webp",
+        "/images/projects/driphive/social-1.webp",
+        "/images/projects/driphive/social-2.webp",
+        "/images/projects/driphive/social-3.webp",
+        "/images/projects/driphive/social-4.webp",
       ],
     },
 
@@ -111,10 +112,11 @@ export const projects: ProjectDetail[] = [
       content:
         "A conceptual website interface was designed to extend the brand into a digital experience. The UI follows the same bold and immersive visual language, ensuring consistency across platforms.\n\nThe layouts focus on strong typography, visual hierarchy, and modern interaction patterns.",
       images: [
-        "/images/projects/driphive/Webpage-1.webp",
-        "/images/projects/driphive/Webpage-2.webp",
-        "/images/projects/driphive/Webpage-3.webp",
-        "/images/projects/driphive/website-mockup.webp",
+
+        "/images/projects/driphive/site-about.png",
+        "/images/projects/driphive/site-catalogue.png",
+        "/images/projects/driphive/site-promo.png",
+        "/images/projects/driphive/site-contact.png",
       ],
     },
 
