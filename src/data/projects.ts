@@ -279,7 +279,6 @@ export const projects: ProjectDetail[] = [
     "/images/projects/aura/mood.webp",
     "/images/projects/aura/calb-product.webp",
     "/images/projects/aura/product1.webp",
-    "/images/projects/aura/flow-sequence.webp"
   ],
 
   // 🔥 NEW SECTION STRUCTURE
@@ -289,7 +288,7 @@ export const projects: ProjectDetail[] = [
       title: "What is Aura",
       content:
         "Aura rethinks music as a state, not a library. Instead of searching for tracks, the experience begins with how you feel.\n\nThe interface responds to that emotional input through color, motion, and sound — turning listening into something closer to a guided ritual than a playlist.",
-      images: ["/images/projects/aura/onboard-mockup.png"],
+      images: ["/images/projects/aura/onboard.webp"],
     },
 
     // 2️⃣ EMOTIONAL SYSTEM (USP)
@@ -298,8 +297,7 @@ export const projects: ProjectDetail[] = [
       content:
         "At the core of Aura is a simple system: mood drives everything.\n\nEach emotional state is mapped to a visual identity, interaction behavior, and sonic direction. The interface becomes a translation layer between internal feeling and external sound.\n\nMood → Color → Interface → Music → Outcome.",
       images: [
-        "/images/projects/aura/logo-mark.webp",
-        "/images/projects/aura/app-icon.webp"
+        "/images/projects/aura/emo.webp",
       ],
     },
 
@@ -318,7 +316,7 @@ export const projects: ProjectDetail[] = [
       title: "Experience Flow",
       content:
         "The experience is structured as a journey rather than a set of features.\n\nUsers arrive, signal their mood, calibrate it through interaction, experience playback, and reflect on the outcome. Each step answers a simple emotional question and builds continuity across the session.",
-      images: ["/images/projects/aura/flow-sequence.webp"],
+      images: ["/images/projects/aura/exp.webp"],
     },
 
     // 5️⃣ INTERACTION MODEL (NEW — IMPORTANT)
@@ -327,8 +325,7 @@ export const projects: ProjectDetail[] = [
       content:
         "Aura is driven by interaction rather than navigation. The central orb acts as a control surface — representing mood intensity and state.\n\nSliders allow fine-tuning, while the interface reacts in real time through color shifts, motion, and feedback.\n\nEven subtle changes reshape the entire experience, reinforcing the idea of continuous calibration.",
       images: [
-        "/images/projects/aura/orb-focus.webp",
-        "/images/projects/aura/calibration-main.webp"
+        "/images/projects/aura/Interact-model.webp",
       ],
     },
 
@@ -338,9 +335,7 @@ export const projects: ProjectDetail[] = [
       content:
         "The interface focuses on a few high-impact moments: onboarding, calibration, playback, and reflection. Each screen is designed to feel minimal yet atmospheric, avoiding clutter in favor of presence.",
       images: [
-        "/images/projects/aura/player-main.webp",
-        "/images/projects/aura/calibration-main.webp",
-        "/images/projects/aura/timeline-main.webp"
+        "/images/projects/aura/key-screens.webp",
       ],
     },
 
@@ -350,8 +345,7 @@ export const projects: ProjectDetail[] = [
       content:
         "This project extends beyond static visuals. The prototype recreates the experience with real interactions — including mood switching, live calibration, animated playback, and dynamic UI responses.\n\nIt allows viewers to engage with the system as a product rather than just observe it as a design.",
       images: [
-        "/images/projects/aura/mockup2.webp",
-        "/images/projects/aura/mockup3.webp"
+        "/images/projects/aura/proto.webp",
       ],
     }
   ]

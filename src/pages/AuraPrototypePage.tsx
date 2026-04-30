@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { Navbar } from "../components/Navbar";
@@ -463,9 +463,8 @@ export function AuraPrototypePage() {
 
   function goTo(s: Screen) {
     setScreen(s);
-    // On mobile, scroll the phone section into view smoothly
     setTimeout(() => {
-      phoneRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      phoneRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }, 50);
   }
 
@@ -871,7 +870,7 @@ export function AuraPrototypePage() {
     }
   }
 
-  // ─── PAGE WRAPPER — AURA DARK AMBIENT THEME ───────────────────────────────
+  // ─── PAGE WRAPPER ─────────────────────────────────────────────────────────────
 
   return (
     <>
@@ -885,107 +884,149 @@ export function AuraPrototypePage() {
           100% { left: 140%; }
         }
         @keyframes auraFloat {
-          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.12; }
-          50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.18; }
+          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.10; }
+          50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.17; }
         }
         @keyframes auraPulse {
-          0%, 100% { opacity: 0.06; }
-          50% { opacity: 0.14; }
+          0%, 100% { opacity: 0.05; }
+          50% { opacity: 0.12; }
+        }
+        @keyframes fadeSlideUp {
+          from { opacity: 0; transform: translateY(24px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .aura-fade-in {
+          animation: fadeSlideUp 0.7s ease forwards;
+        }
+        .aura-fade-in-delay-1 { animation: fadeSlideUp 0.7s ease 0.1s both; }
+        .aura-fade-in-delay-2 { animation: fadeSlideUp 0.7s ease 0.2s both; }
+        .aura-fade-in-delay-3 { animation: fadeSlideUp 0.7s ease 0.3s both; }
+        .aura-fade-in-delay-4 { animation: fadeSlideUp 0.7s ease 0.4s both; }
+        .aura-fade-in-delay-5 { animation: fadeSlideUp 0.7s ease 0.5s both; }
+
+        /* Phone frame — fixed dimensions on desktop, responsive on mobile */
+        .aura-phone-frame {
+          width: min(85vw, 390px);
+          aspect-ratio: 390 / 844;
+          border-radius: clamp(32px, 6vw, 54px);
+        }
+        @media (min-width: 1024px) {
+          .aura-phone-frame {
+            width: 380px;
+            height: 820px;
+            aspect-ratio: unset;
+          }
+        }
+
+        /* Hide scrollbar inside phone */
+        .aura-phone-inner { scrollbar-width: none; }
+        .aura-phone-inner::-webkit-scrollbar { display: none; }
+
+        /* Smooth mood color transitions on page elements */
+        .mood-transition {
+          transition: color 0.6s ease, background 0.6s ease, border-color 0.6s ease, box-shadow 0.6s ease;
         }
       `}</style>
 
       <main
         className="relative min-h-screen overflow-hidden"
-        style={{ background: "#080B1A", color: "#E8E4FF" }}
+        style={{ background: "#07091A", color: "#E8E4FF" }}
       >
-        {/* ── Ambient background orbs ──────────────────────── */}
+        {/* ── Ambient background orbs ────────────────────────────── */}
         <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-          {/* Primary mood orb — shifts with mood */}
           <div style={{
-            position: "absolute", left: "20%", top: "15%",
-            width: 700, height: 700,
-            borderRadius: "50%",
+            position: "absolute", left: "18%", top: "12%",
+            width: 800, height: 800, borderRadius: "50%",
             background: MOODS[moodId].accent,
-            filter: "blur(200px)",
+            filter: "blur(220px)",
             animation: "auraFloat 8s ease-in-out infinite",
             transform: "translate(-50%, -50%)",
-            opacity: 0.10,
-            transition: "background 1.2s ease",
+            transition: "background 1.4s ease",
           }} />
-          {/* Secondary orb */}
           <div style={{
-            position: "absolute", right: "10%", bottom: "20%",
-            width: 500, height: 500,
-            borderRadius: "50%",
+            position: "absolute", right: "8%", bottom: "18%",
+            width: 600, height: 600, borderRadius: "50%",
             background: MOODS[moodId].accentDim,
-            filter: "blur(160px)",
-            animation: "auraFloat 10s ease-in-out infinite 2s",
-            transform: "translate(50%, 50%)",
-            opacity: 0.12,
-            transition: "background 1.2s ease",
-          }} />
-          {/* Tertiary fixed orb */}
-          <div style={{
-            position: "absolute", left: "60%", top: "50%",
-            width: 400, height: 400,
-            borderRadius: "50%",
-            background: "rgba(200,192,255,1)",
             filter: "blur(180px)",
-            animation: "auraPulse 12s ease-in-out infinite 4s",
-            opacity: 0.05,
+            animation: "auraFloat 11s ease-in-out infinite 2s",
+            transform: "translate(50%, 50%)",
+            opacity: 0.14,
+            transition: "background 1.4s ease",
+          }} />
+          <div style={{
+            position: "absolute", left: "58%", top: "48%",
+            width: 440, height: 440, borderRadius: "50%",
+            background: "rgba(200,192,255,1)",
+            filter: "blur(200px)",
+            animation: "auraPulse 13s ease-in-out infinite 4s",
           }} />
         </div>
 
         <Navbar />
 
-        <div className="relative z-10 px-4 pb-24 pt-28 sm:px-6 md:pt-36">
+        <div className="relative z-10 px-4 pb-32 pt-28 sm:px-6 md:pt-36">
           <div className="mx-auto max-w-7xl">
 
-            {/* ── Back link ───────────────────────────────── */}
-            <div className="mb-10">
+            {/* ── Back link ─────────────────────────────────────────── */}
+            <div className="mb-10 aura-fade-in">
               <Link
                 to="/projects/aura-app"
                 className="group inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] transition-opacity hover:opacity-100 opacity-40"
-                style={{ fontFamily: "'DM Sans', sans-serif", color: "#C8C0FF" }}
+                style={{ fontFamily: "'Space Grotesk', sans-serif", color: "#C8C0FF" }}
               >
                 <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
                 Back to case study
               </Link>
             </div>
 
-            {/* ── Page header ─────────────────────────────── */}
-            <div className="mb-14">
-              <p className="text-[10px] tracking-[0.5em] uppercase mb-5 opacity-50"
-                style={{ color: "#C8C0FF", fontFamily: "'DM Sans', sans-serif" }}>
+            {/* ── Page header ───────────────────────────────────────── */}
+            <div className="mb-16 aura-fade-in-delay-1">
+              <p
+                className="text-[10px] tracking-[0.5em] uppercase mb-5 opacity-50"
+                style={{ color: "#C8C0FF", fontFamily: "'Space Grotesk', sans-serif" }}
+              >
                 Live Prototype · Interactive
               </p>
-              <h1 className="font-black leading-none tracking-[-0.03em] mb-5"
-                style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(3.5rem, 10vw, 8rem)", color: "#E8E4FF" }}>
+              <h1
+                className="font-black leading-none tracking-[-0.03em] mb-6"
+                style={{
+                  fontFamily: "'Syne', sans-serif",
+                  fontSize: "clamp(3.5rem, 10vw, 9rem)",
+                  color: "#E8E4FF",
+                }}
+              >
                 AURA
               </h1>
-              <p className="text-base leading-relaxed max-w-xl opacity-60"
-                style={{ fontFamily: "'DM Sans', sans-serif", color: "#E8E4FF", fontWeight: 300 }}>
+              <p
+                className="text-base leading-relaxed max-w-xl opacity-60"
+                style={{ fontFamily: "'Space Grotesk', sans-serif", color: "#E8E4FF", fontWeight: 300 }}
+              >
                 A fully interactive version of the AURA concept — 8 screens, live mood switching,
                 animated playback, and real gesture-mapped UI. Change the mood state and watch
                 the entire interface shift.
               </p>
             </div>
 
-            {/* ── MAIN LAYOUT ─────────────────────────────── */}
+            {/* ── MAIN LAYOUT ───────────────────────────────────────── */}
             {/*
-              Mobile:   phone first, then info panel below
-              Tablet:   side by side, phone centered
-              Desktop:  info panel sticky left, phone right
+              KEY ALIGNMENT TRICK:
+              - On desktop: grid with left panel + right phone column
+              - Left panel uses flex-col with the CTA at the bottom (mt-auto)
+              - Phone column also uses flex-col with phone at the bottom (mt-auto)
+              - Both columns share the same grid row height → bottoms align naturally
+              - Phone wrapper: flex flex-col justify-end so phone sits at the bottom
             */}
-            <div className="flex flex-col-reverse gap-8 lg:grid lg:grid-cols-[1fr_auto] lg:items-start lg:gap-12">
+            <div className="flex flex-col gap-10 lg:grid lg:grid-cols-[1fr_auto] lg:items-end lg:gap-14 aura-fade-in-delay-2">
 
-              {/* ── Left panel ────────────────────────────── */}
-              <section className="w-full lg:sticky lg:top-28">
+              {/* ── Left panel ──────────────────────────────────────── */}
+              <section className="w-full flex flex-col gap-5">
 
                 {/* Screen nav pills */}
-                <div className="mb-6">
-                  <p className="text-[9px] tracking-[0.35em] uppercase mb-3 opacity-40"
-                    style={{ color: "#C8C0FF", fontFamily: "'DM Sans', sans-serif" }}>
+                <div>
+                  <p
+                    className="text-[9px] tracking-[0.35em] uppercase mb-3 opacity-40"
+                    style={{ color: "#C8C0FF", fontFamily: "'Space Grotesk', sans-serif" }}
+                  >
                     Jump to screen
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -1003,13 +1044,13 @@ export function AuraPrototypePage() {
                         <button
                           key={target}
                           onClick={() => goTo(target)}
-                          className="rounded-full px-4 py-2 text-xs font-medium transition-all duration-300"
+                          className="rounded-full px-4 py-2 text-xs font-medium mood-transition"
                           style={{
-                            fontFamily: "'DM Sans', sans-serif",
-                            background: isActive ? `${MOODS[moodId].accent}20` : "rgba(255,255,255,0.04)",
-                            border: `1px solid ${isActive ? MOODS[moodId].accent + "60" : "rgba(255,255,255,0.08)"}`,
+                            fontFamily: "'Space Grotesk', sans-serif",
+                            background: isActive ? `${MOODS[moodId].accent}22` : "rgba(255,255,255,0.04)",
+                            border: `1px solid ${isActive ? MOODS[moodId].accent + "55" : "rgba(255,255,255,0.08)"}`,
                             color: isActive ? MOODS[moodId].accent : "rgba(200,192,255,0.4)",
-                            boxShadow: isActive ? `0 0 16px ${MOODS[moodId].glow3}` : "none",
+                            boxShadow: isActive ? `0 0 18px ${MOODS[moodId].glow3}` : "none",
                           }}
                         >
                           {label}
@@ -1021,50 +1062,56 @@ export function AuraPrototypePage() {
 
                 {/* Active mood display */}
                 <div
-                  className="rounded-2xl p-5 mb-5"
+                  className="rounded-2xl p-5"
                   style={{
-                    background: "rgba(255,255,255,0.03)",
+                    background: "rgba(255,255,255,0.032)",
                     border: "1px solid rgba(255,255,255,0.07)",
-                    backdropFilter: "blur(20px)",
+                    backdropFilter: "blur(24px)",
+                    WebkitBackdropFilter: "blur(24px)",
                   }}
                 >
-                  <p className="text-[9px] tracking-[0.35em] uppercase mb-4 opacity-40"
-                    style={{ color: "#C8C0FF", fontFamily: "'DM Sans', sans-serif" }}>
+                  <p
+                    className="text-[9px] tracking-[0.35em] uppercase mb-4 opacity-40"
+                    style={{ color: "#C8C0FF", fontFamily: "'Space Grotesk', sans-serif" }}
+                  >
                     Active mood state
                   </p>
                   <div className="flex items-center gap-4 mb-5">
-                    {/* Live mini orb */}
                     <div
-                      className="rounded-full shrink-0"
+                      className="rounded-full shrink-0 mood-transition"
                       style={{
                         width: 52, height: 52,
                         background: `radial-gradient(circle at 36% 30%, ${MOODS[moodId].orb[0]}, ${MOODS[moodId].orb[2]})`,
                         boxShadow: `0 0 24px ${MOODS[moodId].glow1}, 0 0 48px ${MOODS[moodId].glow2}`,
                         animation: "orbBreathe 4s ease-in-out infinite",
-                        transition: "box-shadow 1s ease",
                       }}
                     />
                     <div>
-                      <div className="text-base font-bold" style={{ fontFamily: "'Syne', sans-serif", color: MOODS[moodId].accent, transition: "color 0.6s ease" }}>
+                      <div
+                        className="text-base font-bold mood-transition"
+                        style={{ fontFamily: "'Syne', sans-serif", color: MOODS[moodId].accent }}
+                      >
                         {MOODS[moodId].label}
                       </div>
-                      <div className="text-sm mt-0.5 opacity-50" style={{ fontFamily: "'DM Sans', sans-serif", color: "#E8E4FF" }}>
+                      <div
+                        className="text-sm mt-0.5 opacity-50"
+                        style={{ fontFamily: "'Space Grotesk', sans-serif", color: "#E8E4FF" }}
+                      >
                         {MOODS[moodId].desc}
                       </div>
                     </div>
                   </div>
-                  {/* Mood switcher buttons */}
                   <div className="flex flex-wrap gap-2">
                     {MOOD_ORDER.map((id) => (
                       <button
                         key={id}
                         onClick={() => setMoodId(id)}
-                        className="rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-500"
+                        className="rounded-full px-3 py-1.5 text-xs font-medium mood-transition"
                         style={{
-                          fontFamily: "'DM Sans', sans-serif",
+                          fontFamily: "'Space Grotesk', sans-serif",
                           background: moodId === id ? MOODS[id].accent : "rgba(255,255,255,0.05)",
                           color: moodId === id ? (id === "euphoria" ? "#111" : "#fff") : "rgba(200,192,255,0.45)",
-                          boxShadow: moodId === id ? `0 4px 20px ${MOODS[id].glow2}` : "none",
+                          boxShadow: moodId === id ? `0 4px 22px ${MOODS[id].glow2}` : "none",
                           border: moodId === id ? "none" : "1px solid rgba(255,255,255,0.08)",
                         }}
                       >
@@ -1076,15 +1123,18 @@ export function AuraPrototypePage() {
 
                 {/* What's interactive */}
                 <div
-                  className="rounded-2xl p-5 mb-5"
+                  className="rounded-2xl p-5"
                   style={{
-                    background: "rgba(255,255,255,0.03)",
+                    background: "rgba(255,255,255,0.032)",
                     border: "1px solid rgba(255,255,255,0.07)",
-                    backdropFilter: "blur(20px)",
+                    backdropFilter: "blur(24px)",
+                    WebkitBackdropFilter: "blur(24px)",
                   }}
                 >
-                  <p className="text-[9px] tracking-[0.35em] uppercase mb-4 opacity-40"
-                    style={{ color: "#C8C0FF", fontFamily: "'DM Sans', sans-serif" }}>
+                  <p
+                    className="text-[9px] tracking-[0.35em] uppercase mb-4 opacity-40"
+                    style={{ color: "#C8C0FF", fontFamily: "'Space Grotesk', sans-serif" }}
+                  >
                     What's interactive
                   </p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -1107,26 +1157,26 @@ export function AuraPrototypePage() {
                           background: "rgba(255,255,255,0.03)",
                           border: "1px solid rgba(255,255,255,0.06)",
                           color: "rgba(200,192,255,0.55)",
-                          fontFamily: "'DM Sans', sans-serif",
+                          fontFamily: "'Space Grotesk', sans-serif",
                         }}
                       >
-                        <span style={{ color: MOODS[moodId].accent, opacity: 0.7, fontSize: 8 }}>◦</span>
+                        <span style={{ color: MOODS[moodId].accent, opacity: 0.7, fontSize: 8, flexShrink: 0 }}>◦</span>
                         {item}
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Case study link */}
+                {/* Case study CTA — sits at bottom of left column */}
                 <Link
                   to="/projects/aura-app"
-                  className="inline-flex items-center gap-3 w-full justify-center rounded-2xl px-6 py-4 text-sm font-semibold transition-all duration-300 hover:scale-[1.01]"
+                  className="inline-flex items-center gap-3 w-full justify-center rounded-2xl px-6 py-4 text-sm font-semibold mood-transition hover:scale-[1.01] active:scale-[0.99]"
                   style={{
                     fontFamily: "'Syne', sans-serif",
                     background: `linear-gradient(135deg, ${MOODS[moodId].gradStart}, ${MOODS[moodId].gradEnd})`,
                     color: "rgba(5,5,14,0.9)",
-                    boxShadow: `0 8px 32px ${MOODS[moodId].glow2}`,
-                    transition: "box-shadow 1s ease, background 1s ease",
+                    boxShadow: `0 8px 40px ${MOODS[moodId].glow2}, 0 2px 0 rgba(255,255,255,0.15) inset`,
+                    transition: "transform 0.2s ease, box-shadow 0.6s ease, background 0.6s ease",
                   }}
                 >
                   View Case Study
@@ -1134,70 +1184,56 @@ export function AuraPrototypePage() {
                 </Link>
               </section>
 
-              {/* ── Phone ─────────────────────────────────── */}
+              {/* ── Phone ───────────────────────────────────────────── */}
+              {/*
+                On desktop this column uses `items-end` from the parent grid
+                so the phone bottom aligns with the CTA button bottom.
+                The phone is NOT wrapped in a sticky container — it just sits
+                in normal flow, bottoms-aligned via `lg:items-end`.
+              */}
               <section className="flex flex-col items-center" ref={phoneRef}>
 
                 {/* Glow halo behind phone */}
                 <div
-                  className="pointer-events-none"
+                  className="pointer-events-none absolute mood-transition"
                   style={{
-                    position: "absolute",
-                    width: 560,
-                    height: 560,
+                    width: 520,
+                    height: 520,
                     borderRadius: "50%",
-                    background: `radial-gradient(circle, ${MOODS[moodId].glow2.replace("0.4", "0.22")}, transparent 65%)`,
-                    filter: "blur(60px)",
+                    background: `radial-gradient(circle, ${MOODS[moodId].glow1.replace("0.55", "0.18")}, transparent 65%)`,
+                    filter: "blur(70px)",
                     zIndex: 0,
-                    transition: "background 1.2s ease",
                   }}
                 />
 
-                {/*
-                  Responsive phone sizing:
-                  - Mobile (<480px): 85vw wide, aspect-ratio maintains height
-                  - Tablet (480-768px): fixed 360px
-                  - Desktop (>768px): fixed 390px at full 844px height
-                */}
+                {/* Phone shell */}
                 <div
-                  className="relative z-10 w-[85vw] max-w-[390px]"
+                  className="aura-phone-frame relative z-10 mood-transition"
                   style={{
-                    // aspect-ratio only on mobile — desktop gets full height
-                    aspectRatio: "390 / 844",
-                    borderRadius: "clamp(32px, 6vw, 54px)",
-                    border: "1.5px solid rgba(255,255,255,0.13)",
+                    border: "1.5px solid rgba(255,255,255,0.12)",
                     boxShadow: [
                       "0 0 0 1px rgba(0,0,0,0.9)",
-                      "0 60px 180px rgba(0,0,0,0.88)",
-                      `0 0 100px ${MOODS[moodId].glow2}`,
-                      "inset 0 0 80px rgba(0,0,0,0.5)",
+                      "0 60px 200px rgba(0,0,0,0.9)",
+                      `0 0 120px ${MOODS[moodId].glow2}`,
+                      "inset 0 0 80px rgba(0,0,0,0.45)",
                     ].join(", "),
                     background: "#04040e",
                     overflow: "hidden",
-                    transition: "box-shadow 1s ease",
                   }}
                 >
-                  {/* Override: on screens wide enough, give phone a fixed px height */}
-                  <style>{`
-                    @media (min-width: 768px) {
-                      .aura-phone-fixed {
-                        width: 390px !important;
-                        height: 844px !important;
-                        aspect-ratio: unset !important;
-                      }
-                    }
-                  `}</style>
-                  <div className="aura-phone-fixed w-full h-full relative" style={{ minHeight: 0 }}>
+                  <div className="w-full h-full relative" style={{ minHeight: 0 }}>
                     {renderScreen()}
                   </div>
                 </div>
 
-                {/* Screen indicator */}
+                {/* Screen label */}
                 <div
                   className="mt-4 text-[9px] tracking-[0.3em] uppercase opacity-30"
                   style={{ fontFamily: "'DM Sans', sans-serif", color: "#C8C0FF" }}
                 >
                   {screen.charAt(0).toUpperCase() + screen.slice(1)} Screen
                 </div>
+
               </section>
 
             </div>
