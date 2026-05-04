@@ -82,82 +82,127 @@ interface Artwork {
 const ARTWORKS: Artwork[] = [
   {
     id: 1,
-    title: "Midnight Run",
+    title: "Naruto Mood",
     tag: "character",
-    year: "2024",
-    src: "https://placehold.co/600x900/1a1a2e/ff00ff?text=Midnight+Run",
-    accentColor: "#ff00ff",
+    year: "2022",
+    src: "/sketchbook/naruto2.webp",
+    accentColor: "#ffd93d",
     caption: "late night sprint through neon streets",
   },
   {
     id: 2,
-    title: "Neon City Dreams",
-    tag: "environment",
-    year: "2024",
-    src: "https://placehold.co/800x500/1a1a2e/00ffff?text=Neon+City",
+    title: "Doodles",
+    tag: "study",
+    year: "2022",
+    src: "/sketchbook/doodles.webp",
     accentColor: "#00ffff",
     caption: "a city that never dims",
   },
   {
     id: 3,
-    title: "Pixel Heart",
-    tag: "study",
-    year: "2024",
-    src: "https://placehold.co/600x600/1a1a2e/ff6b9d?text=Pixel+Heart",
-    accentColor: "#ff6b9d",
+    title: "Deku",
+    tag: "character",
+    year: "2022",
+    src: "/sketchbook/deku.webp",
+    accentColor: "#6bcf7f",
     caption: "8-bit feelings, real emotions",
   },
   {
     id: 4,
-    title: "Boss Battle",
+    title: "Animegirl",
     tag: "character",
-    year: "2024",
-    src: "https://placehold.co/600x900/1a1a2e/ffd93d?text=Boss+Battle",
-    accentColor: "#ffd93d",
+    year: "2017",
+    src: "/sketchbook/anigirl.webp",
+    accentColor: "#ff6ec7",
     caption: "final form unlocked",
   },
   {
     id: 5,
-    title: "Synthwave Sunset",
+    title: "Naruto",
     tag: "illustration",
     year: "2024",
-    src: "https://placehold.co/800x500/1a1a2e/ff6ec7?text=Synthwave",
+    src: "/sketchbook/Naruto-illustration.webp",
     accentColor: "#ff6ec7",
     caption: "retrowave horizon, somewhere in 1987",
   },
   {
     id: 6,
-    title: "Glitch Girl",
-    tag: "study",
-    year: "2024",
-    src: "https://placehold.co/600x600/1a1a2e/00ffff?text=Glitch+Girl",
+    title: "Neko Girl",
+    tag: "character",
+    year: "2023",
+    src: "/sketchbook/nekogirl.webp",
     accentColor: "#00ffff",
     caption: "corrupted memory, beautiful remnants",
   },
   {
     id: 7,
-    title: "Arcade Nights",
-    tag: "environment",
-    year: "2023",
-    src: "https://placehold.co/600x900/1a1a2e/7f00ff?text=Arcade",
+    title: "Spirit Bomb Goku",
+    tag: "character",
+    year: "2022",
+    src: "/sketchbook/spiritgoku.webp",
     accentColor: "#7f00ff",
     caption: "tokens in pocket, nothing else matters",
   },
   {
     id: 8,
-    title: "Lo-Fi Vibes",
+    title: "Samurai",
     tag: "illustration",
-    year: "2024",
-    src: "https://placehold.co/800x500/1a1a2e/6bcf7f?text=Lo-Fi+Vibes",
+    year: "2023",
+    src: "/sketchbook/Japanesesamu.webp",
     accentColor: "#6bcf7f",
     caption: "study girl with a playlist and rain",
   },
   {
     id: 9,
-    title: "Power Up!",
+    title: "One Piece Panel",
+    tag: "study",
+    year: "2022",
+    src: "/sketchbook/onepiece.webp",
+    accentColor: "#ff9d00",
+    caption: "1UP — extra life acquired",
+  },
+  {
+    id: 10,
+    title: "Master Chief",
     tag: "character",
-    year: "2024",
-    src: "https://placehold.co/600x600/1a1a2e/ff9d00?text=Power+Up",
+    year: "2017",
+    src: "/sketchbook/chief.webp",
+    accentColor: "#ff9d00",
+    caption: "1UP — extra life acquired",
+  },
+  {
+    id: 11,
+    title: "Yamato One Piece",
+    tag: "character",
+    year: "2023",
+    src: "/sketchbook/yamato.webp",
+    accentColor: "#ff9d00",
+    caption: "1UP — extra life acquired",
+  },
+  {
+    id: 12,
+    title: "Landscape",
+    tag: "environment",
+    year: "2022",
+    src: "/sketchbook/landscape.webp",
+    accentColor: "#ff9d00",
+    caption: "1UP — extra life acquired",
+  },
+  {
+    id: 13,
+    title: "Skeleton Alienscape",
+    tag: "character",
+    year: "2023",
+    src: "/sketchbook/astroskele.webp",
+    accentColor: "#ff9d00",
+    caption: "1UP — extra life acquired",
+  },
+  {
+    id: 14,
+    title: "Sakura",
+    tag: "character",
+    year: "2022",
+    src: "/sketchbook/sakura.webp",
     accentColor: "#ff9d00",
     caption: "1UP — extra life acquired",
   },
@@ -281,7 +326,7 @@ const AuroraBackground = memo(function AuroraBackground() {
       />
       {/* Orbs */}
       <div
-        className="sb-aurora1 absolute -top-48 -left-48 h-[650px] w-[650px] rounded-full"
+        className="sb-aurora1 absolute -top-48 -left-48 h-162.5 w-162.5 rounded-full"
         style={{
           background: "radial-gradient(circle, rgba(255,0,255,0.26) 0%, rgba(160,0,255,0.07) 45%, transparent 70%)",
           filter: "blur(70px)",
@@ -290,7 +335,7 @@ const AuroraBackground = memo(function AuroraBackground() {
         }}
       />
       <div
-        className="sb-aurora2 absolute -bottom-48 -right-48 h-[750px] w-[750px] rounded-full"
+        className="sb-aurora2 absolute -bottom-48 -right-48 h-187.5 w-187.5 rounded-full"
         style={{
           background: "radial-gradient(circle, rgba(0,255,255,0.2) 0%, rgba(0,140,255,0.06) 45%, transparent 70%)",
           filter: "blur(80px)",
@@ -299,7 +344,7 @@ const AuroraBackground = memo(function AuroraBackground() {
         }}
       />
       <div
-        className="sb-aurora3 absolute top-1/3 right-1/4 h-[460px] w-[460px] rounded-full"
+        className="sb-aurora3 absolute top-1/3 right-1/4 h-115 w-115 rounded-full"
         style={{
           background: "radial-gradient(circle, rgba(255,100,180,0.15) 0%, transparent 70%)",
           filter: "blur(90px)",
@@ -317,7 +362,7 @@ const AuroraBackground = memo(function AuroraBackground() {
 const FilmGrain = memo(function FilmGrain() {
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-[99] opacity-[0.036]"
+      className="pointer-events-none fixed inset-0 z-99 opacity-[0.036]"
       aria-hidden
       style={{
         backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.0' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
@@ -334,7 +379,7 @@ const FilmGrain = memo(function FilmGrain() {
 const VHSScanlines = memo(function VHSScanlines() {
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-[98] opacity-[0.02]"
+      className="pointer-events-none fixed inset-0 z-98 opacity-[0.02]"
       aria-hidden
       style={{
         backgroundImage:
@@ -353,7 +398,7 @@ const FloatingPixels = memo(function FloatingPixels() {
   if (shouldReduce) return null;
 
   return (
-    <div className="sb-pixels pointer-events-none fixed inset-0 z-[5] overflow-hidden hidden md:block" aria-hidden>
+    <div className="sb-pixels pointer-events-none fixed inset-0 z-5 overflow-hidden hidden md:block" aria-hidden>
       {PIXEL_DATA.map((p) => (
         <motion.div
           key={p.id}
@@ -409,7 +454,7 @@ function PencilCursor() {
       {/* Soft glow trail */}
       <div
         ref={trailRef}
-        className="pointer-events-none fixed top-0 left-0 z-[200] h-7 w-7 rounded-full"
+        className="pointer-events-none fixed top-0 left-0 z-200 h-7 w-7 rounded-full"
         style={{
           background: "radial-gradient(circle, rgba(255,0,255,0.28) 0%, rgba(0,255,255,0.1) 60%, transparent 80%)",
           filter: "blur(8px)",
@@ -420,7 +465,7 @@ function PencilCursor() {
       {/* Pencil SVG */}
       <div
         ref={cursorRef}
-        className="pointer-events-none fixed top-0 left-0 z-[201]"
+        className="pointer-events-none fixed top-0 left-0 z-201"
         style={{
           willChange: "transform",
           transition: "transform 0.03s linear",
@@ -450,10 +495,10 @@ function TracingBeam() {
 
   return (
     <div
-      className="pointer-events-none fixed left-5 top-[20%] z-40 hidden h-[60%] w-[2px] lg:block"
+      className="pointer-events-none fixed left-5 top-[20%] z-40 hidden h-[60%] w-0.5 lg:block"
       aria-hidden
     >
-      <div className="h-full w-full rounded-full bg-white/[0.05]" />
+      <div className="h-full w-full rounded-full bg-white/5" />
       <motion.div
         className="absolute top-0 left-0 w-full origin-top rounded-full"
         style={{
@@ -464,7 +509,7 @@ function TracingBeam() {
         }}
       />
       <motion.div
-        className="absolute left-1/2 -translate-x-1/2 h-[7px] w-[7px] rounded-full"
+        className="absolute left-1/2 -translate-x-1/2 h-1.75 w-1.75 rounded-full"
         style={{
           top: dotTop,
           backgroundColor: "#ff00ff",
@@ -523,7 +568,7 @@ const MusicVisualizer = memo(function MusicVisualizer() {
 
   return (
     <motion.div
-      className="flex items-end gap-[2px] h-11"
+      className="flex items-end gap-0.5 h-11"
       initial={{ opacity: 0, scaleY: 0 }}
       animate={{ opacity: 1, scaleY: 1 }}
       transition={{ duration: 0.55, delay: 1.05, ease: "backOut" }}
@@ -531,7 +576,7 @@ const MusicVisualizer = memo(function MusicVisualizer() {
       {BAR_HEIGHTS.map(([lo, hi], i) => (
         <motion.div
           key={i}
-          className="w-[3px] rounded-t-sm flex-shrink-0"
+          className="w-0.75 rounded-t-sm shrink-0"
           style={{
             background: `linear-gradient(to top, ${BAR_COLORS[i % 4]}, transparent)`,
             minHeight: "5px",
@@ -602,7 +647,7 @@ function Hero() {
         transition={{ duration: 0.5, delay: 0.2 }}
         className="mb-5 flex items-center gap-3"
       >
-        <span className="block h-[2px] w-8 sm:w-10"
+        <span className="block h-0.5 w-8 sm:w-10"
           style={{ background: "linear-gradient(to right, transparent, #ff00ff)" }} />
         <span
           className="font-mono text-[9px] tracking-[0.26em] uppercase select-none sm:text-[10px] sm:tracking-[0.3em]"
@@ -610,7 +655,7 @@ function Hero() {
         >
           ░▒▓ SKETCHBOOK ▓▒░
         </span>
-        <span className="block h-[2px] w-8 sm:w-10"
+        <span className="block h-0.5 w-8 sm:w-10"
           style={{ background: "linear-gradient(to left, transparent, #00ffff)" }} />
       </motion.div>
 
@@ -669,7 +714,7 @@ function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.65, delay: 0.78 }}
-        className="mb-1 max-w-[260px] font-mono text-[11px] leading-relaxed sm:max-w-sm sm:text-xs"
+        className="mb-1 max-w-65 font-mono text-[11px] leading-relaxed sm:max-w-sm sm:text-xs"
         style={{ color: "#ffffff66" }}
       >
         late night sketches ✦ anime feels ✦ pixel dreams
@@ -720,7 +765,7 @@ function TagFilter({ active, onChange }: TagFilterProps) {
             {isActive && (
               <motion.div
                 layoutId="tagHL"
-                className="absolute inset-0 rounded-[6px]"
+                className="absolute inset-0 rounded-md"
                 style={{ border: `2px solid ${color}`, boxShadow: `inset 0 0 12px ${color}16` }}
                 transition={{ type: "spring", stiffness: 340, damping: 30 }}
               />
@@ -868,7 +913,7 @@ const ArtworkCard = memo(function ArtworkCard({ artwork, index, onClick }: Artwo
         {/* Scanline sweep — desktop hover only */}
         {isDesktop && isHovered && (
           <motion.div
-            className="absolute inset-0 z-[2] pointer-events-none"
+            className="absolute inset-0 z-2 pointer-events-none"
             style={{
               backgroundImage:
                 "repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(0,255,255,0.06) 4px, rgba(0,255,255,0.06) 8px)",
@@ -881,7 +926,7 @@ const ArtworkCard = memo(function ArtworkCard({ artwork, index, onClick }: Artwo
 
         {/* Bottom gradient */}
         <div
-          className="absolute inset-0 z-[3] pointer-events-none"
+          className="absolute inset-0 z-3 pointer-events-none"
           style={{
             background: `linear-gradient(to top, ${artwork.accentColor}cc 0%, ${artwork.accentColor}33 28%, transparent 60%)`,
             opacity: isHovered ? 1 : 0.5,
@@ -891,7 +936,7 @@ const ArtworkCard = memo(function ArtworkCard({ artwork, index, onClick }: Artwo
 
         {/* Info — slides up on hover */}
         <motion.div
-          className="absolute bottom-0 left-0 right-0 z-[4] p-3 sm:p-4"
+          className="absolute bottom-0 left-0 right-0 z-4 p-3 sm:p-4"
           animate={{ y: isHovered ? 0 : 10, opacity: isHovered ? 1 : 0 }}
           transition={{ duration: 0.24 }}
         >
@@ -911,7 +956,7 @@ const ArtworkCard = memo(function ArtworkCard({ artwork, index, onClick }: Artwo
               </h3>
             </div>
             <span
-              className="font-mono text-[10px] font-bold flex-shrink-0"
+              className="font-mono text-[10px] font-bold shrink-0"
               style={{ color: artwork.accentColor }}
             >
               {artwork.year}
@@ -924,7 +969,7 @@ const ArtworkCard = memo(function ArtworkCard({ artwork, index, onClick }: Artwo
           <div
             key={pos}
             aria-hidden
-            className="absolute z-[4] h-3 w-3 transition-opacity duration-200"
+            className="absolute z-4 h-3 w-3 transition-opacity duration-200"
             style={{
               top:    pos.startsWith("t") ? "8px" : "auto",
               bottom: pos.startsWith("b") ? "8px" : "auto",
@@ -955,17 +1000,17 @@ function NowPlayingBar({ artwork }: { artwork: Artwork | null }) {
       {artwork && (
         <motion.div
           key={artwork.id}
-          className="fixed bottom-0 left-0 right-0 z-[60] border-t backdrop-blur-xl"
+          className="fixed bottom-0 left-0 right-0 z-60 border-t backdrop-blur-xl"
           style={{ borderColor: `${artwork.accentColor}44`, backgroundColor: "#06060fee" }}
           initial={{ y: 70, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 70, opacity: 0 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
         >
-          <div className="flex items-center gap-4 px-6 py-3 max-w-screen-xl mx-auto sm:px-10">
+          <div className="flex items-center gap-4 px-6 py-3 max-w-7xl mx-auto sm:px-10">
             {/* Thumbnail */}
             <div
-              className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-md border-2 sm:h-11 sm:w-11"
+              className="h-10 w-10 shrink-0 overflow-hidden rounded-md border-2 sm:h-11 sm:w-11"
               style={{ borderColor: artwork.accentColor, boxShadow: `0 0 10px ${artwork.accentColor}44` }}
             >
               <img src={artwork.src} alt="" aria-hidden loading="lazy" decoding="async"
@@ -987,10 +1032,10 @@ function NowPlayingBar({ artwork }: { artwork: Artwork | null }) {
               )}
             </div>
             {/* Mini visualizer */}
-            <div className="flex items-end gap-[2px] h-5 flex-shrink-0">
+            <div className="flex items-end gap-0.5 h-5 shrink-0">
               {[4, 7, 5, 10, 6, 9, 4].map((h, i) => (
                 <motion.div key={i}
-                  className="w-[2px] rounded-t-sm"
+                  className="w-0.5 rounded-t-sm"
                   style={{ backgroundColor: artwork.accentColor, minHeight: "3px" }}
                   animate={{ height: [`${h}px`, `${h + 7}px`, `${h}px`] }}
                   transition={{ duration: 0.45 + i * 0.07, repeat: Infinity, delay: i * 0.04, ease: "easeInOut" }}
@@ -1033,7 +1078,7 @@ function Lightbox({ artwork, onClose, onPrev, onNext, hasPrev, hasNext }: Lightb
     <AnimatePresence>
       {artwork && (
         <motion.div
-          className="fixed inset-0 z-[300] flex items-center justify-center p-4 sm:p-8"
+          className="fixed inset-0 z-300 flex items-center justify-center p-4 sm:p-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -1059,7 +1104,7 @@ function Lightbox({ artwork, onClose, onPrev, onNext, hasPrev, hasNext }: Lightb
             }}
           >
             {/* Accent strip */}
-            <motion.div className="absolute top-0 left-0 right-0 h-[3px] z-10"
+            <motion.div className="absolute top-0 left-0 right-0 h-0.75 z-10"
               style={{ backgroundColor: artwork.accentColor }}
               animate={{ opacity: [0.5, 1, 0.5] }}
               transition={{ duration: 1.8, repeat: Infinity }} />
@@ -1092,7 +1137,7 @@ function Lightbox({ artwork, onClose, onPrev, onNext, hasPrev, hasNext }: Lightb
                 )}
               </div>
 
-              <div className="flex items-center gap-2 flex-shrink-0">
+              <div className="flex items-center gap-2 shrink-0">
                 {hasPrev && (
                   <motion.button
                     onClick={(e) => { e.stopPropagation(); onPrev(); }}
@@ -1193,18 +1238,18 @@ function HUDCounter({ count, total }: { count: number; total: number }) {
       transition={{ delay: 1.15, duration: 0.5 }}
     >
       <motion.div
-        className="h-2.5 w-2.5 flex-shrink-0 rounded-sm"
+        className="h-2.5 w-2.5 shrink-0 rounded-sm"
         style={{ backgroundColor: "#ff00ff", boxShadow: "0 0 8px #ff00ff" }}
         animate={{ opacity: [0.4, 1, 0.4] }}
         transition={{ duration: 2.2, repeat: Infinity }}
       />
       <span
-        className="font-mono text-[9px] font-bold uppercase tracking-[0.22em] flex-shrink-0 sm:text-xs"
+        className="font-mono text-[9px] font-bold uppercase tracking-[0.22em] shrink-0 sm:text-xs"
         style={{ color: "#00ffff", textShadow: "0 0 8px #00ffff" }}
       >
         {String(count).padStart(2, "0")} / {String(total).padStart(2, "0")} ARTWORKS
       </span>
-      <div className="h-[2px] flex-1 rounded-full"
+      <div className="h-0.5 flex-1 rounded-full"
         style={{ background: "linear-gradient(to right, #ff00ff, #00ffff, transparent)" }} />
     </motion.div>
   );
