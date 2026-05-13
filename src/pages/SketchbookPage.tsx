@@ -86,7 +86,7 @@ const ARTWORKS: Artwork[] = [
     tag: "character",
     year: "2022",
     src: "/sketchbook/naruto2.webp",
-    accentColor: "#ffd93d",
+    accentColor: "#EF9B0F",
     caption: "late night sprint through neon streets",
   },
   {
@@ -95,7 +95,7 @@ const ARTWORKS: Artwork[] = [
     tag: "study",
     year: "2022",
     src: "/sketchbook/doodles.webp",
-    accentColor: "#00ffff",
+    accentColor: "#AFB15C",
     caption: "a city that never dims",
   },
   {
@@ -104,8 +104,8 @@ const ARTWORKS: Artwork[] = [
     tag: "character",
     year: "2022",
     src: "/sketchbook/deku.webp",
-    accentColor: "#6bcf7f",
-    caption: "8-bit feelings, real emotions",
+    accentColor: "#177245",
+    caption: "Deku from My Hero Academia, going plus ultra",
   },
   {
     id: 4,
@@ -114,7 +114,7 @@ const ARTWORKS: Artwork[] = [
     year: "2017",
     src: "/sketchbook/anigirl.webp",
     accentColor: "#ff6ec7",
-    caption: "final form unlocked",
+    caption: "Random anime girl, drawn in 2017, I was bad at drawing faces back then",
   },
   {
     id: 5,
@@ -122,7 +122,7 @@ const ARTWORKS: Artwork[] = [
     tag: "illustration",
     year: "2024",
     src: "/sketchbook/Naruto-illustration.webp",
-    accentColor: "#ff6ec7",
+    accentColor: "#D47C74",
     caption: "Naruto Uzumaki, drawn while listening to the Wind Rises",
   },
   {
@@ -131,7 +131,7 @@ const ARTWORKS: Artwork[] = [
     tag: "character",
     year: "2023",
     src: "/sketchbook/nekogirl.webp",
-    accentColor: "#00ffff",
+    accentColor: "#8AFEF4",
     caption: "cat ears, city vibes",
   },
   {
@@ -140,7 +140,7 @@ const ARTWORKS: Artwork[] = [
     tag: "character",
     year: "2022",
     src: "/sketchbook/spiritgoku.webp",
-    accentColor: "#7f00ff",
+    accentColor: "#007FFF",
     caption: "when in doubt, go super saiyan",
   },
   {
@@ -149,7 +149,7 @@ const ARTWORKS: Artwork[] = [
     tag: "illustration",
     year: "2023",
     src: "/sketchbook/Japanesesamu.webp",
-    accentColor: "#6bcf7f",
+    accentColor: "#E13E41",
     caption: "study girl with a playlist and rain",
   },
   {
@@ -158,8 +158,8 @@ const ARTWORKS: Artwork[] = [
     tag: "study",
     year: "2022",
     src: "/sketchbook/onepiece.webp",
-    accentColor: "#ff9d00",
-    caption: "1UP — extra life acquired",
+    accentColor: "#F0FFFF",
+    caption: "One Piece manga panel, really had fun drawing this one",
   },
   {
     id: 10,
@@ -167,7 +167,7 @@ const ARTWORKS: Artwork[] = [
     tag: "character",
     year: "2017",
     src: "/sketchbook/chief.webp",
-    accentColor: "#6bcf7f",
+    accentColor: "#7D7F47",
     caption: "Halo being one of my favorite gamees, I had to draw the chief at some point. #Spartan Never Dies",
   },
   {
@@ -176,7 +176,7 @@ const ARTWORKS: Artwork[] = [
     tag: "character",
     year: "2023",
     src: "/sketchbook/yamato.webp",
-    accentColor: "#ff9d00",
+    accentColor: "#5E3574",
     caption: "Yamato, drawn while watching wano arc",
   },
   {
@@ -185,8 +185,8 @@ const ARTWORKS: Artwork[] = [
     tag: "environment",
     year: "2022",
     src: "/sketchbook/landscape.webp",
-    accentColor: "#ff9d00",
-    caption: "1UP — extra life acquired",
+    accentColor: "#F7282D",
+    caption: "My first landscape illustration, made in illustrator with a mouse, I was new to graphic design",
   },
   {
     id: 13,
@@ -194,8 +194,8 @@ const ARTWORKS: Artwork[] = [
     tag: "character",
     year: "2023",
     src: "/sketchbook/astroskele.webp",
-    accentColor: "#ff9d00",
-    caption: "1UP — extra life acquired",
+    accentColor: "#F31A81",
+    caption: "Skeleton Landscape, taditionally drawn digitally colored",
   },
   {
     id: 14,
@@ -203,7 +203,7 @@ const ARTWORKS: Artwork[] = [
     tag: "character",
     year: "2022",
     src: "/sketchbook/sakura.webp",
-    accentColor: "#ff6ec7",
+    accentColor: "#CE7D8C",
     caption: "Sakura from Naruto, drawn late night while listening to J-Pop",
   },
   {
@@ -212,8 +212,8 @@ const ARTWORKS: Artwork[] = [
     tag: "character",
     year: "2026",
     src: "/sketchbook/Elle.webp",
-    accentColor: "#ff6ec7",
-    caption: "1UP — extra life acquired",
+    accentColor: "#72686F",
+    caption: "custom character, oc drawing and design",
   },
   {
     id: 16,
@@ -221,7 +221,7 @@ const ARTWORKS: Artwork[] = [
     tag: "character",
     year: "2026",
     src: "/sketchbook/boa.webp",
-    accentColor: "#ff6ec7",
+    accentColor: "#404047",
     caption: "Boa Hancock from One Piece, drawn while time skipping",
   },
   {
@@ -230,7 +230,7 @@ const ARTWORKS: Artwork[] = [
     tag: "study",
     year: "2025",
     src: "/sketchbook/eye.jpg",
-    accentColor: "#ff6ec7",
+    accentColor: "#7F8078",
     caption: "eye study",
   },
   {
@@ -239,7 +239,7 @@ const ARTWORKS: Artwork[] = [
     tag: "character",
     year: "2026",
     src: "/sketchbook/Indian-boa.webp",
-    accentColor: "#ff6ec7",
+    accentColor: "#AF6283",
     caption: "Indian version of Boa Hancock",
   },
   {
