@@ -244,21 +244,21 @@ const ARTWORKS: Artwork[] = [
   },
   {
     id: 19,
-    title: "Sakura",
+    title: "Cyber girl",
     tag: "character",
-    year: "2022",
-    src: "/sketchbook/sakur.webp",
+    year: "2025",
+    src: "/sketchbook/project.webp",
     accentColor: "#ff6ec7",
-    caption: "1UP — extra life acquired",
+    caption: "Custom character drawing, colored in Illustrator and Photoshop",
   },
   {
     id: 20,
-    title: "Sakura",
+    title: "Deku",
     tag: "character",
     year: "2022",
-    src: "/sketchbook/sakur.webp",
+    src: "/sketchbook/deku-reference.webp",
     accentColor: "#ff6ec7",
-    caption: "1UP — extra life acquired",
+    caption: "Deku from MHA, Drawing turned to hyper realistic image using AI",
   },
 ];
 
